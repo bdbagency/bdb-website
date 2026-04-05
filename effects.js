@@ -1,196 +1,227 @@
 /* ═══════════════════════════════════════════════════════════════
    BDB AGENCY — Effects Engine
-   Scroll reveal · Stat counters · Nav state · Testimonial carousel
-   Portfolio filters · Mobile menu · Smooth scroll
+   Dark theme · Lime accent · Apple/Framer aesthetic
+   Scroll reveal · Stat counters · Carousel · Portfolio filters
+   Nav glassmorphism · Smooth scroll · Magnetic buttons
 ═══════════════════════════════════════════════════════════════ */
 
 (function () {
   'use strict';
 
   /* ─────────────────────────────────────────
-     1. SCROLL REVEAL
+     1. SCROLL REVEAL (fade-up)
   ───────────────────────────────────────── */
-  const revealObserver = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          revealObserver.unobserve(entry.target);
-        }
-      });
-    },
-    { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
-  );
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        const delay = el.dataset.delay || 0;
+        setTimeout(() => { el.classList.add('visible'); }, parseInt(delay));
+        revealObserver.unobserve(el);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
 
-  document.querySelectorAll('.reveal').forEach((el, i) => {
-    el.style.transitionDelay = `${i % 4 * 0.1}s`;
-    revealObserver.observe(el);
-  });
+  function initReveal() {
+    document.querySelectorAll('.reveal').forEach((el) => {
+      if (!el.dataset.delay && el.parentElement) {
+        const siblings = [...el.parentElement.querySelectorAll(':scope > .reveal')];
+        const idx = siblings.indexOf(el);
+        if (idx > 0) el.dataset.delay = idx * 80;
+      }
+      revealObserver.observe(el);
+    });
+  }
 
   /* ─────────────────────────────────────────
-     2. NAV SCROLL STATE
+     2. NAV GLASSMORPHISM ON SCROLL
   ───────────────────────────────────────── */
-  const navbar = document.getElementById('navbar');
-  if (navbar) {
-    let lastScroll = 0;
+  function initNav() {
+    const nav = document.getElementById('navbar');
+    if (!nav) return;
+    let ticking = false;
     window.addEventListener('scroll', () => {
-      const y = window.scrollY;
-      if (y > 50) {
-        navbar.classList.add('nav-scrolled');
-      } else {
-        navbar.classList.remove('nav-scrolled');
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          nav.classList.toggle('nav-scrolled', window.scrollY > 20);
+          ticking = false;
+        });
+        ticking = true;
       }
-      lastScroll = y;
     }, { passive: true });
   }
 
   /* ─────────────────────────────────────────
-     3. STAT COUNTERS
+     3. MOBILE MENU
   ───────────────────────────────────────── */
-  const statNumbers = document.querySelectorAll('.stat-number[data-target]');
-  if (statNumbers.length) {
-    const countObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const el = entry.target;
-            const target = parseInt(el.dataset.target, 10);
-            const duration = 2000;
-            const start = performance.now();
+  function initMobileMenu() {
+    const toggle = document.getElementById('menu-toggle');
+    const menu   = document.getElementById('mobile-menu');
+    const close  = document.getElementById('menu-close');
+    if (!toggle || !menu) return;
 
-            function animate(now) {
-              const elapsed = now - start;
-              const progress = Math.min(elapsed / duration, 1);
-              // Ease out cubic
-              const eased = 1 - Math.pow(1 - progress, 3);
-              const current = Math.round(eased * target);
-              el.textContent = (target >= 100 ? '+' : '') + current.toLocaleString('es-MX');
-              if (progress < 1) requestAnimationFrame(animate);
-              else el.textContent = (target >= 100 ? '+' : '') + target.toLocaleString('es-MX');
-            }
+    const openMenu  = () => { menu.classList.add('open'); document.body.style.overflow = 'hidden'; };
+    const closeMenu = () => { menu.classList.remove('open'); document.body.style.overflow = ''; };
 
-            requestAnimationFrame(animate);
-            countObserver.unobserve(el);
-          }
-        });
-      },
-      { threshold: 0.5 }
-    );
-
-    statNumbers.forEach((el) => countObserver.observe(el));
+    toggle.addEventListener('click', openMenu);
+    close?.addEventListener('click', closeMenu);
+    menu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
   }
 
   /* ─────────────────────────────────────────
-     4. TESTIMONIAL CAROUSEL
+     4. STAT COUNTERS
   ───────────────────────────────────────── */
-  const container = document.getElementById('testimonial-container');
-  const dotsContainer = document.getElementById('testimonial-dots');
+  function animateCounter(el) {
+    const target   = parseInt(el.dataset.target, 10);
+    const suffix   = el.dataset.suffix || '';
+    const prefix   = el.dataset.prefix || '';
+    const duration = 2200;
+    const start    = performance.now();
 
-  if (container && dotsContainer) {
-    const slides = container.querySelectorAll('.testimonial-slide');
-    const dots = dotsContainer.querySelectorAll('button');
+    function update(now) {
+      const progress = Math.min((now - start) / duration, 1);
+      const eased    = 1 - Math.pow(1 - progress, 3);
+      el.textContent = prefix + Math.floor(eased * target).toLocaleString() + suffix;
+      if (progress < 1) requestAnimationFrame(update);
+    }
+    requestAnimationFrame(update);
+  }
+
+  function initCounters() {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !entry.target.dataset.counted) {
+          entry.target.dataset.counted = 'true';
+          animateCounter(entry.target);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
+
+    document.querySelectorAll('[data-target]').forEach(el => observer.observe(el));
+  }
+
+  /* ─────────────────────────────────────────
+     5. TESTIMONIAL CAROUSEL
+  ───────────────────────────────────────── */
+  function initCarousel() {
+    const slides = document.querySelectorAll('.testimonial-slide');
+    const dots   = document.querySelectorAll('[data-slide]');
+    if (!slides.length) return;
+
     let current = 0;
-    let interval;
+    let timer   = null;
 
-    function goToSlide(index) {
-      slides.forEach((s) => s.classList.remove('active'));
-      dots.forEach((d) => d.classList.replace('bg-accent', 'bg-border'));
-      slides[index].classList.add('active');
-      dots[index].classList.replace('bg-border', 'bg-accent');
-      current = index;
+    function goTo(idx) {
+      slides[current].classList.remove('active');
+      dots[current]?.classList.remove('dot-active');
+      current = (idx + slides.length) % slides.length;
+      slides[current].classList.add('active');
+      dots[current]?.classList.add('dot-active');
     }
 
-    function nextSlide() {
-      goToSlide((current + 1) % slides.length);
+    function startTimer() {
+      clearInterval(timer);
+      timer = setInterval(() => goTo(current + 1), 5000);
     }
 
-    function startAutoplay() {
-      interval = setInterval(nextSlide, 5000);
+    dots.forEach(dot => dot.addEventListener('click', () => {
+      goTo(parseInt(dot.dataset.slide));
+      startTimer();
+    }));
+
+    const container = document.getElementById('testimonial-container');
+    if (container) {
+      let tx = 0;
+      container.addEventListener('touchstart', e => { tx = e.changedTouches[0].clientX; }, { passive: true });
+      container.addEventListener('touchend',   e => {
+        const dx = e.changedTouches[0].clientX - tx;
+        if (Math.abs(dx) > 50) { goTo(current + (dx < 0 ? 1 : -1)); startTimer(); }
+      }, { passive: true });
     }
 
-    dots.forEach((dot) => {
-      dot.addEventListener('click', () => {
-        clearInterval(interval);
-        goToSlide(parseInt(dot.dataset.slide, 10));
-        startAutoplay();
+    startTimer();
+  }
+
+  /* ─────────────────────────────────────────
+     6. PORTFOLIO FILTERS
+  ───────────────────────────────────────── */
+  function initFilters() {
+    const btns  = document.querySelectorAll('.filter-btn');
+    const items = document.querySelectorAll('.portfolio-item');
+    if (!btns.length) return;
+
+    btns.forEach(btn => btn.addEventListener('click', () => {
+      btns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.dataset.filter;
+
+      items.forEach(item => {
+        const cats = (item.dataset.category || '').split(' ');
+        const show = filter === 'all' || cats.includes(filter);
+        item.style.transition = 'opacity 0.35s ease, transform 0.35s ease';
+        item.style.opacity    = show ? '1' : '0';
+        item.style.transform  = show ? 'scale(1)' : 'scale(0.96)';
+        item.style.pointerEvents = show ? '' : 'none';
+      });
+    }));
+  }
+
+  /* ─────────────────────────────────────────
+     7. MAGNETIC BUTTONS (lime CTAs)
+  ───────────────────────────────────────── */
+  function initMagnetic() {
+    document.querySelectorAll('.btn-magnetic').forEach(btn => {
+      btn.addEventListener('mousemove', e => {
+        const rect = btn.getBoundingClientRect();
+        const dx   = (e.clientX - rect.left - rect.width  / 2) * 0.3;
+        const dy   = (e.clientY - rect.top  - rect.height / 2) * 0.3;
+        btn.style.transform = `translate(${dx}px, ${dy}px)`;
+      });
+      btn.addEventListener('mouseleave', () => {
+        btn.style.transition = 'transform 0.5s cubic-bezier(.165,.84,.44,1)';
+        btn.style.transform  = '';
+        setTimeout(() => { btn.style.transition = ''; }, 500);
       });
     });
-
-    startAutoplay();
   }
 
   /* ─────────────────────────────────────────
-     5. PORTFOLIO FILTERS
+     8. HLS VIDEO BACKGROUND
   ───────────────────────────────────────── */
-  const filterBtns = document.querySelectorAll('.filter-btn');
-  const portfolioItems = document.querySelectorAll('.portfolio-item');
+  function initVideo() {
+    const video = document.getElementById('hero-video');
+    if (!video) return;
+    const src = video.dataset.src;
+    if (!src) return;
 
-  if (filterBtns.length && portfolioItems.length) {
-    filterBtns.forEach((btn) => {
-      btn.addEventListener('click', () => {
-        const filter = btn.dataset.filter;
-
-        filterBtns.forEach((b) => b.classList.remove('active'));
-        btn.classList.add('active');
-
-        portfolioItems.forEach((item) => {
-          const categories = item.dataset.category || '';
-          if (filter === 'all' || categories.includes(filter)) {
-            item.style.opacity = '0';
-            item.style.transform = 'scale(0.95)';
-            setTimeout(() => {
-              item.style.display = '';
-              requestAnimationFrame(() => {
-                item.style.opacity = '1';
-                item.style.transform = 'scale(1)';
-              });
-            }, 150);
-          } else {
-            item.style.opacity = '0';
-            item.style.transform = 'scale(0.95)';
-            setTimeout(() => {
-              item.style.display = 'none';
-            }, 300);
-          }
-        });
-      });
-    });
-
-    // Add transition to portfolio items
-    portfolioItems.forEach((item) => {
-      item.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
-    });
-  }
-
-  /* ─────────────────────────────────────────
-     6. MOBILE MENU
-  ───────────────────────────────────────── */
-  const menuToggle = document.getElementById('menu-toggle');
-  const menuClose = document.getElementById('menu-close');
-  const mobileMenu = document.getElementById('mobile-menu');
-
-  if (menuToggle && mobileMenu) {
-    menuToggle.addEventListener('click', () => mobileMenu.classList.add('open'));
-    if (menuClose) {
-      menuClose.addEventListener('click', () => mobileMenu.classList.remove('open'));
+    if (video.canPlayType('application/vnd.apple.mpegurl')) {
+      video.src = src;
+      video.play().catch(() => {});
+    } else if (window.Hls && Hls.isSupported()) {
+      const hls = new Hls({ enableWorker: false });
+      hls.loadSource(src);
+      hls.attachMedia(video);
+      hls.on(Hls.Events.MANIFEST_PARSED, () => { video.play().catch(() => {}); });
     }
-    // Close on link click
-    mobileMenu.querySelectorAll('a').forEach((link) => {
-      link.addEventListener('click', () => mobileMenu.classList.remove('open'));
-    });
   }
 
   /* ─────────────────────────────────────────
-     7. SMOOTH SCROLL FOR ANCHOR LINKS
+     INIT
   ───────────────────────────────────────── */
-  document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-    anchor.addEventListener('click', (e) => {
-      const target = document.querySelector(anchor.getAttribute('href'));
-      if (target) {
-        e.preventDefault();
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    });
-  });
+  function init() {
+    initReveal();
+    initNav();
+    initMobileMenu();
+    initCounters();
+    initCarousel();
+    initFilters();
+    initMagnetic();
+    initVideo();
+  }
+
+  document.readyState === 'loading'
+    ? document.addEventListener('DOMContentLoaded', init)
+    : init();
 
 })();
