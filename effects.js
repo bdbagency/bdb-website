@@ -39,11 +39,28 @@
   function initNav() {
     const nav = document.getElementById('navbar');
     if (!nav) return;
+    let lastScrollY = 0;
     let ticking = false;
+
     window.addEventListener('scroll', () => {
       if (!ticking) {
         requestAnimationFrame(() => {
-          nav.classList.toggle('nav-scrolled', window.scrollY > 50);
+          const currentY = window.scrollY;
+          const scrollingDown = currentY > lastScrollY && currentY > 60;
+          const atTop = currentY < 60;
+
+          if (atTop) {
+            // At top — show everything
+            nav.classList.remove('nav-hide-sides');
+          } else if (scrollingDown) {
+            // Scrolling down — hide logo & CTA
+            nav.classList.add('nav-hide-sides');
+          } else {
+            // Scrolling up — show logo & CTA
+            nav.classList.remove('nav-hide-sides');
+          }
+
+          lastScrollY = currentY;
           ticking = false;
         });
         ticking = true;
