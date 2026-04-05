@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contacto — BDB Agency</title>
+  <meta name="description" content="Contacta a BDB Agency. Cotiza tu proyecto de branding, marketing digital, producción audiovisual o desarrollo web. Cancún, México." />
+  <link rel="icon" href="img/favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Instrument+Serif:ital@0;1&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            bg:      '#FAFAFA',
+            text:    '#1A1A1A',
+            accent:  '#178087',
+            'accent-h': '#126469',
+            muted:   '#6B7280',
+            border:  '#E5E7EB',
+            'card-bg': '#FFFFFF',
+          },
+          fontFamily: {
+            serif:  ['Instrument Serif', 'Georgia', 'serif'],
+            sans:   ['DM Sans', 'system-ui', 'sans-serif'],
+            label:  ['Figtree', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    :root {
+      --accent: #178087;
+      --accent-h: #126469;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', system-ui, sans-serif; color: #1A1A1A; background: #FAFAFA; }
+
+    /* Nav scroll state */
+    .nav-scrolled {
+      background: rgba(250,250,250,0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    }
+
+    /* Scroll reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Service card hover */
+    .service-card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .service-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+    }
+
+    /* CTA button ripple */
+    .btn-accent {
+      position: relative;
+      overflow: hidden;
+    }
+    .btn-accent::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(255,255,255,0.15);
+      transform: translateX(-100%);
+      transition: transform 0.4s ease;
+    }
+    .btn-accent:hover::after {
+      transform: translateX(0);
+    }
+
+    /* Mobile menu */
+    .mobile-menu {
+      transform: translateX(100%);
+      transition: transform 0.3s ease;
+    }
+    .mobile-menu.open {
+      transform: translateX(0);
+    }
+
+    /* Form focus styles */
+    .form-input:focus {
+      outline: none;
+      border-color: #178087;
+      box-shadow: 0 0 0 3px rgba(23, 128, 135, 0.1);
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════
+     NAVIGATION
+═══════════════════════════════════════════════ -->
+<nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+  <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+    <a href="index.html" class="flex items-center gap-2">
+      <img src="img/logo.png" alt="BDB Agency" class="h-8" />
+    </a>
+
+    <!-- Desktop links -->
+    <div class="hidden md:flex items-center gap-8">
+      <a href="portafolio.html" class="text-sm font-medium text-muted hover:text-text transition-colors">Portafolio</a>
+      <a href="nosotros.html" class="text-sm font-medium text-muted hover:text-text transition-colors">Nosotros</a>
+      <a href="blog.html" class="text-sm font-medium text-muted hover:text-text transition-colors">Blog</a>
+      <a href="contacto.html" class="text-sm font-medium text-text transition-colors">Contacto</a>
+      <a href="contacto.html" class="btn-accent inline-flex items-center gap-2 bg-accent hover:bg-accent-h text-white text-sm font-semibold px-5 py-2.5 rounded-full transition-colors">
+        Cotiza
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+      </a>
+    </div>
+
+    <!-- Mobile hamburger -->
+    <button id="menu-toggle" class="md:hidden flex flex-col gap-1.5 p-2" aria-label="Menu">
+      <span class="block w-6 h-0.5 bg-text transition-transform" id="bar1"></span>
+      <span class="block w-6 h-0.5 bg-text transition-opacity" id="bar2"></span>
+      <span class="block w-6 h-0.5 bg-text transition-transform" id="bar3"></span>
+    </button>
+  </div>
+
+  <!-- Mobile menu -->
+  <div id="mobile-menu" class="mobile-menu fixed top-0 right-0 h-screen w-72 bg-white shadow-2xl z-50 p-8 flex flex-col gap-6">
+    <button id="menu-close" class="self-end p-2 text-muted hover:text-text" aria-label="Cerrar">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+    </button>
+    <a href="portafolio.html" class="text-lg font-medium text-text">Portafolio</a>
+    <a href="nosotros.html" class="text-lg font-medium text-text">Nosotros</a>
+    <a href="blog.html" class="text-lg font-medium text-text">Blog</a>
+    <a href="contacto.html" class="text-lg font-medium text-text">Contacto</a>
+    <a href="contacto.html" class="btn-accent mt-4 text-center bg-accent hover:bg-accent-h text-white font-semibold px-6 py-3 rounded-full transition-colors">Cotiza</a>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════════════════════
+     HERO
+═══════════════════════════════════════════════ -->
+<section class="relative pt-32 pb-16 overflow-hidden">
+  <div class="absolute inset-0 opacity-[0.03]" style="background-image: radial-gradient(#178087 1px, transparent 1px); background-size: 30px 30px;"></div>
+  <div class="max-w-7xl mx-auto px-6 relative z-10">
+    <div class="reveal text-center max-w-3xl mx-auto">
+      <p class="font-label text-accent text-sm font-semibold tracking-widest uppercase mb-4">Contacto</p>
+      <h1 class="font-serif text-5xl md:text-6xl lg:text-7xl leading-[1.1] mb-6">Cu&eacute;ntanos tu idea</h1>
+      <p class="text-muted text-lg md:text-xl leading-relaxed">Estamos listos para escucharte. Platiquemos sobre c&oacute;mo llevar tu marca al siguiente nivel.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     CONTACT FORM + SIDEBAR
+═══════════════════════════════════════════════ -->
+<section class="py-12 pb-24">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="grid lg:grid-cols-3 gap-12">
+
+      <!-- Form (2 cols) -->
+      <div class="lg:col-span-2 reveal">
+        <div class="bg-white rounded-2xl p-8 md:p-12 border border-border">
+          <h2 class="font-serif text-3xl mb-2">Env&iacute;anos un mensaje</h2>
+          <p class="text-muted mb-8">Completa el formulario y te responderemos en menos de 24 horas.</p>
+
+          <form name="contacto" method="POST" data-netlify="true" netlify-honeypot="bot-field" class="space-y-6">
+            <input type="hidden" name="form-name" value="contacto" />
+            <p class="hidden">
+              <label>No llenar: <input name="bot-field" /></label>
+            </p>
+
+            <div class="grid md:grid-cols-2 gap-6">
+              <div>
+                <label for="nombre" class="block font-label text-sm font-medium text-text mb-2">Nombre *</label>
+                <input type="text" id="nombre" name="nombre" required placeholder="Tu nombre completo" class="form-input w-full px-4 py-3 rounded-xl border border-border bg-bg text-text placeholder-muted/50 transition-all" />
+              </div>
+              <div>
+                <label for="email" class="block font-label text-sm font-medium text-text mb-2">Email *</label>
+                <input type="email" id="email" name="email" required placeholder="tu@email.com" class="form-input w-full px-4 py-3 rounded-xl border border-border bg-bg text-text placeholder-muted/50 transition-all" />
+              </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6">
+              <div>
+                <label for="telefono" class="block font-label text-sm font-medium text-text mb-2">Tel&eacute;fono</label>
+                <input type="tel" id="telefono" name="telefono" placeholder="+52 998 123 4567" class="form-input w-full px-4 py-3 rounded-xl border border-border bg-bg text-text placeholder-muted/50 transition-all" />
+              </div>
+              <div>
+                <label for="servicio" class="block font-label text-sm font-medium text-text mb-2">Servicio de inter&eacute;s</label>
+                <select id="servicio" name="servicio" class="form-input w-full px-4 py-3 rounded-xl border border-border bg-bg text-text transition-all appearance-none" style="background-image: url(&quot;data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e&quot;); background-position: right 0.75rem center; background-repeat: no-repeat; background-size: 1.5em 1.5em; padding-right: 2.5rem;">
+                  <option value="" disabled selected>Selecciona un servicio</option>
+                  <option value="branding">Branding & Media</option>
+                  <option value="marketing">Marketing Digital</option>
+                  <option value="audiovisual">Producci&oacute;n Audiovisual</option>
+                  <option value="web">Desarrollo Web</option>
+                </select>
+              </div>
+            </div>
+
+            <div>
+              <label for="mensaje" class="block font-label text-sm font-medium text-text mb-2">Mensaje *</label>
+              <textarea id="mensaje" name="mensaje" required rows="5" placeholder="Cu&eacute;ntanos sobre tu proyecto, objetivos y timeline..." class="form-input w-full px-4 py-3 rounded-xl border border-border bg-bg text-text placeholder-muted/50 transition-all resize-none"></textarea>
+            </div>
+
+            <button type="submit" class="btn-accent inline-flex items-center gap-2 bg-accent hover:bg-accent-h text-white font-semibold px-8 py-3.5 rounded-full transition-colors text-base">
+              Enviar mensaje
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Sidebar -->
+      <div class="reveal space-y-8">
+        <!-- Contact info -->
+        <div class="bg-white rounded-2xl p-8 border border-border">
+          <h3 class="font-serif text-2xl mb-6">Informaci&oacute;n de contacto</h3>
+
+          <div class="space-y-5">
+            <!-- Email -->
+            <a href="mailto:info@bdbagency.com" class="flex items-start gap-4 group">
+              <div class="w-10 h-10 bg-accent/10 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:bg-accent/20 transition-colors">
+                <svg class="w-5 h-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+              </div>
+              <div>
+                <p class="font-label text-xs text-muted uppercase tracking-wider mb-1">Email</p>
+                <p class="text-text font-medium group-hover:text-accent transition-colors">info@bdbagency.com</p>
+              </div>
+            </a>
+
+            <!-- WhatsApp -->
+            <a href="https://wa.me/529981700402" target="_blank" class="flex items-start gap-4 group">
+              <div class="w-10 h-10 bg-accent/10 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:bg-accent/20 transition-colors">
+                <svg class="w-5 h-5 text-accent" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              </div>
+              <div>
+                <p class="font-label text-xs text-muted uppercase tracking-wider mb-1">WhatsApp</p>
+                <p class="text-text font-medium group-hover:text-accent transition-colors">+52 998 170 0402</p>
+              </div>
+            </a>
+
+            <!-- Location -->
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 bg-accent/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                <svg class="w-5 h-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+              </div>
+              <div>
+                <p class="font-label text-xs text-muted uppercase tracking-wider mb-1">Ubicaci&oacute;n</p>
+                <p class="text-text font-medium">Canc&uacute;n, Quintana Roo, M&eacute;xico</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Social links -->
+        <div class="bg-white rounded-2xl p-8 border border-border">
+          <h3 class="font-serif text-2xl mb-6">S&iacute;guenos</h3>
+          <div class="space-y-4">
+            <a href="https://www.instagram.com/bdb.agencia/" target="_blank" class="flex items-center gap-4 group">
+              <div class="w-10 h-10 bg-accent/10 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:bg-accent/20 transition-colors">
+                <svg class="w-5 h-5 text-accent" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+              </div>
+              <div>
+                <p class="text-text font-medium group-hover:text-accent transition-colors">Instagram</p>
+                <p class="text-muted text-sm">@bdb.agencia</p>
+              </div>
+            </a>
+
+            <a href="https://www.facebook.com/BeDigitalBrand" target="_blank" class="flex items-center gap-4 group">
+              <div class="w-10 h-10 bg-accent/10 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:bg-accent/20 transition-colors">
+                <svg class="w-5 h-5 text-accent" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+              </div>
+              <div>
+                <p class="text-text font-medium group-hover:text-accent transition-colors">Facebook</p>
+                <p class="text-muted text-sm">BeDigitalBrand</p>
+              </div>
+            </a>
+
+            <a href="https://www.behance.net/bautsdigital" target="_blank" class="flex items-center gap-4 group">
+              <div class="w-10 h-10 bg-accent/10 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:bg-accent/20 transition-colors">
+                <svg class="w-5 h-5 text-accent" fill="currentColor" viewBox="0 0 24 24"><path d="M22 7h-7V5h7v2zm1.726 10c-.442 1.297-2.029 3-5.101 3-3.074 0-5.564-1.729-5.564-5.675 0-3.91 2.325-5.92 5.466-5.92 3.082 0 4.964 1.782 5.375 4.426.078.506.109 1.188.095 2.14H15.97c.13 3.211 3.483 3.312 4.588 2.029h3.168zm-7.686-4h4.965c-.105-1.547-1.136-2.219-2.477-2.219-1.466 0-2.277.768-2.488 2.219zm-9.574 6.988H0V5.021h6.953c5.476.081 5.58 5.444 2.72 6.906 3.461 1.26 3.577 6.053-1.207 7.061zM2.917 8.241v4.393h3.667c1.684 0 2.655-.988 2.655-2.21 0-1.647-1.238-2.183-2.752-2.183H2.917zm3.667 7.547H2.917v-4.731h4.063c1.992 0 2.72 1.168 2.72 2.394 0 1.478-1.105 2.337-3.116 2.337z"/></svg>
+              </div>
+              <div>
+                <p class="text-text font-medium group-hover:text-accent transition-colors">Behance</p>
+                <p class="text-muted text-sm">bautsdigital</p>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <!-- Quick CTA -->
+        <div class="bg-accent rounded-2xl p-8 text-center relative overflow-hidden">
+          <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(white 1px, transparent 1px); background-size: 20px 20px;"></div>
+          <div class="relative z-10">
+            <h3 class="font-serif text-2xl text-white mb-3">&iquest;Prefieres llamar?</h3>
+            <p class="text-white/70 text-sm mb-5">Respuesta inmediata por WhatsApp</p>
+            <a href="https://wa.me/529981700402" target="_blank" class="inline-flex items-center gap-2 bg-white text-accent font-semibold px-6 py-3 rounded-full hover:bg-gray-100 transition-colors text-sm">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              Abrir WhatsApp
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     FOOTER
+═══════════════════════════════════════════════ -->
+<footer class="bg-text py-16">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="grid md:grid-cols-4 gap-12 mb-12">
+      <!-- Brand -->
+      <div class="md:col-span-1">
+        <img src="img/logo.png" alt="BDB Agency" class="h-8 brightness-0 invert mb-4" />
+        <p class="text-white/50 text-sm leading-relaxed">Conectamos tu marca con las personas indicadas. Canc&uacute;n, M&eacute;xico.</p>
+      </div>
+
+      <!-- Nav -->
+      <div>
+        <h4 class="text-white font-semibold mb-4 font-label text-sm uppercase tracking-wider">Navegaci&oacute;n</h4>
+        <div class="flex flex-col gap-2">
+          <a href="portafolio.html" class="text-white/50 hover:text-white text-sm transition-colors">Portafolio</a>
+          <a href="nosotros.html" class="text-white/50 hover:text-white text-sm transition-colors">Nosotros</a>
+          <a href="blog.html" class="text-white/50 hover:text-white text-sm transition-colors">Blog</a>
+          <a href="contacto.html" class="text-white/50 hover:text-white text-sm transition-colors">Contacto</a>
+        </div>
+      </div>
+
+      <!-- Services -->
+      <div>
+        <h4 class="text-white font-semibold mb-4 font-label text-sm uppercase tracking-wider">Servicios</h4>
+        <div class="flex flex-col gap-2">
+          <span class="text-white/50 text-sm">Branding & Media</span>
+          <span class="text-white/50 text-sm">Producci&oacute;n Audiovisual</span>
+          <span class="text-white/50 text-sm">Marketing Digital</span>
+          <span class="text-white/50 text-sm">IA & Desarrollo Web</span>
+        </div>
+      </div>
+
+      <!-- Contact -->
+      <div>
+        <h4 class="text-white font-semibold mb-4 font-label text-sm uppercase tracking-wider">Contacto</h4>
+        <div class="flex flex-col gap-2">
+          <a href="mailto:info@bdbagency.com" class="text-white/50 hover:text-white text-sm transition-colors">info@bdbagency.com</a>
+          <a href="https://wa.me/529981700402" class="text-white/50 hover:text-white text-sm transition-colors">+52 998 170 0402</a>
+          <div class="flex gap-4 mt-2">
+            <a href="https://www.instagram.com/bdb.agencia/" target="_blank" class="text-white/50 hover:text-accent transition-colors" aria-label="Instagram">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+            </a>
+            <a href="https://www.facebook.com/BeDigitalBrand" target="_blank" class="text-white/50 hover:text-accent transition-colors" aria-label="Facebook">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+            </a>
+            <a href="https://www.behance.net/bautsdigital" target="_blank" class="text-white/50 hover:text-accent transition-colors" aria-label="Behance">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M22 7h-7V5h7v2zm1.726 10c-.442 1.297-2.029 3-5.101 3-3.074 0-5.564-1.729-5.564-5.675 0-3.91 2.325-5.92 5.466-5.92 3.082 0 4.964 1.782 5.375 4.426.078.506.109 1.188.095 2.14H15.97c.13 3.211 3.483 3.312 4.588 2.029h3.168zm-7.686-4h4.965c-.105-1.547-1.136-2.219-2.477-2.219-1.466 0-2.277.768-2.488 2.219zm-9.574 6.988H0V5.021h6.953c5.476.081 5.58 5.444 2.72 6.906 3.461 1.26 3.577 6.053-1.207 7.061zM2.917 8.241v4.393h3.667c1.684 0 2.655-.988 2.655-2.21 0-1.647-1.238-2.183-2.752-2.183H2.917zm3.667 7.547H2.917v-4.731h4.063c1.992 0 2.72 1.168 2.72 2.394 0 1.478-1.105 2.337-3.116 2.337z"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+      <p class="text-white/30 text-sm">&copy; 2026 BDB Agency. Todos los derechos reservados.</p>
+      <p class="text-white/30 text-sm">Canc&uacute;n, Quintana Roo, M&eacute;xico</p>
+    </div>
+  </div>
+</footer>
+
+<script src="effects.js"></script>
+</body>
+</html>
