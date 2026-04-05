@@ -98,6 +98,31 @@
     #navbar .nav-cta-btn:hover { background: #2a2d2f; }
     #navbar .menu-bar { background: #0e1011; }
 
+    /* ── WHITE TOP BAR + INVERSE CORNERS ── */
+    .white-top-bar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 12px;
+      background: #fff;
+      z-index: 40;
+    }
+    .white-top-bar::before,
+    .white-top-bar::after {
+      content: '';
+      position: absolute;
+      bottom: -16px;
+      width: 16px;
+      height: 16px;
+    }
+    .white-top-bar::before {
+      left: 12px;
+      background: radial-gradient(circle at 100% 0, transparent 16px, #fff 16px);
+    }
+    .white-top-bar::after {
+      right: 12px;
+      background: radial-gradient(circle at 0 0, transparent 16px, #fff 16px);
+    }
+
     /* ── MOBILE MENU ── */
     #mobile-menu {
       transform: translateX(100%);
@@ -253,8 +278,8 @@
 <!-- ══════════════════════════════════════════════
      NAV
 ═══════════════════════════════════════════════ -->
-<!-- White top bar that never disappears -->
-<div class="fixed top-0 left-0 right-0 h-4 bg-white z-40"></div>
+<!-- White top bar that never disappears + inverse rounded corners -->
+<div class="white-top-bar"></div>
 
 <nav id="navbar" class="fixed top-0 left-0 right-0 z-50">
   <!-- Nav aligned to hero image corners -->
