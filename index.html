@@ -67,14 +67,24 @@
     .nav-right { border-radius: 0 24px 0 20px; /* matches hero top-right corner */ }
     .nav-left, .nav-right {
       opacity: 1;
-      transform: scale(1);
-      transition: opacity 0.45s cubic-bezier(.4,0,.2,1), transform 0.45s cubic-bezier(.4,0,.2,1);
+      max-width: 200px;
+      overflow: hidden;
+      transition: opacity 0.4s cubic-bezier(.4,0,.2,1), max-width 0.4s cubic-bezier(.4,0,.2,1), padding 0.4s cubic-bezier(.4,0,.2,1);
     }
     #navbar.nav-hide-sides .nav-left,
     #navbar.nav-hide-sides .nav-right {
       opacity: 0;
-      transform: scale(0.92);
+      max-width: 0;
+      padding-left: 0;
+      padding-right: 0;
       pointer-events: none;
+    }
+    /* Center: bottom-only radius by default, full pill when sides hidden */
+    .nav-center {
+      transition: border-radius 0.4s cubic-bezier(.4,0,.2,1);
+    }
+    #navbar.nav-hide-sides .nav-center {
+      border-radius: 20px !important;
     }
     #navbar .nav-link { color: rgba(14,16,17,0.6); transition: color 0.3s ease; }
     #navbar .nav-link:hover { color: #0e1011; }
