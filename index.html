@@ -52,38 +52,33 @@
     }
     .reveal.visible { opacity: 1; transform: translateY(0); }
 
-    /* ── NAV ── */
+    /* ── NAV (iPhone-style rounded pill bar) ── */
     #navbar {
       background: transparent;
-      transition: background 0.4s ease, border-color 0.4s ease, backdrop-filter 0.4s ease;
-      border-bottom: 1px solid transparent;
-    }
-    #navbar.nav-scrolled {
-      background: rgba(255,255,255,0.85);
-      backdrop-filter: saturate(180%) blur(20px);
-      -webkit-backdrop-filter: saturate(180%) blur(20px);
-      border-bottom-color: rgba(14,16,17,0.08);
-    }
-    /* Nav over hero = white text, scrolled = dark text */
-    #navbar .nav-link { color: rgba(255,255,255,0.85); transition: color 0.4s ease; }
-    #navbar.nav-scrolled .nav-link { color: rgba(14,16,17,0.7); }
-    #navbar .nav-link:hover { color: #fff; }
-    #navbar.nav-scrolled .nav-link:hover { color: #0e1011; }
-    #navbar .nav-logo { color: #fff; transition: color 0.4s ease; }
-    #navbar.nav-scrolled .nav-logo { color: #0e1011; }
-    #navbar .nav-cta {
-      background: rgba(255,255,255,0.15);
-      color: #fff;
-      backdrop-filter: blur(10px);
       transition: all 0.4s ease;
     }
-    #navbar.nav-scrolled .nav-cta {
+    #navbar .nav-inner {
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: saturate(180%) blur(20px);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      border-radius: 9999px;
+      border: 1px solid rgba(14,16,17,0.06);
+      box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+      transition: all 0.4s ease;
+    }
+    #navbar.nav-scrolled .nav-inner {
+      box-shadow: 0 4px 30px rgba(0,0,0,0.1);
+    }
+    #navbar .nav-link { color: rgba(14,16,17,0.6); transition: color 0.3s ease; }
+    #navbar .nav-link:hover { color: #0e1011; }
+    #navbar .nav-logo { color: #0e1011; }
+    #navbar .nav-cta {
       background: #0e1011;
       color: #fff;
-      backdrop-filter: none;
+      transition: all 0.3s ease;
     }
-    #navbar .menu-bar { background: #fff; transition: background 0.4s ease; }
-    #navbar.nav-scrolled .menu-bar { background: #0e1011; }
+    #navbar .nav-cta:hover { background: #2a2d2f; }
+    #navbar .menu-bar { background: #0e1011; }
 
     /* ── MOBILE MENU ── */
     #mobile-menu {
@@ -240,8 +235,8 @@
 <!-- ══════════════════════════════════════════════
      NAV
 ═══════════════════════════════════════════════ -->
-<nav id="navbar" class="fixed top-0 left-0 right-0 z-50">
-  <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+<nav id="navbar" class="fixed top-0 left-0 right-0 z-50 px-4 md:px-6 pt-4">
+  <div class="nav-inner max-w-6xl mx-auto px-6 h-14 flex items-center justify-between">
     <a href="index.html" class="nav-logo font-almarai font-bold text-lg tracking-tight">BDB <sup class="text-[10px] font-normal">®</sup></a>
 
     <!-- Desktop -->
@@ -280,31 +275,32 @@
 <!-- ══════════════════════════════════════════════
      HERO — VIDEO BACKGROUND
 ═══════════════════════════════════════════════ -->
-<section class="relative min-h-screen flex flex-col justify-center overflow-hidden bg-dark">
-  <!-- Hero background photo -->
-  <img src="img/hero-bg.jpg" alt="" class="absolute inset-0 w-full h-full object-cover opacity-60 pointer-events-none" />
+<section class="bg-white pt-24 px-4 md:px-6 pb-0">
+  <div class="relative min-h-[85vh] flex flex-col justify-center overflow-hidden rounded-3xl">
+    <!-- Hero background photo -->
+    <img src="img/hero-bg.jpg" alt="" class="absolute inset-0 w-full h-full object-cover pointer-events-none" />
 
-  <!-- Subtle gradient overlay -->
-  <div class="absolute inset-0 bg-gradient-to-t from-dark/60 via-dark/10 to-dark/30 z-10"></div>
+    <!-- Subtle gradient overlay (lighter) -->
+    <div class="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-black/10 z-10"></div>
 
-  <!-- Hero Text -->
-  <div class="relative z-20 max-w-7xl mx-auto px-6 w-full text-center mt-16">
-    <h1 class="font-almarai font-extrabold text-white leading-[0.95] tracking-tight"
-        style="font-size: clamp(4rem, 10vw, 9rem);">
-      BDB Agency
-    </h1>
-  </div>
+    <!-- Hero Text -->
+    <div class="relative z-20 max-w-7xl mx-auto px-6 w-full text-center mt-16">
+      <h1 class="font-almarai font-extrabold text-white leading-[0.95] tracking-tight"
+          style="font-size: clamp(4rem, 10vw, 9rem);">
+        BDB Agency
+      </h1>
+    </div>
 
-  <!-- Subtitle right-aligned -->
-  <div class="relative z-20 max-w-7xl mx-auto px-6 w-full mt-8">
-    <p class="text-white/80 text-base md:text-lg font-figtree max-w-sm ml-auto text-right leading-relaxed">
-      Ven y cambia la forma de comunicar tu marca
-    </p>
-  </div>
+    <!-- Subtitle right-aligned -->
+    <div class="relative z-20 max-w-7xl mx-auto px-6 w-full mt-8">
+      <p class="text-white/85 text-base md:text-lg font-figtree max-w-sm ml-auto text-right leading-relaxed">
+        Ven y cambia la forma de comunicar tu marca
+      </p>
+    </div>
 
-  <!-- Service bar at bottom -->
-  <div class="relative z-20 w-full mt-auto px-4 md:px-8 pb-6 pt-12">
-    <div class="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-3">
+    <!-- Service bar at bottom (inside rounded container) -->
+    <div class="relative z-20 w-full mt-auto px-4 md:px-8 pb-6 pt-12">
+      <div class="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-3">
       <div class="service-bar-item bg-white/95 backdrop-blur-sm rounded-2xl px-5 py-4 flex items-center justify-between">
         <div class="flex items-center gap-3">
           <span class="w-7 h-7 rounded-full bg-dark text-white text-xs flex items-center justify-center font-figtree font-semibold">01</span>
@@ -335,6 +331,7 @@
       </div>
     </div>
   </div>
+  </div><!-- close rounded container -->
 </section>
 
 <!-- ══════════════════════════════════════════════
