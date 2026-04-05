@@ -28,8 +28,6 @@
             cream:     '#fdfbf6',
             'light-g': '#f6f6f6',
             lime:      '#cbfb45',
-            'lime-d':  '#b8e63d',
-            tan:       '#dac5a7',
           },
           fontFamily: {
             almarai: ['Almarai', 'sans-serif'],
@@ -37,51 +35,55 @@
             serif:   ['Instrument Serif', 'Georgia', 'serif'],
             inter:   ['Inter', 'system-ui', 'sans-serif'],
           },
-          letterSpacing: {
-            tight4: '-0.04em',
-            tight5: '-0.05em',
-            tight2: '-0.02em',
-            tight1: '-0.01em',
-          }
         }
       }
     }
   </script>
 
   <style>
-    :root {
-      --dark:     #0e1011;
-      --dark-card:#202527;
-      --dark-bd:  #2c2e2f;
-      --cream:    #fdfbf6;
-      --lime:     #cbfb45;
-      --lime-d:   #b8e63d;
-      --tan:      #dac5a7;
-    }
-
     html { scroll-behavior: smooth; }
-    body { font-family: 'Figtree', sans-serif; background: #0e1011; color: #fff; overflow-x: hidden; }
+    body { font-family: 'Figtree', sans-serif; background: #ffffff; color: #0e1011; overflow-x: hidden; }
 
     /* ── SCROLL REVEAL ── */
     .reveal {
       opacity: 0;
-      transform: translateY(36px);
-      transition: opacity 0.75s cubic-bezier(.25,.46,.45,.94), transform 0.75s cubic-bezier(.25,.46,.45,.94);
+      transform: translateY(30px);
+      transition: opacity 0.7s cubic-bezier(.25,.46,.45,.94), transform 0.7s cubic-bezier(.25,.46,.45,.94);
     }
     .reveal.visible { opacity: 1; transform: translateY(0); }
 
     /* ── NAV ── */
     #navbar {
-      background: rgba(14,16,17,0.5);
-      backdrop-filter: saturate(180%) blur(20px);
-      -webkit-backdrop-filter: saturate(180%) blur(20px);
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-      transition: background 0.3s ease, border-color 0.3s ease;
+      background: transparent;
+      transition: background 0.4s ease, border-color 0.4s ease, backdrop-filter 0.4s ease;
+      border-bottom: 1px solid transparent;
     }
     #navbar.nav-scrolled {
-      background: rgba(14,16,17,0.92);
-      border-bottom-color: rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: saturate(180%) blur(20px);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      border-bottom-color: rgba(14,16,17,0.08);
     }
+    /* Nav over hero = white text, scrolled = dark text */
+    #navbar .nav-link { color: rgba(255,255,255,0.85); transition: color 0.4s ease; }
+    #navbar.nav-scrolled .nav-link { color: rgba(14,16,17,0.7); }
+    #navbar .nav-link:hover { color: #fff; }
+    #navbar.nav-scrolled .nav-link:hover { color: #0e1011; }
+    #navbar .nav-logo { color: #fff; transition: color 0.4s ease; }
+    #navbar.nav-scrolled .nav-logo { color: #0e1011; }
+    #navbar .nav-cta {
+      background: rgba(255,255,255,0.15);
+      color: #fff;
+      backdrop-filter: blur(10px);
+      transition: all 0.4s ease;
+    }
+    #navbar.nav-scrolled .nav-cta {
+      background: #0e1011;
+      color: #fff;
+      backdrop-filter: none;
+    }
+    #navbar .menu-bar { background: #fff; transition: background 0.4s ease; }
+    #navbar.nav-scrolled .menu-bar { background: #0e1011; }
 
     /* ── MOBILE MENU ── */
     #mobile-menu {
@@ -95,141 +97,142 @@
       position: absolute; inset: 0;
       width: 100%; height: 100%;
       object-fit: cover;
-      opacity: 0.45;
+      opacity: 0.55;
       pointer-events: none;
     }
 
-    /* ── SECTION HEADINGS ── */
+    /* ── SECTION LABEL ── */
     .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
       font-family: 'Figtree', sans-serif;
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--lime);
+      font-size: 13px;
+      font-weight: 500;
+      color: #0e1011;
+    }
+    .section-label .arrow-icon {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      border: 1px solid rgba(14,16,17,0.15);
+      display: flex; align-items: center; justify-content: center;
     }
 
-    /* ── SERVICE CARDS (dark) ── */
-    .service-card-dark {
-      background: var(--dark-card);
-      border: 1px solid var(--dark-bd);
+    /* ── SERVICE CARDS ── */
+    .service-card {
+      background: #f6f6f6;
       border-radius: 20px;
-      transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
-    .service-card-dark:hover {
-      border-color: rgba(203,251,69,0.35);
-      transform: translateY(-5px);
-      box-shadow: 0 20px 50px rgba(0,0,0,0.4);
-    }
-
-    /* ── SERVICE CARDS (cream) ── */
-    .service-card-light {
-      background: #fff;
-      border: 1px solid rgba(14,16,17,0.08);
-      border-radius: 20px;
-      transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    .service-card-light:hover {
-      border-color: rgba(203,251,69,0.6);
-      transform: translateY(-5px);
+    .service-card:hover {
+      transform: translateY(-4px);
       box-shadow: 0 16px 40px rgba(0,0,0,0.08);
     }
 
-    /* ── LIME NUM BADGE ── */
-    .num-lime {
-      font-family: 'Almarai', sans-serif;
-      font-size: 42px;
-      font-weight: 700;
-      line-height: 1;
-      color: var(--lime);
-      opacity: 0.9;
-    }
-
-    /* ── PORTFOLIO ITEM ── */
-    .portfolio-item .overlay {
-      opacity: 0;
-      transition: opacity 0.4s ease;
-    }
-    .portfolio-item:hover .overlay { opacity: 1; }
-    .portfolio-item img {
-      transition: transform 0.6s cubic-bezier(.25,.46,.45,.94);
-    }
-    .portfolio-item:hover img { transform: scale(1.05); }
-
-    /* ── TESTIMONIALS ── */
-    .testimonial-slide {
-      opacity: 0;
-      position: absolute;
-      inset: 0;
-      transition: opacity 0.6s ease;
-      pointer-events: none;
-    }
-    .testimonial-slide.active {
-      opacity: 1;
-      position: relative;
-      pointer-events: auto;
-    }
-    [data-slide].dot-active { background: var(--lime) !important; }
-
-    /* ── FILTER BUTTONS ── */
-    .filter-btn {
-      border: 1px solid rgba(14,16,17,0.15);
+    /* ── TAG PILLS ── */
+    .tag-pill {
+      display: inline-block;
+      padding: 6px 14px;
+      border: 1px solid rgba(14,16,17,0.12);
+      border-radius: 9999px;
+      font-size: 12px;
+      font-family: 'Figtree', sans-serif;
+      font-weight: 500;
       color: rgba(14,16,17,0.6);
-      border-radius: 9999px;
-      transition: all 0.25s ease;
-    }
-    .filter-btn:hover { border-color: rgba(14,16,17,0.4); color: #0e1011; }
-    .filter-btn.active {
-      background: var(--lime);
-      border-color: var(--lime);
-      color: #0e1011;
-      font-weight: 700;
     }
 
-    /* ── LIME BUTTON ── */
-    .btn-lime {
-      background: var(--lime);
-      color: #0e1011;
-      font-family: 'Almarai', sans-serif;
-      font-weight: 700;
-      border-radius: 9999px;
-      transition: background 0.25s ease, transform 0.2s ease;
-    }
-    .btn-lime:hover { background: var(--lime-d); transform: scale(1.02); }
-
-    /* ── GHOST BUTTON (dark bg) ── */
-    .btn-ghost-dark {
-      border: 1px solid rgba(255,255,255,0.25);
-      color: #fff;
-      border-radius: 9999px;
-      background: rgba(255,255,255,0.05);
-      transition: all 0.25s ease;
-    }
-    .btn-ghost-dark:hover {
-      border-color: rgba(255,255,255,0.5);
-      background: rgba(255,255,255,0.1);
+    /* ── TESTIMONIAL CARDS ── */
+    .testimonial-card {
+      background: #fff;
+      border: 1px solid rgba(14,16,17,0.08);
+      border-radius: 20px;
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
 
-    /* ── GHOST BUTTON (light bg) ── */
-    .btn-ghost-light {
-      border: 1.5px solid #0e1011;
-      color: #0e1011;
-      border-radius: 9999px;
-      transition: all 0.25s ease;
+    /* ── TESTIMONIAL PAGES ── */
+    .testimonial-page {
+      display: none;
     }
-    .btn-ghost-light:hover { background: #0e1011; color: #fff; }
+    .testimonial-page.active {
+      display: grid;
+    }
 
-    /* ── ARROW LINK ── */
-    .arrow-link {
+    /* ── DOTS ── */
+    .dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(14,16,17,0.2); cursor: pointer; transition: background 0.3s; }
+    .dot.dot-active { background: #0e1011; }
+
+    /* ── MARQUEE ── */
+    .marquee-track {
+      display: flex;
+      gap: 60px;
+      animation: marquee 30s linear infinite;
+      width: max-content;
+    }
+    @keyframes marquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* ── SERVICE BAR ── */
+    .service-bar-item {
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .service-bar-item:hover { background: #f9f9f9; }
+    .service-bar-detail {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease;
+    }
+    .service-bar-detail.open { max-height: 200px; }
+    .icon-plus { transition: transform 0.3s ease; }
+
+    /* ── STAT CARDS ── */
+    .stat-card {
+      background: #f6f6f6;
+      border-radius: 20px;
+      padding: 32px;
+    }
+
+    /* ── BENEFIT CARDS ── */
+    .benefit-card {
+      background: #fff;
+      border-bottom: 1px solid rgba(14,16,17,0.06);
+      padding: 28px 0;
+    }
+
+    /* ── CTA ARROW BUTTON ── */
+    .btn-arrow {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      gap: 10px;
+      padding: 12px 24px;
+      border: 1px solid rgba(14,16,17,0.15);
+      border-radius: 9999px;
       font-family: 'Figtree', sans-serif;
-      font-weight: 600;
-      color: var(--lime);
-      transition: gap 0.25s ease;
+      font-weight: 500;
+      font-size: 14px;
+      color: #0e1011;
+      transition: all 0.3s ease;
     }
-    .arrow-link:hover { gap: 10px; }
+    .btn-arrow:hover { background: #0e1011; color: #fff; border-color: #0e1011; }
+    .btn-arrow:hover svg { stroke: #fff; }
+    .btn-arrow-white {
+      border-color: rgba(255,255,255,0.25);
+      color: #fff;
+    }
+    .btn-arrow-white:hover { background: #fff; color: #0e1011; border-color: #fff; }
+    .btn-arrow-white:hover svg { stroke: #0e1011; }
+
+    /* ── BLOG CARD ── */
+    .blog-card img {
+      transition: transform 0.5s cubic-bezier(.25,.46,.45,.94);
+    }
+    .blog-card:hover img { transform: scale(1.04); }
   </style>
 </head>
 <body>
@@ -239,46 +242,45 @@
 ═══════════════════════════════════════════════ -->
 <nav id="navbar" class="fixed top-0 left-0 right-0 z-50">
   <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-    <a href="index.html">
-      <img src="img/logo.png" alt="BDB Agency" class="h-7 brightness-0 invert" />
-    </a>
+    <a href="index.html" class="nav-logo font-almarai font-bold text-lg tracking-tight">BDB <sup class="text-[10px] font-normal">®</sup></a>
 
     <!-- Desktop -->
     <div class="hidden md:flex items-center gap-8">
-      <a href="portafolio.html" class="text-sm text-white/60 hover:text-lime transition-colors font-figtree">Portafolio</a>
-      <a href="nosotros.html"   class="text-sm text-white/60 hover:text-lime transition-colors font-figtree">Nosotros</a>
-      <a href="blog.html"       class="text-sm text-white/60 hover:text-lime transition-colors font-figtree">Blog</a>
-      <a href="contacto.html"   class="text-sm text-white/60 hover:text-lime transition-colors font-figtree">Contacto</a>
-      <a href="contacto.html" class="btn-ghost-dark text-sm px-5 py-2 font-figtree font-semibold">
-        Cotiza &rarr;
-      </a>
+      <a href="portafolio.html" class="nav-link text-sm font-figtree font-medium">Portafolio</a>
+      <a href="nosotros.html"   class="nav-link text-sm font-figtree font-medium">Nosotros</a>
+      <a href="blog.html"       class="nav-link text-sm font-figtree font-medium">Blog</a>
+      <a href="contacto.html"   class="nav-link text-sm font-figtree font-medium">Cont&aacute;ctanos</a>
     </div>
 
+    <a href="contacto.html" class="nav-cta hidden md:inline-flex items-center gap-2 px-5 py-2 rounded-full text-sm font-figtree font-semibold">
+      Cont&aacute;ctanos
+    </a>
+
     <!-- Mobile toggle -->
-    <button id="menu-toggle" class="md:hidden p-2 flex flex-col gap-1.5" aria-label="Menú">
-      <span class="w-5 h-px bg-white block"></span>
-      <span class="w-5 h-px bg-white block"></span>
-      <span class="w-3 h-px bg-white block ml-auto"></span>
+    <button id="menu-toggle" class="md:hidden p-2 flex flex-col gap-1.5" aria-label="Men&uacute;">
+      <span class="menu-bar w-5 h-px block"></span>
+      <span class="menu-bar w-5 h-px block"></span>
+      <span class="menu-bar w-3 h-px block ml-auto"></span>
     </button>
   </div>
 </nav>
 
 <!-- Mobile menu -->
-<div id="mobile-menu" class="fixed top-0 right-0 h-screen w-72 bg-dark-card z-[100] p-8 flex flex-col gap-6 border-l border-dark-bd">
-  <button id="menu-close" class="self-end text-white/40 hover:text-white p-1">
+<div id="mobile-menu" class="fixed top-0 right-0 h-screen w-72 bg-white z-[100] p-8 flex flex-col gap-6 border-l border-black/5 shadow-2xl">
+  <button id="menu-close" class="self-end text-dark/40 hover:text-dark p-1">
     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"/></svg>
   </button>
-  <a href="portafolio.html" class="text-xl text-white font-almarai font-bold">Portafolio</a>
-  <a href="nosotros.html"   class="text-xl text-white font-almarai font-bold">Nosotros</a>
-  <a href="blog.html"       class="text-xl text-white font-almarai font-bold">Blog</a>
-  <a href="contacto.html"   class="text-xl text-white font-almarai font-bold">Contacto</a>
-  <a href="contacto.html" class="mt-4 btn-lime text-center px-6 py-3 text-base">Cotiza tu proyecto</a>
+  <a href="portafolio.html" class="text-xl text-dark font-almarai font-bold">Portafolio</a>
+  <a href="nosotros.html"   class="text-xl text-dark font-almarai font-bold">Nosotros</a>
+  <a href="blog.html"       class="text-xl text-dark font-almarai font-bold">Blog</a>
+  <a href="contacto.html"   class="text-xl text-dark font-almarai font-bold">Cont&aacute;ctanos</a>
+  <a href="contacto.html" class="mt-4 bg-dark text-white text-center px-6 py-3 rounded-full text-base font-figtree font-semibold">Cotiza tu proyecto</a>
 </div>
 
 <!-- ══════════════════════════════════════════════
      HERO — VIDEO BACKGROUND
 ═══════════════════════════════════════════════ -->
-<section class="relative min-h-screen flex items-end pb-20 pt-32 overflow-hidden bg-dark">
+<section class="relative min-h-screen flex flex-col justify-center overflow-hidden bg-dark">
   <!-- HLS Video -->
   <video
     id="hero-video"
@@ -286,370 +288,537 @@
     autoplay muted loop playsinline
   ></video>
 
-  <!-- Gradient overlay -->
-  <div class="absolute inset-0 bg-gradient-to-t from-dark via-dark/60 to-dark/30 z-10"></div>
-  <div class="absolute inset-0 bg-gradient-to-r from-dark/80 via-dark/20 to-transparent z-10"></div>
+  <!-- Subtle gradient overlay -->
+  <div class="absolute inset-0 bg-gradient-to-t from-dark/50 via-transparent to-dark/30 z-10"></div>
 
-  <!-- Content -->
-  <div class="relative z-20 max-w-7xl mx-auto px-6 w-full">
-    <div class="max-w-3xl">
-      <p class="section-label mb-6 reveal">Be Digital Brand &mdash; Cancún, México</p>
-      <h1 class="font-almarai font-bold text-white leading-[1.0] tracking-tight4 mb-6 reveal"
-          style="font-size: clamp(3rem, 8vw, 6rem);">
-        Cambiamos la forma de comunicar<br />
-        <span style="color: var(--lime);">tu marca.</span>
-      </h1>
-      <p class="text-white/55 text-lg md:text-xl leading-relaxed mb-10 max-w-xl reveal font-figtree">
-        Conectamos marcas con las personas indicadas. Estrategia, diseño y tecnología bajo un mismo techo.
-      </p>
-      <div class="flex flex-wrap gap-4 reveal">
-        <a href="contacto.html" class="btn-lime btn-magnetic px-8 py-3.5 text-base font-bold">
-          Cotiza tu proyecto &rarr;
-        </a>
-        <a href="portafolio.html" class="btn-ghost-dark px-8 py-3.5 text-base font-semibold font-figtree">
-          Ver portafolio
-        </a>
-      </div>
-    </div>
+  <!-- Hero Text -->
+  <div class="relative z-20 max-w-7xl mx-auto px-6 w-full text-center mt-16">
+    <h1 class="font-almarai font-extrabold text-white leading-[0.95] tracking-tight"
+        style="font-size: clamp(4rem, 10vw, 9rem);">
+      BDB Agency
+    </h1>
+  </div>
 
-    <!-- Stats bar -->
-    <div class="mt-16 pt-8 border-t border-white/10 grid grid-cols-2 md:grid-cols-4 gap-8 reveal">
-      <div>
-        <p class="font-almarai font-bold text-lime text-3xl stat-number" data-target="10" data-suffix="+">0</p>
-        <p class="text-white/40 text-xs uppercase tracking-widest mt-1 font-figtree">Años de experiencia</p>
+  <!-- Subtitle right-aligned -->
+  <div class="relative z-20 max-w-7xl mx-auto px-6 w-full mt-8">
+    <p class="text-white/80 text-base md:text-lg font-figtree max-w-sm ml-auto text-right leading-relaxed">
+      Ven y cambia la forma de comunicar tu marca
+    </p>
+  </div>
+
+  <!-- Service bar at bottom -->
+  <div class="relative z-20 w-full mt-auto px-4 md:px-8 pb-6 pt-12">
+    <div class="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-3">
+      <div class="service-bar-item bg-white/95 backdrop-blur-sm rounded-2xl px-5 py-4 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <span class="w-7 h-7 rounded-full bg-dark text-white text-xs flex items-center justify-center font-figtree font-semibold">01</span>
+          <span class="font-figtree font-medium text-dark text-sm">Branding</span>
+        </div>
+        <svg class="icon-plus w-5 h-5 text-dark/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 5v14m-7-7h14"/></svg>
       </div>
-      <div>
-        <p class="font-almarai font-bold text-white text-3xl stat-number" data-target="500" data-suffix="+">0</p>
-        <p class="text-white/40 text-xs uppercase tracking-widest mt-1 font-figtree">Clientes</p>
+      <div class="service-bar-item bg-white/95 backdrop-blur-sm rounded-2xl px-5 py-4 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <span class="w-7 h-7 rounded-full bg-dark text-white text-xs flex items-center justify-center font-figtree font-semibold">02</span>
+          <span class="font-figtree font-medium text-dark text-sm">Producci&oacute;n Audiovisual</span>
+        </div>
+        <svg class="icon-plus w-5 h-5 text-dark/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 5v14m-7-7h14"/></svg>
       </div>
-      <div>
-        <p class="font-almarai font-bold text-lime text-3xl stat-number" data-target="8">0</p>
-        <p class="text-white/40 text-xs uppercase tracking-widest mt-1 font-figtree">Países</p>
+      <div class="service-bar-item bg-white/95 backdrop-blur-sm rounded-2xl px-5 py-4 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <span class="w-7 h-7 rounded-full bg-dark text-white text-xs flex items-center justify-center font-figtree font-semibold">03</span>
+          <span class="font-figtree font-medium text-dark text-sm">Marketing</span>
+        </div>
+        <svg class="icon-plus w-5 h-5 text-dark/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 5v14m-7-7h14"/></svg>
       </div>
-      <div>
-        <p class="font-almarai font-bold text-white text-3xl stat-number" data-target="50" data-suffix="+">0</p>
-        <p class="text-white/40 text-xs uppercase tracking-widest mt-1 font-figtree">Marcas activas</p>
+      <div class="service-bar-item bg-white/95 backdrop-blur-sm rounded-2xl px-5 py-4 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <span class="w-7 h-7 rounded-full bg-dark text-white text-xs flex items-center justify-center font-figtree font-semibold">04</span>
+          <span class="font-figtree font-medium text-dark text-sm">IA &amp; Web</span>
+        </div>
+        <svg class="icon-plus w-5 h-5 text-dark/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 5v14m-7-7h14"/></svg>
       </div>
     </div>
   </div>
 </section>
 
 <!-- ══════════════════════════════════════════════
-     SERVICIOS — CREAM SECTION
+     NOSOTROS — EDITORIAL STATEMENT
 ═══════════════════════════════════════════════ -->
-<section class="py-28 bg-cream">
+<section class="py-24 md:py-32 bg-white">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="mb-12 reveal">
+      <span class="section-label">
+        <span class="arrow-icon">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        </span>
+        Nosotros
+      </span>
+    </div>
+
+    <p class="text-2xl md:text-4xl lg:text-[42px] leading-[1.35] font-figtree font-normal text-dark reveal" style="letter-spacing: -0.01em;">
+      BDB es una agencia digital enfocada en <em class="font-serif italic font-normal not-italic" style="font-family: 'Instrument Serif', Georgia, serif; font-style: italic;">branding, marketing, producci&oacute;n audiovisual y desarrollo web</em>, creando marcas s&oacute;lidas, con 10 a&ntilde;os de experiencia dando soluciones estrat&eacute;gicas que impulsan el crecimiento de nuestros clientes.
+    </p>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     VIDEO BREAK — FULL WIDTH
+═══════════════════════════════════════════════ -->
+<section class="px-4 md:px-8 pb-8">
+  <div class="max-w-7xl mx-auto rounded-3xl overflow-hidden reveal" style="aspect-ratio: 16/7;">
+    <video
+      class="w-full h-full object-cover"
+      autoplay muted loop playsinline
+      data-src="https://customer-pu6o7odn1t38g6ae.cloudflarestream.com/6731af1f374466502c7f23f22985ddd6/manifest/video.m3u8"
+      id="break-video"
+    ></video>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     SERVICIOS — 2x2 GRID WITH IMAGES
+═══════════════════════════════════════════════ -->
+<section class="py-24 md:py-32 bg-white">
   <div class="max-w-7xl mx-auto px-6">
-    <div class="reveal mb-16">
-      <p class="section-label mb-3" style="color:#0e1011; opacity:.5;">Lo que hacemos</p>
-      <h2 class="font-almarai font-bold text-dark leading-[1.05] tracking-tight2"
-          style="font-size: clamp(2.5rem, 5vw, 4rem);">
-        Servicios que<br />transforman marcas.
-      </h2>
+    <div class="mb-14 reveal">
+      <span class="section-label">
+        <span class="arrow-icon">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        </span>
+        Servicios
+      </span>
     </div>
 
-    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-      <div class="reveal service-card-light p-8">
-        <span class="num-lime">01</span>
-        <h3 class="font-almarai font-bold text-dark text-2xl mt-4 mb-3 leading-tight">Branding & Media</h3>
-        <p class="text-dark/50 leading-relaxed text-sm font-figtree">Identidad visual, naming, storytelling y estrategia de marca que conecta con tu audiencia.</p>
+    <div class="grid md:grid-cols-2 gap-6">
+      <!-- Brand Identity -->
+      <div class="service-card reveal flex flex-col sm:flex-row gap-6 p-6">
+        <div class="sm:w-2/5 flex-shrink-0">
+          <img src="img/services/branding.jpg" alt="Brand Identity" class="w-full h-48 sm:h-full object-cover rounded-xl" />
+        </div>
+        <div class="flex flex-col justify-between py-2">
+          <div>
+            <h3 class="font-almarai font-bold text-dark text-2xl mb-3 leading-tight">Brand <em class="font-serif italic font-normal" style="font-family: 'Instrument Serif', Georgia, serif;">Identity</em></h3>
+            <p class="text-dark/50 leading-relaxed text-sm font-figtree">Creamos identidades de marca distintivas que conectan, inspiran confianza y generan v&iacute;nculos emocionales duraderos con tu audiencia. Elevamos la presencia de tu marca.</p>
+          </div>
+          <div class="flex flex-wrap gap-2 mt-5">
+            <span class="tag-pill">Brand Strategy</span>
+            <span class="tag-pill">Visual Identity Design</span>
+            <span class="tag-pill">Brand Guidelines</span>
+          </div>
+        </div>
       </div>
-      <div class="reveal service-card-light p-8">
-        <span class="num-lime">02</span>
-        <h3 class="font-almarai font-bold text-dark text-2xl mt-4 mb-3 leading-tight">Producción Audiovisual</h3>
-        <p class="text-dark/50 leading-relaxed text-sm font-figtree">Fotografía, video, contenido multimedia y producción creativa para cada plataforma.</p>
+
+      <!-- Produccion Audiovisual -->
+      <div class="service-card reveal flex flex-col sm:flex-row gap-6 p-6">
+        <div class="sm:w-2/5 flex-shrink-0">
+          <img src="img/services/audiovisual.jpg" alt="Producción Audiovisual" class="w-full h-48 sm:h-full object-cover rounded-xl" />
+        </div>
+        <div class="flex flex-col justify-between py-2">
+          <div>
+            <h3 class="font-almarai font-bold text-dark text-2xl mb-3 leading-tight">Producci&oacute;n <em class="font-serif italic font-normal" style="font-family: 'Instrument Serif', Georgia, serif;">Audiovisual</em></h3>
+            <p class="text-dark/50 leading-relaxed text-sm font-figtree">Creamos producciones audiovisuales cinematogr&aacute;ficas que comunican, emocionan y elevan la percepci&oacute;n de tu marca, generando experiencias visuales memorables que conectan con tu audiencia.</p>
+          </div>
+          <div class="flex flex-wrap gap-2 mt-5">
+            <span class="tag-pill">Cinematic Reels</span>
+            <span class="tag-pill">Commercial</span>
+            <span class="tag-pill">Social media content</span>
+          </div>
+        </div>
       </div>
-      <div class="reveal service-card-light p-8">
-        <span class="num-lime">03</span>
-        <h3 class="font-almarai font-bold text-dark text-2xl mt-4 mb-3 leading-tight">Marketing Digital</h3>
-        <p class="text-dark/50 leading-relaxed text-sm font-figtree">Social media, pauta digital, SEO y estrategia de crecimiento orientada a resultados.</p>
+
+      <!-- Marketing Strategy -->
+      <div class="service-card reveal flex flex-col sm:flex-row gap-6 p-6">
+        <div class="sm:w-2/5 flex-shrink-0">
+          <img src="img/services/marketing.jpg" alt="Marketing Strategy" class="w-full h-48 sm:h-full object-cover rounded-xl" />
+        </div>
+        <div class="flex flex-col justify-between py-2">
+          <div>
+            <h3 class="font-almarai font-bold text-dark text-2xl mb-3 leading-tight">Marketing <em class="font-serif italic font-normal" style="font-family: 'Instrument Serif', Georgia, serif;">Strategy</em></h3>
+            <p class="text-dark/50 leading-relaxed text-sm font-figtree">Desarrollamos sistemas de marketing enfocados en la adquisici&oacute;n de clientes, dise&ntilde;ados para atraer, convertir y escalar resultados de forma estrat&eacute;gica y medible.</p>
+          </div>
+          <div class="flex flex-wrap gap-2 mt-5">
+            <span class="tag-pill">Tiktok, Meta &amp; Google Ads</span>
+            <span class="tag-pill">Customer Acquisition System</span>
+            <span class="tag-pill">Sales Funnels</span>
+          </div>
+        </div>
       </div>
-      <div class="reveal service-card-light p-8">
-        <span class="num-lime">04</span>
-        <h3 class="font-almarai font-bold text-dark text-2xl mt-4 mb-3 leading-tight">IA & Desarrollo Web</h3>
-        <p class="text-dark/50 leading-relaxed text-sm font-figtree">Sitios de alto impacto, apps, automatización con IA y soluciones tecnológicas a medida.</p>
+
+      <!-- IA & Web -->
+      <div class="service-card reveal flex flex-col sm:flex-row gap-6 p-6">
+        <div class="sm:w-2/5 flex-shrink-0">
+          <img src="img/services/ia-web.jpg" alt="IA & Web" class="w-full h-48 sm:h-full object-cover rounded-xl" />
+        </div>
+        <div class="flex flex-col justify-between py-2">
+          <div>
+            <h3 class="font-almarai font-bold text-dark text-2xl mb-3 leading-tight">IA &amp; <em class="font-serif italic font-normal" style="font-family: 'Instrument Serif', Georgia, serif;">Web</em></h3>
+            <p class="text-dark/50 leading-relaxed text-sm font-figtree">Automatizamos procesos y desarrollamos soluciones web inteligentes que optimizan operaciones, mejoran la eficiencia y potencian el crecimiento de tu negocio.</p>
+          </div>
+          <div class="flex flex-wrap gap-2 mt-5">
+            <span class="tag-pill">Web Design &amp; Development</span>
+            <span class="tag-pill">AI Automation</span>
+            <span class="tag-pill">Landing Pages &amp; CRM</span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- ══════════════════════════════════════════════
-     ABOUT — DARK SECTION
+     QUOTE DEL CEO
 ═══════════════════════════════════════════════ -->
-<section class="py-28 bg-dark">
-  <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center">
-    <div>
-      <p class="section-label mb-4 reveal">Sobre nosotros</p>
-      <h2 class="font-almarai font-bold text-white leading-[1.05] tracking-tight2 mb-6 reveal"
-          style="font-size: clamp(2.2rem, 4.5vw, 3.5rem);">
-        Equipo honesto,<br />creativo y comprometido.
-      </h2>
-      <p class="text-white/45 text-base leading-relaxed mb-4 reveal font-figtree">
-        Nacimos en Cancún con una misión clara: convertir visiones en realidad. Más de 10 años transformando marcas con estrategia, diseño y tecnología.
-      </p>
-      <p class="text-white/45 text-base leading-relaxed mb-8 reveal font-figtree">
-        Con presencia en México, USA, Chile, España, UK y EAU — tu marca sin fronteras.
-      </p>
-      <a href="nosotros.html" class="arrow-link reveal">
-        Conoce al equipo
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-      </a>
-    </div>
+<section class="py-24 md:py-32 bg-white">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="grid md:grid-cols-2 gap-12 md:gap-16 items-center">
+      <!-- Photo -->
+      <div class="reveal relative">
+        <div class="absolute -top-2 -left-2 flex gap-1 z-10">
+          <span class="text-dark text-lg">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+        </div>
+        <img src="img/angel-ceo.jpg" alt="Angel Bauts, CEO BDB" class="w-full max-w-md rounded-2xl object-cover" style="aspect-ratio: 4/5;" />
+        <p class="mt-3 text-sm font-figtree text-dark/60">Angel Bauts, CEO BDB</p>
+      </div>
 
-    <div class="grid grid-cols-2 gap-4">
-      <div class="reveal rounded-2xl overflow-hidden aspect-[3/4]">
-        <img src="img/portfolio/clorofila.jpg" alt="Clorofila" class="w-full h-full object-cover" />
-      </div>
-      <div class="reveal rounded-2xl overflow-hidden aspect-[3/4] mt-10">
-        <img src="img/portfolio/elementa.jpg" alt="Elementa" class="w-full h-full object-cover" />
-      </div>
-      <div class="reveal rounded-2xl overflow-hidden aspect-[3/4]">
-        <img src="img/portfolio/al-sahar.jpg" alt="Al Sahar" class="w-full h-full object-cover" />
-      </div>
-      <div class="reveal rounded-2xl overflow-hidden aspect-[3/4] mt-10">
-        <img src="img/portfolio/boat-show.jpg" alt="Boat Show" class="w-full h-full object-cover" />
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══════════════════════════════════════════════
-     PORTAFOLIO — CREAM SECTION
-═══════════════════════════════════════════════ -->
-<section id="portafolio" class="py-28 bg-cream">
-  <div class="max-w-7xl mx-auto px-6">
-    <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
+      <!-- Quote -->
       <div class="reveal">
-        <p class="section-label mb-3" style="color:#0e1011;opacity:.5;">Nuestro trabajo</p>
-        <h2 class="font-almarai font-bold text-dark leading-tight tracking-tight2"
-            style="font-size: clamp(2.2rem, 4.5vw, 3.5rem);">Portafolio.</h2>
+        <span class="text-7xl md:text-8xl font-serif text-dark/15 leading-none select-none">&ldquo;</span>
+        <blockquote class="text-2xl md:text-3xl lg:text-[34px] leading-[1.4] font-figtree text-dark -mt-8" style="letter-spacing: -0.01em;">
+          El objetivo no es crear, es estar en ese <em class="font-serif italic font-normal" style="font-family: 'Instrument Serif', Georgia, serif;">grandioso</em> estado que hace que <em class="font-serif italic font-normal" style="font-family: 'Instrument Serif', Georgia, serif;">el crear sea inevitable.</em>
+        </blockquote>
       </div>
-      <a href="portafolio.html" class="arrow-link reveal mt-4 md:mt-0" style="color:#0e1011;">
-        Ver todo
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-      </a>
-    </div>
-
-    <!-- Filters -->
-    <div class="flex flex-wrap gap-3 mb-10 reveal">
-      <button class="filter-btn active px-5 py-2 text-sm font-figtree font-semibold" data-filter="all">Todos</button>
-      <button class="filter-btn px-5 py-2 text-sm font-figtree" data-filter="branding">Branding</button>
-      <button class="filter-btn px-5 py-2 text-sm font-figtree" data-filter="web">Web</button>
-      <button class="filter-btn px-5 py-2 text-sm font-figtree" data-filter="audiovisual">Audiovisual</button>
-      <button class="filter-btn px-5 py-2 text-sm font-figtree" data-filter="social">Social Media</button>
-    </div>
-
-    <!-- Grid -->
-    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-
-      <a href="portfolio/carpenter-group.html" class="portfolio-item reveal group relative rounded-2xl overflow-hidden aspect-[3/4] bg-dark-card" data-category="web branding">
-        <img src="img/portfolio/carpenter-group.jpg" alt="Carpenter Group" class="w-full h-full object-cover" />
-        <div class="overlay absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent flex flex-col justify-end p-6">
-          <span class="section-label mb-1">Web &middot; Branding</span>
-          <h3 class="font-almarai font-bold text-white text-2xl leading-tight">Carpenter Group</h3>
-          <p class="text-white/50 text-sm mt-1 font-figtree">Luxury Real Estate &middot; Cancún</p>
-        </div>
-      </a>
-
-      <a href="portfolio/casa-rolandi.html" class="portfolio-item reveal group relative rounded-2xl overflow-hidden aspect-[3/4] bg-dark-card" data-category="branding audiovisual web">
-        <img src="img/portfolio/casa-rolandi-tulum.jpg" alt="Casa Rolandi Tulum" class="w-full h-full object-cover" />
-        <div class="overlay absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent flex flex-col justify-end p-6">
-          <span class="section-label mb-1">Branding &middot; Web &middot; AV</span>
-          <h3 class="font-almarai font-bold text-white text-2xl leading-tight">Casa Rolandi Tulum</h3>
-          <p class="text-white/50 text-sm mt-1 font-figtree">Swiss-Italian Gourmet &middot; Tulum</p>
-        </div>
-      </a>
-
-      <a href="https://www.instagram.com/bdb.agencia/" target="_blank" class="portfolio-item reveal group relative rounded-2xl overflow-hidden aspect-[3/4] bg-dark-card" data-category="social branding audiovisual">
-        <img src="img/portfolio/selva-me.jpg" alt="Selva Me" class="w-full h-full object-cover" />
-        <div class="overlay absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent flex flex-col justify-end p-6">
-          <span class="section-label mb-1">Branding &middot; Audiovisual</span>
-          <h3 class="font-almarai font-bold text-white text-2xl leading-tight">Selva Me</h3>
-          <p class="text-white/50 text-sm mt-1 font-figtree">Contenido &middot; Social Media</p>
-        </div>
-      </a>
-
-      <a href="https://www.casarolandicancun.com" target="_blank" class="portfolio-item reveal group relative rounded-2xl overflow-hidden aspect-[3/4] bg-dark-card" data-category="social web">
-        <img src="img/portfolio/casa-rolandi-cancun.jpg" alt="Casa Rolandi Cancún" class="w-full h-full object-cover" />
-        <div class="overlay absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent flex flex-col justify-end p-6">
-          <span class="section-label mb-1">Social Media &middot; Web</span>
-          <h3 class="font-almarai font-bold text-white text-2xl leading-tight">Casa Rolandi Cancún</h3>
-          <p class="text-white/50 text-sm mt-1 font-figtree">Restaurante Gourmet &middot; Cancún</p>
-        </div>
-      </a>
-
-      <a href="https://www.instagram.com/bdb.agencia/" target="_blank" class="portfolio-item reveal group relative rounded-2xl overflow-hidden aspect-[3/4] bg-dark-card" data-category="social web branding">
-        <img src="img/portfolio/maku-poke.jpg" alt="Maku Poke" class="w-full h-full object-cover" />
-        <div class="overlay absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent flex flex-col justify-end p-6">
-          <span class="section-label mb-1">Social &middot; Web &middot; Branding</span>
-          <h3 class="font-almarai font-bold text-white text-2xl leading-tight">Maku Poke</h3>
-          <p class="text-white/50 text-sm mt-1 font-figtree">Social Media &middot; Web &middot; Media</p>
-        </div>
-      </a>
-
-      <a href="https://www.instagram.com/bdb.agencia/" target="_blank" class="portfolio-item reveal group relative rounded-2xl overflow-hidden aspect-[3/4] bg-dark-card" data-category="audiovisual">
-        <img src="img/portfolio/clorofila.jpg" alt="Clorofila" class="w-full h-full object-cover" />
-        <div class="overlay absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent flex flex-col justify-end p-6">
-          <span class="section-label mb-1">Audiovisual</span>
-          <h3 class="font-almarai font-bold text-white text-2xl leading-tight">Clorofila</h3>
-          <p class="text-white/50 text-sm mt-1 font-figtree">Producción de video</p>
-        </div>
-      </a>
-
     </div>
   </div>
 </section>
 
 <!-- ══════════════════════════════════════════════
-     TESTIMONIOS — DARK SECTION
+     LOGOS MARQUEE
 ═══════════════════════════════════════════════ -->
-<section class="py-28 bg-dark">
-  <div class="max-w-4xl mx-auto px-6">
-    <p class="section-label text-center mb-16 reveal">Lo que dicen nuestros clientes</p>
+<section class="py-12 bg-white overflow-hidden border-t border-b border-black/5">
+  <div class="marquee-track items-center">
+    <span class="text-2xl font-bold text-dark/20 font-figtree whitespace-nowrap tracking-wider">ASGARDIA</span>
+    <span class="text-2xl font-bold text-dark/20 font-figtree whitespace-nowrap tracking-wider">OUTOSIA</span>
+    <span class="text-2xl font-bold text-dark/20 font-figtree whitespace-nowrap tracking-wider">&#9675; circle</span>
+    <span class="text-2xl font-bold text-dark/20 font-figtree whitespace-nowrap tracking-wider">acme</span>
+    <span class="text-2xl font-bold text-dark/20 font-figtree whitespace-nowrap tracking-wider">&amp; kanba</span>
+    <span class="text-2xl font-bold text-dark/20 font-figtree whitespace-nowrap tracking-wider">goldline</span>
+    <span class="text-2xl font-bold text-dark/20 font-figtree whitespace-nowrap tracking-wider">ASGARDIA</span>
+    <span class="text-2xl font-bold text-dark/20 font-figtree whitespace-nowrap tracking-wider">OUTOSIA</span>
+  </div>
+</section>
 
-    <div class="relative min-h-[240px]" id="testimonial-container">
-      <div class="testimonial-slide active text-center">
-        <p class="font-serif italic text-white/90 leading-relaxed mb-8 reveal"
-           style="font-size: clamp(1.3rem, 3vw, 2rem);">
-          &ldquo;Tuvimos una muy buena experiencia con el equipo, ya que nos dieron confianza y trabajaron profesionalmente de inicio a fin.&rdquo;
-        </p>
-        <p class="font-almarai font-bold text-white text-base">Kevin Carpenter</p>
-        <p class="text-white/35 text-sm mt-1 font-figtree">Co-Founder &amp; Marketing Director &middot; Carpenter Group</p>
-      </div>
+<!-- ══════════════════════════════════════════════
+     TESTIMONIALES — 4 CARD GRID
+═══════════════════════════════════════════════ -->
+<section class="py-24 md:py-32 bg-white">
+  <div class="max-w-7xl mx-auto px-6">
+    <div id="testimonial-container">
+      <!-- Page 1 (active) -->
+      <div class="testimonial-page active grid md:grid-cols-2 lg:grid-cols-4 gap-5">
+        <div class="testimonial-card reveal">
+          <div>
+            <div class="text-dark mb-4 text-sm tracking-wide">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <h4 class="font-almarai font-bold text-dark text-lg leading-tight mb-3">Volveremos a trabajar juntos</h4>
+            <p class="text-dark/50 text-sm leading-relaxed font-figtree">Quedamos muy contentos con el trabajo que realiz&oacute; BDB para Elementa! Sin duda lo recomiendo ampliamente y volveremos a trabajar juntos seguro!</p>
+          </div>
+          <div class="flex items-center gap-3 mt-6">
+            <img src="img/testimonials/erick.jpg" alt="Erick Rodríguez" class="w-10 h-10 rounded-full object-cover" />
+            <div>
+              <p class="text-sm font-figtree font-semibold text-dark">Erick Rodr&iacute;guez</p>
+              <p class="text-xs font-figtree text-dark/40">Elementa</p>
+            </div>
+          </div>
+        </div>
 
-      <div class="testimonial-slide text-center">
-        <p class="font-serif italic text-white/90 leading-relaxed mb-8"
-           style="font-size: clamp(1.3rem, 3vw, 2rem);">
-          &ldquo;BDB transformó nuestra presencia digital por completo. El equipo entendió nuestra visión desde el primer día y los resultados superaron nuestras expectativas.&rdquo;
-        </p>
-        <p class="font-almarai font-bold text-white text-base">Casa Rolandi</p>
-        <p class="text-white/35 text-sm mt-1 font-figtree">Swiss-Italian Gourmet Restaurant &middot; Cancún &amp; Tulum</p>
-      </div>
+        <div class="testimonial-card reveal">
+          <div>
+            <div class="text-dark mb-4 text-sm tracking-wide">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <h4 class="font-almarai font-bold text-dark text-lg leading-tight mb-3">Calidad profesional y un servicio impecable.</h4>
+            <p class="text-dark/50 text-sm leading-relaxed font-figtree">Definitivamente, recomiendo los servicios de esta agencia. Nos elaboraron proyectos extraordinarios para nuestra marca de productos de bienestar.</p>
+          </div>
+          <div class="flex items-center gap-3 mt-6">
+            <img src="img/testimonials/mauricio.jpg" alt="Mauricio Gonzalez" class="w-10 h-10 rounded-full object-cover" />
+            <div>
+              <p class="text-sm font-figtree font-semibold text-dark">Mauricio Gonzalez</p>
+              <p class="text-xs font-figtree text-dark/40">Nativo</p>
+            </div>
+          </div>
+        </div>
 
-      <div class="testimonial-slide text-center">
-        <p class="font-serif italic text-white/90 leading-relaxed mb-8"
-           style="font-size: clamp(1.3rem, 3vw, 2rem);">
-          &ldquo;Profesionales, creativos y siempre disponibles. La calidad del contenido audiovisual que producen es de primer nivel.&rdquo;
-        </p>
-        <p class="font-almarai font-bold text-white text-base">Selva Me</p>
-        <p class="text-white/35 text-sm mt-1 font-figtree">Branding &amp; Contenido Audiovisual</p>
+        <div class="testimonial-card reveal">
+          <div>
+            <div class="text-dark mb-4 text-sm tracking-wide">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <h4 class="font-almarai font-bold text-dark text-lg leading-tight mb-3">Excelente agencia de publicidad.</h4>
+            <p class="text-dark/50 text-sm leading-relaxed font-figtree">Abarcan muchas &aacute;reas y las necesidades de cada cliente, el trato y las ideas son personalizadas para cada proyecto y cada marca. BDB no solo es un sistema de programaci&oacute;n de pautas o contenido, va mucho m&aacute;s all&aacute; de las expectativas de sus clientes ofreciendo sugerencias de marketing, objetivos para incrementar ventas etc. &iexcl;Estamos muy contentos con su trabajo!</p>
+          </div>
+          <div class="flex items-center gap-3 mt-6">
+            <img src="img/testimonials/anakaren.jpg" alt="Anakaren Cortez" class="w-10 h-10 rounded-full object-cover" />
+            <div>
+              <p class="text-sm font-figtree font-semibold text-dark">Anakaren Cortez</p>
+              <p class="text-xs font-figtree text-dark/40">Maku poke</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card reveal">
+          <div>
+            <div class="text-dark mb-4 text-sm tracking-wide">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <h4 class="font-almarai font-bold text-dark text-lg leading-tight mb-3">Tuvimos una muy buena experiencia</h4>
+            <p class="text-dark/50 text-sm leading-relaxed font-figtree">Estamos contentos de trabajar de la mano de BDB Agency ya que nos dieron confianza y trabajaron profesionalmente desde el inicio hasta la entrega del producto final que cumpli&oacute; con todas nuestras expectativas.</p>
+          </div>
+          <div class="flex items-center gap-3 mt-6">
+            <img src="img/testimonials/kevin.jpg" alt="Kevin Carpenter" class="w-10 h-10 rounded-full object-cover" />
+            <div>
+              <p class="text-sm font-figtree font-semibold text-dark">Kevin Carpenter</p>
+              <p class="text-xs font-figtree text-dark/40">Carpenter Group</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
     <!-- Dots -->
-    <div class="flex justify-center gap-2 mt-8">
-      <button data-slide="0" class="w-2 h-2 rounded-full bg-white/20 dot-active transition-colors" style="background:var(--lime)"></button>
-      <button data-slide="1" class="w-2 h-2 rounded-full bg-white/20 transition-colors"></button>
-      <button data-slide="2" class="w-2 h-2 rounded-full bg-white/20 transition-colors"></button>
+    <div class="flex justify-center gap-2 mt-10">
+      <button class="dot dot-active" data-tpage="0"></button>
+      <button class="dot" data-tpage="1"></button>
+      <button class="dot" data-tpage="2"></button>
     </div>
   </div>
 </section>
 
 <!-- ══════════════════════════════════════════════
-     STATS — DARK ELEVATED
+     BDB EXPERIENCE — DARK SECTION
 ═══════════════════════════════════════════════ -->
-<section class="py-24" style="background:#202527;">
+<section class="relative overflow-hidden" style="background: linear-gradient(135deg, #0e1011 0%, #2a1f3d 50%, #b8a9c9 100%);">
+  <div class="max-w-7xl mx-auto px-6 py-24 md:py-32 relative z-10">
+    <div class="grid md:grid-cols-2 gap-12 items-center">
+      <!-- Title -->
+      <div class="reveal">
+        <h2 class="font-almarai font-extrabold text-white leading-[0.95]" style="font-size: clamp(4rem, 9vw, 8rem);">
+          BDB<br />
+          <em class="font-serif italic font-normal block" style="font-family: 'Instrument Serif', Georgia, serif;">Experience</em>
+        </h2>
+      </div>
+
+      <!-- Copy -->
+      <div class="reveal">
+        <p class="text-white/80 text-lg md:text-xl font-figtree leading-relaxed mb-8">
+          Creamos una conexi&oacute;n real entre marcas y personas a trav&eacute;s de experiencias digitales.
+        </p>
+        <a href="nosotros.html" class="btn-arrow btn-arrow-white">
+          More About Us
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Background image -->
+  <img src="img/experience-bg.jpg" alt="" class="absolute inset-0 w-full h-full object-cover opacity-30 mix-blend-luminosity" />
+</section>
+
+<!-- Stats Cards -->
+<section class="py-16 bg-white">
   <div class="max-w-7xl mx-auto px-6">
-    <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 text-center">
-      <div class="reveal">
-        <p class="font-almarai font-bold text-lime stat-number" style="font-size:72px;line-height:1;" data-target="10" data-suffix="+">0</p>
-        <p class="text-white/30 text-xs uppercase tracking-widest mt-3 font-figtree">Años de experiencia</p>
+    <div class="grid md:grid-cols-3 gap-6">
+      <div class="stat-card reveal">
+        <div class="flex items-center gap-2 mb-4">
+          <span class="section-label">
+            <span class="arrow-icon">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+            </span>
+            Clientes
+          </span>
+        </div>
+        <p class="font-serif italic text-5xl md:text-6xl text-dark mb-4" style="font-family: 'Instrument Serif', Georgia, serif;" data-target="500" data-suffix="+">0</p>
+        <p class="text-dark/50 text-sm font-figtree leading-relaxed">Hemos colaborado con m&aacute;s de 500 clientes visionarios, creando experiencias digitales que impulsan el crecimiento y generan un impacto duradero.</p>
       </div>
-      <div class="reveal">
-        <p class="font-almarai font-bold text-white stat-number" style="font-size:72px;line-height:1;" data-target="500" data-suffix="+">0</p>
-        <p class="text-white/30 text-xs uppercase tracking-widest mt-3 font-figtree">Clientes atendidos</p>
+
+      <div class="stat-card reveal">
+        <div class="flex items-center gap-2 mb-4">
+          <span class="section-label">
+            <span class="arrow-icon">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+            </span>
+            Pa&iacute;ses
+          </span>
+        </div>
+        <p class="font-serif italic text-5xl md:text-6xl text-dark mb-4" style="font-family: 'Instrument Serif', Georgia, serif;" data-target="6" data-suffix="+">0</p>
+        <p class="text-dark/50 text-sm font-figtree leading-relaxed">Hemos colaborado para clientes en Estados Unidos, Dubai, Inglaterra, M&eacute;xico, Espa&ntilde;a, Francia, Canad&aacute;, fortaleciendo nuestro sistema de entrega y calidad.</p>
       </div>
-      <div class="reveal">
-        <p class="font-almarai font-bold text-lime stat-number" style="font-size:72px;line-height:1;" data-target="8">0</p>
-        <p class="text-white/30 text-xs uppercase tracking-widest mt-3 font-figtree">Países</p>
-      </div>
-      <div class="reveal">
-        <p class="font-almarai font-bold text-white stat-number" style="font-size:72px;line-height:1;" data-target="50" data-suffix="+">0</p>
-        <p class="text-white/30 text-xs uppercase tracking-widest mt-3 font-figtree">Marcas activas</p>
+
+      <div class="stat-card reveal">
+        <div class="flex items-center gap-2 mb-4">
+          <span class="section-label">
+            <span class="arrow-icon">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+            </span>
+            Creatividad
+          </span>
+        </div>
+        <p class="font-serif italic text-5xl md:text-6xl text-dark mb-4" style="font-family: 'Instrument Serif', Georgia, serif;" data-target="110" data-suffix="%">0</p>
+        <p class="text-dark/50 text-sm font-figtree leading-relaxed">Vamos m&aacute;s all&aacute; de las expectativas, aportando 110% de creatividad en cada proyecto, asegurando dise&ntilde;os audaces, innovadores y memorables para nuestros clientes.</p>
       </div>
     </div>
   </div>
 </section>
 
 <!-- ══════════════════════════════════════════════
-     BENEFICIOS — CREAM SECTION
+     BENEFICIOS — "Descubre el por qué?"
 ═══════════════════════════════════════════════ -->
-<section class="py-28 bg-cream">
+<section class="bg-white">
+  <div class="max-w-7xl mx-auto px-6 py-24 md:py-32">
+    <div class="mb-10 reveal">
+      <span class="section-label">
+        <span class="arrow-icon">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        </span>
+        Beneficios
+      </span>
+    </div>
+
+    <div class="grid lg:grid-cols-2 gap-0 rounded-3xl overflow-hidden">
+      <!-- Left: Dark image -->
+      <div class="relative bg-dark min-h-[500px] flex flex-col justify-end p-10 md:p-14">
+        <img src="img/beneficios-bg.jpg" alt="" class="absolute inset-0 w-full h-full object-cover opacity-40" />
+        <div class="relative z-10">
+          <h2 class="font-almarai font-bold text-white text-4xl md:text-5xl leading-[1.05] mb-2">Descubre el</h2>
+          <p class="font-serif italic text-white text-5xl md:text-7xl leading-[1.0]" style="font-family: 'Instrument Serif', Georgia, serif;">por qu&eacute;?</p>
+          <p class="text-white/60 text-base font-figtree mt-6 mb-8 max-w-sm">Descubre por qu&eacute; BDB Agency es el mejor lugar para crecer tu marca.</p>
+          <a href="contacto.html" class="btn-arrow btn-arrow-white">
+            Cotiza
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Right: Benefit cards -->
+      <div class="bg-light-g p-8 md:p-12 flex flex-col justify-center">
+        <div class="benefit-card reveal">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="w-6 h-6 rounded-full bg-dark text-white text-[10px] flex items-center justify-center font-figtree font-semibold">01</span>
+            <span class="text-xs font-figtree font-medium text-dark/50 uppercase tracking-wider">Satisfacci&oacute;n</span>
+          </div>
+          <h4 class="font-almarai font-bold text-dark text-xl mb-2">Garant&iacute;a de Satisfacci&oacute;n.</h4>
+          <p class="text-dark/50 text-sm font-figtree leading-relaxed">No terminamos el proyecto si no es de tu agrado, cumpliendo con los requisitos garantizamos tu proyecto.</p>
+        </div>
+
+        <div class="benefit-card reveal">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="w-6 h-6 rounded-full bg-dark text-white text-[10px] flex items-center justify-center font-figtree font-semibold">02</span>
+            <span class="text-xs font-figtree font-medium text-dark/50 uppercase tracking-wider">Trazabilidad</span>
+          </div>
+          <h4 class="font-almarai font-bold text-dark text-xl mb-2">Creamos con procesos</h4>
+          <p class="text-dark/50 text-sm font-figtree leading-relaxed">No improvisamos, todos nuestros servicios tienen un proceso establecido con tecnolog&iacute;a y conocimiento de nuestros 10 a&ntilde;os de experiencia.</p>
+        </div>
+
+        <div class="benefit-card reveal">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="w-6 h-6 rounded-full bg-dark text-white text-[10px] flex items-center justify-center font-figtree font-semibold">03</span>
+            <span class="text-xs font-figtree font-medium text-dark/50 uppercase tracking-wider">Personalizaci&oacute;n</span>
+          </div>
+          <h4 class="font-almarai font-bold text-dark text-xl mb-2">Propuestas Personalizadas</h4>
+          <p class="text-dark/50 text-sm font-figtree leading-relaxed">Cada uno de nuestros servicios tiene su propio ADN, nuestras propuestas creativas son diferentes y adecuadas para cada marca.</p>
+        </div>
+
+        <div class="benefit-card reveal border-b-0">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="w-6 h-6 rounded-full bg-dark text-white text-[10px] flex items-center justify-center font-figtree font-semibold">04</span>
+            <span class="text-xs font-figtree font-medium text-dark/50 uppercase tracking-wider">Objetivos</span>
+          </div>
+          <h4 class="font-almarai font-bold text-dark text-xl mb-2">Enfocados en Resultados</h4>
+          <p class="text-dark/50 text-sm font-figtree leading-relaxed">Cada proyecto tiene m&eacute;tricas claras y objetivos definidos. Medimos el impacto real de nuestro trabajo en tu negocio.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     BLOG / LATEST NEWS
+═══════════════════════════════════════════════ -->
+<section class="py-24 md:py-32 bg-white">
   <div class="max-w-7xl mx-auto px-6">
-    <div class="reveal mb-16">
-      <p class="section-label mb-3" style="color:#0e1011;opacity:.5;">Por qué elegirnos</p>
-      <h2 class="font-almarai font-bold text-dark leading-tight tracking-tight2"
-          style="font-size: clamp(2.2rem, 4.5vw, 3.5rem);">La diferencia BDB.</h2>
+    <div class="flex items-end justify-between mb-14">
+      <div class="reveal">
+        <h2 style="font-size: clamp(3rem, 7vw, 6rem); line-height: 1; letter-spacing: -0.02em;">
+          <em class="font-serif italic font-normal" style="font-family: 'Instrument Serif', Georgia, serif;">Latest</em>
+          <span class="font-almarai font-bold"> News</span>
+        </h2>
+      </div>
+      <a href="blog.html" class="btn-arrow reveal hidden md:inline-flex">
+        All News
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+      </a>
     </div>
 
-    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-      <div class="reveal service-card-light p-8">
-        <div class="w-10 h-10 rounded-xl flex items-center justify-center mb-5" style="background:rgba(203,251,69,0.15)">
-          <svg class="w-5 h-5" fill="none" stroke="#cbfb45" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+    <div class="grid md:grid-cols-3 gap-6">
+      <!-- Article 1 -->
+      <a href="blog.html" class="blog-card group reveal">
+        <div class="relative rounded-2xl overflow-hidden mb-4" style="aspect-ratio: 3/4;">
+          <span class="absolute top-4 left-4 text-sm font-figtree text-dark/60 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full z-10">1 feb 2026</span>
+          <img src="img/blog/blog-01.jpg" alt="Blog" class="w-full h-full object-cover" />
+          <div class="absolute bottom-4 right-4 w-10 h-10 rounded-full bg-white flex items-center justify-center z-10 group-hover:bg-dark group-hover:text-white transition-colors">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+          </div>
         </div>
-        <h3 class="font-almarai font-bold text-dark text-xl mb-2">Equipo dedicado</h3>
-        <p class="text-dark/45 text-sm leading-relaxed font-figtree">Un equipo asignado exclusivamente a tu proyecto. No eres un número más.</p>
-      </div>
-      <div class="reveal service-card-light p-8">
-        <div class="w-10 h-10 rounded-xl flex items-center justify-center mb-5" style="background:rgba(203,251,69,0.15)">
-          <svg class="w-5 h-5" fill="none" stroke="#cbfb45" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        <h3 class="font-almarai font-bold text-dark text-lg leading-tight">&iquest;Cu&aacute;nto deber&iacute;as invertir en publicidad y marketing?</h3>
+      </a>
+
+      <!-- Article 2 -->
+      <a href="blog.html" class="blog-card group reveal">
+        <div class="relative rounded-2xl overflow-hidden mb-4" style="aspect-ratio: 3/4;">
+          <span class="absolute top-4 left-4 text-sm font-figtree text-dark/60 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full z-10">18 mar 2025</span>
+          <img src="img/blog/blog-02.jpg" alt="Blog" class="w-full h-full object-cover" />
+          <div class="absolute bottom-4 right-4 w-10 h-10 rounded-full bg-white flex items-center justify-center z-10 group-hover:bg-dark group-hover:text-white transition-colors">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+          </div>
         </div>
-        <h3 class="font-almarai font-bold text-dark text-xl mb-2">Presencia global</h3>
-        <p class="text-dark/45 text-sm leading-relaxed font-figtree">México, USA, Chile, España, UK y EAU. Tu marca sin fronteras.</p>
-      </div>
-      <div class="reveal service-card-light p-8">
-        <div class="w-10 h-10 rounded-xl flex items-center justify-center mb-5" style="background:rgba(203,251,69,0.15)">
-          <svg class="w-5 h-5" fill="none" stroke="#cbfb45" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+        <h3 class="font-almarai font-bold text-dark text-lg leading-tight">The Power of Branding: How to Build a Memorable and Lasting Brand</h3>
+      </a>
+
+      <!-- Article 3 -->
+      <a href="blog.html" class="blog-card group reveal">
+        <div class="relative rounded-2xl overflow-hidden mb-4" style="aspect-ratio: 3/4;">
+          <span class="absolute top-4 left-4 text-sm font-figtree text-dark/60 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full z-10">22 feb 2025</span>
+          <img src="img/blog/blog-03.jpg" alt="Blog" class="w-full h-full object-cover" />
+          <div class="absolute bottom-4 right-4 w-10 h-10 rounded-full bg-white flex items-center justify-center z-10 group-hover:bg-dark group-hover:text-white transition-colors">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+          </div>
         </div>
-        <h3 class="font-almarai font-bold text-dark text-xl mb-2">Tecnología + IA</h3>
-        <p class="text-dark/45 text-sm leading-relaxed font-figtree">Integramos inteligencia artificial en cada proceso para resultados más rápidos y precisos.</p>
-      </div>
-      <div class="reveal service-card-light p-8">
-        <div class="w-10 h-10 rounded-xl flex items-center justify-center mb-5" style="background:rgba(203,251,69,0.15)">
-          <svg class="w-5 h-5" fill="none" stroke="#cbfb45" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>
-        </div>
-        <h3 class="font-almarai font-bold text-dark text-xl mb-2">Hasta 18 MSI</h3>
-        <p class="text-dark/45 text-sm leading-relaxed font-figtree">Planes de pago flexibles para que inviertas en tu marca sin preocupaciones.</p>
-      </div>
-      <div class="reveal service-card-light p-8">
-        <div class="w-10 h-10 rounded-xl flex items-center justify-center mb-5" style="background:rgba(203,251,69,0.15)">
-          <svg class="w-5 h-5" fill="none" stroke="#cbfb45" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
-        </div>
-        <h3 class="font-almarai font-bold text-dark text-xl mb-2">Resultados medibles</h3>
-        <p class="text-dark/45 text-sm leading-relaxed font-figtree">Reportes claros y métricas reales. Transparencia total sobre el retorno de tu inversión.</p>
-      </div>
-      <div class="reveal service-card-light p-8">
-        <div class="w-10 h-10 rounded-xl flex items-center justify-center mb-5" style="background:rgba(203,251,69,0.15)">
-          <svg class="w-5 h-5" fill="none" stroke="#cbfb45" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-        </div>
-        <h3 class="font-almarai font-bold text-dark text-xl mb-2">Servicio 360&deg;</h3>
-        <p class="text-dark/45 text-sm leading-relaxed font-figtree">Branding, web, social, video, marketing y tecnología — todo bajo un mismo techo.</p>
-      </div>
+        <h3 class="font-almarai font-bold text-dark text-lg leading-tight">Top Design Trends for 2025: What&rsquo;s Shaping the Future</h3>
+      </a>
+    </div>
+
+    <!-- Mobile link -->
+    <div class="mt-8 md:hidden text-center">
+      <a href="blog.html" class="btn-arrow inline-flex">
+        All News
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+      </a>
     </div>
   </div>
 </section>
 
 <!-- ══════════════════════════════════════════════
-     CTA BAND — DARK
+     CTA FINAL
 ═══════════════════════════════════════════════ -->
-<section class="py-28 bg-dark relative overflow-hidden">
-  <!-- Subtle lime glow -->
-  <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(ellipse 60% 50% at 50% 100%, rgba(203,251,69,0.07), transparent);"></div>
-  <div class="max-w-4xl mx-auto px-6 text-center relative z-10">
-    <p class="section-label mb-6 reveal">Empecemos</p>
-    <h2 class="font-almarai font-bold text-white leading-tight tracking-tight2 mb-6 reveal"
-        style="font-size: clamp(2.5rem, 6vw, 5rem);">
-      &iquest;Listo para transformar<br />tu marca?
+<section class="py-24 md:py-32 bg-dark">
+  <div class="max-w-4xl mx-auto px-6 text-center">
+    <h2 class="font-almarai font-extrabold text-white leading-[1.0] mb-6 reveal" style="font-size: clamp(2.5rem, 6vw, 5rem); letter-spacing: -0.02em;">
+      &iquest;Listo para transformar<br />
+      <em class="font-serif italic font-normal" style="font-family: 'Instrument Serif', Georgia, serif;">tu marca?</em>
     </h2>
-    <p class="text-white/40 text-lg mb-10 max-w-lg mx-auto reveal font-figtree">
-      Cuéntanos tu idea y te mostramos cómo llevarla al siguiente nivel.
+    <p class="text-white/50 text-lg font-figtree mb-10 max-w-xl mx-auto reveal">
+      Conversemos sobre c&oacute;mo podemos llevar tu negocio al siguiente nivel. Sin compromisos.
     </p>
     <div class="flex flex-wrap justify-center gap-4 reveal">
-      <a href="contacto.html" class="btn-lime btn-magnetic px-9 py-4 text-base font-bold">
+      <a href="contacto.html" class="bg-white text-dark font-figtree font-semibold px-8 py-4 rounded-full text-base hover:bg-white/90 transition-colors">
         Cotiza tu proyecto &rarr;
       </a>
-      <a href="https://wa.me/529981700402" target="_blank" class="btn-ghost-dark px-9 py-4 text-base font-semibold font-figtree flex items-center gap-2">
-        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      <a href="https://wa.me/529981234567" target="_blank" class="btn-arrow btn-arrow-white px-8 py-4">
         WhatsApp
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
       </a>
     </div>
   </div>
@@ -658,54 +827,52 @@
 <!-- ══════════════════════════════════════════════
      FOOTER
 ═══════════════════════════════════════════════ -->
-<footer class="bg-dark pt-16 pb-10 border-t border-white/5">
-  <div class="max-w-7xl mx-auto px-6">
-    <div class="grid md:grid-cols-4 gap-12 mb-12">
+<footer class="bg-dark border-t border-white/5">
+  <div class="max-w-7xl mx-auto px-6 py-16">
+    <div class="grid md:grid-cols-4 gap-12">
+      <!-- Brand -->
       <div class="md:col-span-1">
-        <img src="img/logo.png" alt="BDB Agency" class="h-7 brightness-0 invert mb-4 opacity-80" />
-        <p class="text-white/30 text-sm leading-relaxed font-figtree">Conectamos tu marca con las personas indicadas.</p>
+        <p class="font-almarai font-bold text-white text-xl mb-4">BDB <sup class="text-[8px] font-normal">®</sup></p>
+        <p class="text-white/40 text-sm font-figtree leading-relaxed">Agencia de marketing digital en Canc&uacute;n. Branding, producci&oacute;n audiovisual, marketing y desarrollo web.</p>
       </div>
+
+      <!-- Nav -->
       <div>
-        <p class="text-white/20 text-xs uppercase tracking-widest mb-4 font-figtree">Navegación</p>
-        <div class="flex flex-col gap-2.5">
-          <a href="portafolio.html" class="text-white/40 hover:text-white text-sm transition-colors font-figtree">Portafolio</a>
-          <a href="nosotros.html"   class="text-white/40 hover:text-white text-sm transition-colors font-figtree">Nosotros</a>
-          <a href="blog.html"       class="text-white/40 hover:text-white text-sm transition-colors font-figtree">Blog</a>
-          <a href="contacto.html"   class="text-white/40 hover:text-white text-sm transition-colors font-figtree">Contacto</a>
-        </div>
+        <h4 class="text-white/30 text-xs uppercase tracking-widest font-figtree font-semibold mb-4">Navegaci&oacute;n</h4>
+        <ul class="space-y-3">
+          <li><a href="portafolio.html" class="text-white/60 hover:text-white text-sm font-figtree transition-colors">Portafolio</a></li>
+          <li><a href="nosotros.html" class="text-white/60 hover:text-white text-sm font-figtree transition-colors">Nosotros</a></li>
+          <li><a href="blog.html" class="text-white/60 hover:text-white text-sm font-figtree transition-colors">Blog</a></li>
+          <li><a href="contacto.html" class="text-white/60 hover:text-white text-sm font-figtree transition-colors">Contacto</a></li>
+        </ul>
       </div>
+
+      <!-- Servicios -->
       <div>
-        <p class="text-white/20 text-xs uppercase tracking-widest mb-4 font-figtree">Servicios</p>
-        <div class="flex flex-col gap-2.5">
-          <span class="text-white/30 text-sm font-figtree">Branding & Media</span>
-          <span class="text-white/30 text-sm font-figtree">Producción Audiovisual</span>
-          <span class="text-white/30 text-sm font-figtree">Marketing Digital</span>
-          <span class="text-white/30 text-sm font-figtree">IA & Desarrollo Web</span>
-        </div>
+        <h4 class="text-white/30 text-xs uppercase tracking-widest font-figtree font-semibold mb-4">Servicios</h4>
+        <ul class="space-y-3">
+          <li><span class="text-white/60 text-sm font-figtree">Branding &amp; Identity</span></li>
+          <li><span class="text-white/60 text-sm font-figtree">Producci&oacute;n Audiovisual</span></li>
+          <li><span class="text-white/60 text-sm font-figtree">Marketing Digital</span></li>
+          <li><span class="text-white/60 text-sm font-figtree">IA &amp; Desarrollo Web</span></li>
+        </ul>
       </div>
+
+      <!-- Contact -->
       <div>
-        <p class="text-white/20 text-xs uppercase tracking-widest mb-4 font-figtree">Contacto</p>
-        <div class="flex flex-col gap-2.5">
-          <a href="mailto:info@bdbagency.com" class="text-white/40 hover:text-white text-sm transition-colors font-figtree">info@bdbagency.com</a>
-          <a href="https://wa.me/529981700402" class="text-white/40 hover:text-white text-sm transition-colors font-figtree">+52 998 170 0402</a>
-          <div class="flex gap-4 mt-2">
-            <a href="https://www.instagram.com/bdb.agencia/" target="_blank" class="text-white/30 hover:text-lime transition-colors">
-              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
-            </a>
-            <a href="https://www.facebook.com/BeDigitalBrand" target="_blank" class="text-white/30 hover:text-lime transition-colors">
-              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-            </a>
-            <a href="https://www.behance.net/bautsdigital" target="_blank" class="text-white/30 hover:text-lime transition-colors">
-              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M22 7h-7V5h7v2zm1.726 10c-.442 1.297-2.029 3-5.101 3-3.074 0-5.564-1.729-5.564-5.675 0-3.91 2.325-5.92 5.466-5.92 3.082 0 4.964 1.782 5.375 4.426.078.506.109 1.188.095 2.14H15.97c.13 3.211 3.483 3.312 4.588 2.029h3.168zm-7.686-4h4.965c-.105-1.547-1.136-2.219-2.477-2.219-1.466 0-2.277.768-2.488 2.219zm-9.574 6.988H0V5.021h6.953c5.476.081 5.58 5.444 2.72 6.906 3.461 1.26 3.577 6.053-1.207 7.061zM2.917 8.241v4.393h3.667c1.684 0 2.655-.988 2.655-2.21 0-1.647-1.238-2.183-2.752-2.183H2.917zm3.667 7.547H2.917v-4.731h4.063c1.992 0 2.72 1.168 2.72 2.394 0 1.478-1.105 2.337-3.116 2.337z"/></svg>
-            </a>
-          </div>
-        </div>
+        <h4 class="text-white/30 text-xs uppercase tracking-widest font-figtree font-semibold mb-4">Contacto</h4>
+        <ul class="space-y-3">
+          <li><a href="mailto:info@bdbagency.com" class="text-white/60 hover:text-white text-sm font-figtree transition-colors">info@bdbagency.com</a></li>
+          <li><a href="https://instagram.com/bdbagency" target="_blank" class="text-white/60 hover:text-white text-sm font-figtree transition-colors">Instagram</a></li>
+          <li><a href="https://facebook.com/bdbagency" target="_blank" class="text-white/60 hover:text-white text-sm font-figtree transition-colors">Facebook</a></li>
+          <li><span class="text-white/60 text-sm font-figtree">Canc&uacute;n, M&eacute;xico</span></li>
+        </ul>
       </div>
     </div>
 
-    <div class="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-      <p class="text-white/20 text-xs font-figtree">&copy; 2026 BDB Agency. Todos los derechos reservados.</p>
-      <p class="text-white/20 text-xs font-figtree">Cancún, Quintana Roo, México</p>
+    <div class="mt-16 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
+      <p class="text-white/25 text-xs font-figtree">&copy; 2025 BDB Agency. Todos los derechos reservados.</p>
+      <p class="text-white/25 text-xs font-figtree">Canc&uacute;n, Quintana Roo, M&eacute;xico</p>
     </div>
   </div>
 </footer>

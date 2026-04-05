@@ -1,8 +1,8 @@
 /* ═══════════════════════════════════════════════════════════════
-   BDB AGENCY — Effects Engine
-   Dark theme · Lime accent · Apple/Framer aesthetic
-   Scroll reveal · Stat counters · Carousel · Portfolio filters
-   Nav glassmorphism · Smooth scroll · Magnetic buttons
+   BDB AGENCY — Effects Engine v2
+   White-first · Framer aesthetic · Mixed typography
+   Scroll reveal · Nav glassmorphism · Stat counters
+   Testimonial dots · Logo marquee · HLS video · Mobile menu
 ═══════════════════════════════════════════════════════════════ */
 
 (function () {
@@ -20,14 +20,14 @@
         revealObserver.unobserve(el);
       }
     });
-  }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
   function initReveal() {
     document.querySelectorAll('.reveal').forEach((el) => {
       if (!el.dataset.delay && el.parentElement) {
         const siblings = [...el.parentElement.querySelectorAll(':scope > .reveal')];
         const idx = siblings.indexOf(el);
-        if (idx > 0) el.dataset.delay = idx * 80;
+        if (idx > 0) el.dataset.delay = idx * 100;
       }
       revealObserver.observe(el);
     });
@@ -43,7 +43,7 @@
     window.addEventListener('scroll', () => {
       if (!ticking) {
         requestAnimationFrame(() => {
-          nav.classList.toggle('nav-scrolled', window.scrollY > 20);
+          nav.classList.toggle('nav-scrolled', window.scrollY > 50);
           ticking = false;
         });
         ticking = true;
@@ -75,7 +75,7 @@
     const target   = parseInt(el.dataset.target, 10);
     const suffix   = el.dataset.suffix || '';
     const prefix   = el.dataset.prefix || '';
-    const duration = 2200;
+    const duration = 2000;
     const start    = performance.now();
 
     function update(now) {
@@ -102,95 +102,54 @@
   }
 
   /* ─────────────────────────────────────────
-     5. TESTIMONIAL CAROUSEL
+     5. TESTIMONIAL PAGINATION (dots)
   ───────────────────────────────────────── */
-  function initCarousel() {
-    const slides = document.querySelectorAll('.testimonial-slide');
-    const dots   = document.querySelectorAll('[data-slide]');
-    if (!slides.length) return;
+  function initTestimonials() {
+    const pages = document.querySelectorAll('.testimonial-page');
+    const dots  = document.querySelectorAll('[data-tpage]');
+    if (!pages.length) return;
 
     let current = 0;
-    let timer   = null;
 
     function goTo(idx) {
-      slides[current].classList.remove('active');
+      pages[current].classList.remove('active');
       dots[current]?.classList.remove('dot-active');
-      current = (idx + slides.length) % slides.length;
-      slides[current].classList.add('active');
+      current = (idx + pages.length) % pages.length;
+      pages[current].classList.add('active');
       dots[current]?.classList.add('dot-active');
     }
 
-    function startTimer() {
-      clearInterval(timer);
-      timer = setInterval(() => goTo(current + 1), 5000);
-    }
-
     dots.forEach(dot => dot.addEventListener('click', () => {
-      goTo(parseInt(dot.dataset.slide));
-      startTimer();
+      goTo(parseInt(dot.dataset.tpage));
     }));
 
+    // Swipe support
     const container = document.getElementById('testimonial-container');
     if (container) {
       let tx = 0;
       container.addEventListener('touchstart', e => { tx = e.changedTouches[0].clientX; }, { passive: true });
-      container.addEventListener('touchend',   e => {
+      container.addEventListener('touchend', e => {
         const dx = e.changedTouches[0].clientX - tx;
-        if (Math.abs(dx) > 50) { goTo(current + (dx < 0 ? 1 : -1)); startTimer(); }
+        if (Math.abs(dx) > 50) { goTo(current + (dx < 0 ? 1 : -1)); }
       }, { passive: true });
     }
-
-    startTimer();
   }
 
   /* ─────────────────────────────────────────
-     6. PORTFOLIO FILTERS
+     6. LOGO MARQUEE
   ───────────────────────────────────────── */
-  function initFilters() {
-    const btns  = document.querySelectorAll('.filter-btn');
-    const items = document.querySelectorAll('.portfolio-item');
-    if (!btns.length) return;
-
-    btns.forEach(btn => btn.addEventListener('click', () => {
-      btns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      const filter = btn.dataset.filter;
-
-      items.forEach(item => {
-        const cats = (item.dataset.category || '').split(' ');
-        const show = filter === 'all' || cats.includes(filter);
-        item.style.transition = 'opacity 0.35s ease, transform 0.35s ease';
-        item.style.opacity    = show ? '1' : '0';
-        item.style.transform  = show ? 'scale(1)' : 'scale(0.96)';
-        item.style.pointerEvents = show ? '' : 'none';
-      });
-    }));
+  function initMarquee() {
+    const track = document.querySelector('.marquee-track');
+    if (!track) return;
+    // Clone children for seamless loop
+    const items = track.innerHTML;
+    track.innerHTML = items + items;
   }
 
   /* ─────────────────────────────────────────
-     7. MAGNETIC BUTTONS (lime CTAs)
+     7. HLS VIDEO BACKGROUND
   ───────────────────────────────────────── */
-  function initMagnetic() {
-    document.querySelectorAll('.btn-magnetic').forEach(btn => {
-      btn.addEventListener('mousemove', e => {
-        const rect = btn.getBoundingClientRect();
-        const dx   = (e.clientX - rect.left - rect.width  / 2) * 0.3;
-        const dy   = (e.clientY - rect.top  - rect.height / 2) * 0.3;
-        btn.style.transform = `translate(${dx}px, ${dy}px)`;
-      });
-      btn.addEventListener('mouseleave', () => {
-        btn.style.transition = 'transform 0.5s cubic-bezier(.165,.84,.44,1)';
-        btn.style.transform  = '';
-        setTimeout(() => { btn.style.transition = ''; }, 500);
-      });
-    });
-  }
-
-  /* ─────────────────────────────────────────
-     8. HLS VIDEO BACKGROUND
-  ───────────────────────────────────────── */
-  function initVideo() {
-    const video = document.getElementById('hero-video');
+  function initVideoElement(video) {
     if (!video) return;
     const src = video.dataset.src;
     if (!src) return;
@@ -206,6 +165,31 @@
     }
   }
 
+  function initVideo() {
+    initVideoElement(document.getElementById('hero-video'));
+    initVideoElement(document.getElementById('break-video'));
+  }
+
+  /* ─────────────────────────────────────────
+     8. SERVICE BAR EXPAND
+  ───────────────────────────────────────── */
+  function initServiceBar() {
+    document.querySelectorAll('.service-bar-item').forEach(item => {
+      item.addEventListener('click', () => {
+        const expanded = item.querySelector('.service-bar-detail');
+        if (!expanded) return;
+        const isOpen = expanded.classList.contains('open');
+        // Close all
+        document.querySelectorAll('.service-bar-detail.open').forEach(d => d.classList.remove('open'));
+        document.querySelectorAll('.service-bar-item .icon-plus').forEach(i => i.style.transform = '');
+        if (!isOpen) {
+          expanded.classList.add('open');
+          item.querySelector('.icon-plus').style.transform = 'rotate(45deg)';
+        }
+      });
+    });
+  }
+
   /* ─────────────────────────────────────────
      INIT
   ───────────────────────────────────────── */
@@ -214,10 +198,10 @@
     initNav();
     initMobileMenu();
     initCounters();
-    initCarousel();
-    initFilters();
-    initMagnetic();
+    initTestimonials();
+    initMarquee();
     initVideo();
+    initServiceBar();
   }
 
   document.readyState === 'loading'
