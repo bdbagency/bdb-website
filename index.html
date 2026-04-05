@@ -52,32 +52,38 @@
     }
     .reveal.visible { opacity: 1; transform: translateY(0); }
 
-    /* ── NAV (iPhone-style rounded pill bar) ── */
+    /* ── NAV (3 separate containers) ── */
     #navbar {
       background: transparent;
-      transition: all 0.4s ease;
     }
-    #navbar .nav-inner {
-      background: rgba(255,255,255,0.92);
+    .nav-part {
+      background: rgba(255,255,255,0.95);
       backdrop-filter: saturate(180%) blur(20px);
       -webkit-backdrop-filter: saturate(180%) blur(20px);
-      border-radius: 9999px;
-      border: 1px solid rgba(14,16,17,0.06);
-      box-shadow: 0 2px 20px rgba(0,0,0,0.06);
-      transition: all 0.4s ease;
+      border-radius: 20px;
+      transition: all 0.5s cubic-bezier(.4,0,.2,1);
     }
-    #navbar.nav-scrolled .nav-inner {
-      box-shadow: 0 4px 30px rgba(0,0,0,0.1);
+    .nav-left, .nav-right {
+      opacity: 1;
+      transform: scale(1);
+      transition: opacity 0.5s cubic-bezier(.4,0,.2,1), transform 0.5s cubic-bezier(.4,0,.2,1);
+    }
+    #navbar.nav-scrolled .nav-left,
+    #navbar.nav-scrolled .nav-right {
+      opacity: 0;
+      transform: scale(0.95);
+      pointer-events: none;
     }
     #navbar .nav-link { color: rgba(14,16,17,0.6); transition: color 0.3s ease; }
     #navbar .nav-link:hover { color: #0e1011; }
     #navbar .nav-logo { color: #0e1011; }
-    #navbar .nav-cta {
+    #navbar .nav-cta-btn {
       background: #0e1011;
       color: #fff;
+      border-radius: 500px;
       transition: all 0.3s ease;
     }
-    #navbar .nav-cta:hover { background: #2a2d2f; }
+    #navbar .nav-cta-btn:hover { background: #2a2d2f; }
     #navbar .menu-bar { background: #0e1011; }
 
     /* ── MOBILE MENU ── */
@@ -235,28 +241,40 @@
 <!-- ══════════════════════════════════════════════
      NAV
 ═══════════════════════════════════════════════ -->
-<nav id="navbar" class="fixed top-0 left-0 right-0 z-50 px-4 md:px-6 pt-4">
-  <div class="nav-inner max-w-6xl mx-auto px-6 h-14 flex items-center justify-between">
-    <a href="index.html" class="nav-logo font-almarai font-bold text-lg tracking-tight">BDB <sup class="text-[10px] font-normal">®</sup></a>
-
-    <!-- Desktop -->
-    <div class="hidden md:flex items-center gap-8">
-      <a href="portafolio.html" class="nav-link text-sm font-figtree font-medium">Portafolio</a>
-      <a href="nosotros.html"   class="nav-link text-sm font-figtree font-medium">Nosotros</a>
-      <a href="blog.html"       class="nav-link text-sm font-figtree font-medium">Blog</a>
-      <a href="contacto.html"   class="nav-link text-sm font-figtree font-medium">Cont&aacute;ctanos</a>
+<nav id="navbar" class="fixed top-0 left-0 right-0 z-50 px-4 md:px-6 pt-3">
+  <div class="max-w-7xl mx-auto flex items-center justify-between gap-2">
+    <!-- LEFT: Logo -->
+    <div class="nav-part nav-left hidden md:flex items-center px-5 h-12">
+      <a href="index.html" class="nav-logo font-almarai font-bold text-base tracking-tight whitespace-nowrap">BDB <sup class="text-[9px] font-normal">®</sup></a>
     </div>
 
-    <a href="contacto.html" class="nav-cta hidden md:inline-flex items-center gap-2 px-5 py-2 rounded-full text-sm font-figtree font-semibold">
-      Cont&aacute;ctanos
-    </a>
+    <!-- CENTER: Nav links -->
+    <div class="nav-part nav-center flex-1 flex items-center justify-center h-12 px-2">
+      <!-- Desktop links -->
+      <div class="hidden md:flex items-center gap-1">
+        <a href="portafolio.html" class="nav-link text-sm font-figtree font-medium px-4 py-2 rounded-full hover:bg-black/5 transition-colors">Portafolio</a>
+        <a href="nosotros.html"   class="nav-link text-sm font-figtree font-medium px-4 py-2 rounded-full hover:bg-black/5 transition-colors">Nosotro</a>
+        <a href="blog.html"       class="nav-link text-sm font-figtree font-medium px-4 py-2 rounded-full hover:bg-black/5 transition-colors">Blog</a>
+        <a href="contacto.html"   class="nav-link text-sm font-figtree font-medium px-4 py-2 rounded-full hover:bg-black/5 transition-colors">Cont&aacute;ctanos</a>
+      </div>
 
-    <!-- Mobile toggle -->
-    <button id="menu-toggle" class="md:hidden p-2 flex flex-col gap-1.5" aria-label="Men&uacute;">
-      <span class="menu-bar w-5 h-px block"></span>
-      <span class="menu-bar w-5 h-px block"></span>
-      <span class="menu-bar w-3 h-px block ml-auto"></span>
-    </button>
+      <!-- Mobile: logo + hamburger -->
+      <div class="md:hidden flex items-center justify-between w-full px-3">
+        <a href="index.html" class="nav-logo font-almarai font-bold text-base tracking-tight">BDB <sup class="text-[9px] font-normal">®</sup></a>
+        <button id="menu-toggle" class="p-2 flex flex-col gap-1.5" aria-label="Men&uacute;">
+          <span class="menu-bar w-5 h-px block"></span>
+          <span class="menu-bar w-5 h-px block"></span>
+          <span class="menu-bar w-3 h-px block ml-auto"></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- RIGHT: CTA button -->
+    <div class="nav-part nav-right hidden md:flex items-center px-2 h-12">
+      <a href="contacto.html" class="nav-cta-btn inline-flex items-center gap-2 px-5 py-2 text-sm font-figtree font-semibold">
+        Cont&aacute;ctanos
+      </a>
+    </div>
   </div>
 </nav>
 
