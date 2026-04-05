@@ -79,12 +79,8 @@
       padding-right: 0;
       pointer-events: none;
     }
-    /* Center: bottom-only radius by default, full pill when sides hidden */
     .nav-center {
-      transition: border-radius 0.4s cubic-bezier(.4,0,.2,1);
-    }
-    #navbar.nav-hide-sides .nav-center {
-      border-radius: 20px !important;
+      transition: none;
     }
     #navbar .nav-link { color: rgba(14,16,17,0.6); transition: color 0.3s ease; }
     #navbar .nav-link:hover { color: #0e1011; }
@@ -110,17 +106,17 @@
     .white-top-bar::after {
       content: '';
       position: absolute;
-      bottom: -16px;
-      width: 16px;
-      height: 16px;
+      bottom: -32px;
+      width: 32px;
+      height: 32px;
     }
     .white-top-bar::before {
       left: 12px;
-      background: radial-gradient(circle at 100% 0, transparent 16px, #fff 16px);
+      background: radial-gradient(circle at 100% 100%, transparent 32px, #fff 32px);
     }
     .white-top-bar::after {
       right: 12px;
-      background: radial-gradient(circle at 0 0, transparent 16px, #fff 16px);
+      background: radial-gradient(circle at 0 100%, transparent 32px, #fff 32px);
     }
 
     /* ── MOBILE MENU ── */
@@ -637,32 +633,34 @@
 <!-- ══════════════════════════════════════════════
      BDB EXPERIENCE — DARK SECTION
 ═══════════════════════════════════════════════ -->
-<section class="relative overflow-hidden" style="background: linear-gradient(135deg, #0e1011 0%, #2a1f3d 50%, #b8a9c9 100%);">
-  <div class="max-w-7xl mx-auto px-6 py-24 md:py-32 relative z-10">
-    <div class="grid md:grid-cols-2 gap-12 items-center">
-      <!-- Title -->
-      <div class="reveal">
-        <h2 class="font-almarai font-extrabold text-white leading-[0.95]" style="font-size: clamp(4rem, 9vw, 8rem);">
-          BDB<br />
-          <em class="font-serif italic font-normal block" style="font-family: 'Instrument Serif', Georgia, serif;">Experience</em>
-        </h2>
-      </div>
+<section class="bg-white px-3 md:px-4 py-3">
+  <div class="relative overflow-hidden rounded-3xl" style="background: linear-gradient(135deg, #0e1011 0%, #2a1f3d 50%, #b8a9c9 100%);">
+    <div class="max-w-7xl mx-auto px-6 py-24 md:py-32 relative z-10">
+      <div class="grid md:grid-cols-2 gap-12 items-center">
+        <!-- Title -->
+        <div class="reveal">
+          <h2 class="font-almarai font-extrabold text-white leading-[0.95]" style="font-size: clamp(4rem, 9vw, 8rem);">
+            BDB<br />
+            <em class="font-serif italic font-normal block" style="font-family: 'Instrument Serif', Georgia, serif;">Experience</em>
+          </h2>
+        </div>
 
-      <!-- Copy -->
-      <div class="reveal">
-        <p class="text-white/80 text-lg md:text-xl font-figtree leading-relaxed mb-8">
-          Creamos una conexi&oacute;n real entre marcas y personas a trav&eacute;s de experiencias digitales.
-        </p>
-        <a href="nosotros.html" class="btn-arrow btn-arrow-white">
-          More About Us
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-        </a>
+        <!-- Copy -->
+        <div class="reveal">
+          <p class="text-white/80 text-lg md:text-xl font-figtree leading-relaxed mb-8">
+            Creamos una conexi&oacute;n real entre marcas y personas a trav&eacute;s de experiencias digitales.
+          </p>
+          <a href="nosotros.html" class="btn-arrow btn-arrow-white">
+            More About Us
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+          </a>
+        </div>
       </div>
     </div>
-  </div>
 
-  <!-- Background image -->
-  <img src="img/experience-bg.jpg" alt="" class="absolute inset-0 w-full h-full object-cover opacity-30 mix-blend-luminosity" />
+    <!-- Background image -->
+    <img src="img/experience-bg.jpg" alt="" class="absolute inset-0 w-full h-full object-cover opacity-30 mix-blend-luminosity" />
+  </div>
 </section>
 
 <!-- Stats Cards -->
@@ -714,9 +712,9 @@
 <!-- ══════════════════════════════════════════════
      BENEFICIOS — "Descubre el por qué?"
 ═══════════════════════════════════════════════ -->
-<section class="bg-white">
-  <div class="max-w-7xl mx-auto px-6 py-24 md:py-32">
-    <div class="mb-10 reveal">
+<section class="bg-white px-3 md:px-4">
+  <div class="max-w-7xl mx-auto py-24 md:py-32">
+    <div class="mb-10 px-3 reveal">
       <span class="section-label">
         <span class="arrow-icon">
           <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
@@ -851,23 +849,25 @@
 <!-- ══════════════════════════════════════════════
      CTA FINAL
 ═══════════════════════════════════════════════ -->
-<section class="py-24 md:py-32 bg-dark">
-  <div class="max-w-4xl mx-auto px-6 text-center">
-    <h2 class="font-almarai font-extrabold text-white leading-[1.0] mb-6 reveal" style="font-size: clamp(2.5rem, 6vw, 5rem); letter-spacing: -0.02em;">
-      &iquest;Listo para transformar<br />
-      <em class="font-serif italic font-normal" style="font-family: 'Instrument Serif', Georgia, serif;">tu marca?</em>
-    </h2>
-    <p class="text-white/50 text-lg font-figtree mb-10 max-w-xl mx-auto reveal">
-      Conversemos sobre c&oacute;mo podemos llevar tu negocio al siguiente nivel. Sin compromisos.
-    </p>
-    <div class="flex flex-wrap justify-center gap-4 reveal">
-      <a href="contacto.html" class="bg-white text-dark font-figtree font-semibold px-8 py-4 rounded-full text-base hover:bg-white/90 transition-colors">
-        Cotiza tu proyecto &rarr;
-      </a>
-      <a href="https://wa.me/529981234567" target="_blank" class="btn-arrow btn-arrow-white px-8 py-4">
-        WhatsApp
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-      </a>
+<section class="bg-white px-3 md:px-4 py-3">
+  <div class="bg-dark rounded-3xl py-24 md:py-32 overflow-hidden">
+    <div class="max-w-4xl mx-auto px-6 text-center">
+      <h2 class="font-almarai font-extrabold text-white leading-[1.0] mb-6 reveal" style="font-size: clamp(2.5rem, 6vw, 5rem); letter-spacing: -0.02em;">
+        &iquest;Listo para transformar<br />
+        <em class="font-serif italic font-normal" style="font-family: 'Instrument Serif', Georgia, serif;">tu marca?</em>
+      </h2>
+      <p class="text-white/50 text-lg font-figtree mb-10 max-w-xl mx-auto reveal">
+        Conversemos sobre c&oacute;mo podemos llevar tu negocio al siguiente nivel. Sin compromisos.
+      </p>
+      <div class="flex flex-wrap justify-center gap-4 reveal">
+        <a href="contacto.html" class="bg-white text-dark font-figtree font-semibold px-8 py-4 rounded-full text-base hover:bg-white/90 transition-colors">
+          Cotiza tu proyecto &rarr;
+        </a>
+        <a href="https://wa.me/529981234567" target="_blank" class="btn-arrow btn-arrow-white px-8 py-4">
+          WhatsApp
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        </a>
+      </div>
     </div>
   </div>
 </section>
@@ -875,52 +875,54 @@
 <!-- ══════════════════════════════════════════════
      FOOTER
 ═══════════════════════════════════════════════ -->
-<footer class="bg-dark border-t border-white/5">
-  <div class="max-w-7xl mx-auto px-6 py-16">
-    <div class="grid md:grid-cols-4 gap-12">
-      <!-- Brand -->
-      <div class="md:col-span-1">
-        <p class="font-almarai font-bold text-white text-xl mb-4">BDB <sup class="text-[8px] font-normal">®</sup></p>
-        <p class="text-white/40 text-sm font-figtree leading-relaxed">Agencia de marketing digital en Canc&uacute;n. Branding, producci&oacute;n audiovisual, marketing y desarrollo web.</p>
+<footer class="bg-white px-3 md:px-4 pb-3">
+  <div class="bg-dark rounded-3xl overflow-hidden">
+    <div class="max-w-7xl mx-auto px-6 py-16">
+      <div class="grid md:grid-cols-4 gap-12">
+        <!-- Brand -->
+        <div class="md:col-span-1">
+          <p class="font-almarai font-bold text-white text-xl mb-4">BDB <sup class="text-[8px] font-normal">®</sup></p>
+          <p class="text-white/40 text-sm font-figtree leading-relaxed">Agencia de marketing digital en Canc&uacute;n. Branding, producci&oacute;n audiovisual, marketing y desarrollo web.</p>
+        </div>
+
+        <!-- Nav -->
+        <div>
+          <h4 class="text-white/30 text-xs uppercase tracking-widest font-figtree font-semibold mb-4">Navegaci&oacute;n</h4>
+          <ul class="space-y-3">
+            <li><a href="portafolio.html" class="text-white/60 hover:text-white text-sm font-figtree transition-colors">Portafolio</a></li>
+            <li><a href="nosotros.html" class="text-white/60 hover:text-white text-sm font-figtree transition-colors">Nosotros</a></li>
+            <li><a href="blog.html" class="text-white/60 hover:text-white text-sm font-figtree transition-colors">Blog</a></li>
+            <li><a href="contacto.html" class="text-white/60 hover:text-white text-sm font-figtree transition-colors">Contacto</a></li>
+          </ul>
+        </div>
+
+        <!-- Servicios -->
+        <div>
+          <h4 class="text-white/30 text-xs uppercase tracking-widest font-figtree font-semibold mb-4">Servicios</h4>
+          <ul class="space-y-3">
+            <li><span class="text-white/60 text-sm font-figtree">Branding &amp; Identity</span></li>
+            <li><span class="text-white/60 text-sm font-figtree">Producci&oacute;n Audiovisual</span></li>
+            <li><span class="text-white/60 text-sm font-figtree">Marketing Digital</span></li>
+            <li><span class="text-white/60 text-sm font-figtree">IA &amp; Desarrollo Web</span></li>
+          </ul>
+        </div>
+
+        <!-- Contact -->
+        <div>
+          <h4 class="text-white/30 text-xs uppercase tracking-widest font-figtree font-semibold mb-4">Contacto</h4>
+          <ul class="space-y-3">
+            <li><a href="mailto:info@bdbagency.com" class="text-white/60 hover:text-white text-sm font-figtree transition-colors">info@bdbagency.com</a></li>
+            <li><a href="https://instagram.com/bdbagency" target="_blank" class="text-white/60 hover:text-white text-sm font-figtree transition-colors">Instagram</a></li>
+            <li><a href="https://facebook.com/bdbagency" target="_blank" class="text-white/60 hover:text-white text-sm font-figtree transition-colors">Facebook</a></li>
+            <li><span class="text-white/60 text-sm font-figtree">Canc&uacute;n, M&eacute;xico</span></li>
+          </ul>
+        </div>
       </div>
 
-      <!-- Nav -->
-      <div>
-        <h4 class="text-white/30 text-xs uppercase tracking-widest font-figtree font-semibold mb-4">Navegaci&oacute;n</h4>
-        <ul class="space-y-3">
-          <li><a href="portafolio.html" class="text-white/60 hover:text-white text-sm font-figtree transition-colors">Portafolio</a></li>
-          <li><a href="nosotros.html" class="text-white/60 hover:text-white text-sm font-figtree transition-colors">Nosotros</a></li>
-          <li><a href="blog.html" class="text-white/60 hover:text-white text-sm font-figtree transition-colors">Blog</a></li>
-          <li><a href="contacto.html" class="text-white/60 hover:text-white text-sm font-figtree transition-colors">Contacto</a></li>
-        </ul>
+      <div class="mt-16 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
+        <p class="text-white/25 text-xs font-figtree">&copy; 2025 BDB Agency. Todos los derechos reservados.</p>
+        <p class="text-white/25 text-xs font-figtree">Canc&uacute;n, Quintana Roo, M&eacute;xico</p>
       </div>
-
-      <!-- Servicios -->
-      <div>
-        <h4 class="text-white/30 text-xs uppercase tracking-widest font-figtree font-semibold mb-4">Servicios</h4>
-        <ul class="space-y-3">
-          <li><span class="text-white/60 text-sm font-figtree">Branding &amp; Identity</span></li>
-          <li><span class="text-white/60 text-sm font-figtree">Producci&oacute;n Audiovisual</span></li>
-          <li><span class="text-white/60 text-sm font-figtree">Marketing Digital</span></li>
-          <li><span class="text-white/60 text-sm font-figtree">IA &amp; Desarrollo Web</span></li>
-        </ul>
-      </div>
-
-      <!-- Contact -->
-      <div>
-        <h4 class="text-white/30 text-xs uppercase tracking-widest font-figtree font-semibold mb-4">Contacto</h4>
-        <ul class="space-y-3">
-          <li><a href="mailto:info@bdbagency.com" class="text-white/60 hover:text-white text-sm font-figtree transition-colors">info@bdbagency.com</a></li>
-          <li><a href="https://instagram.com/bdbagency" target="_blank" class="text-white/60 hover:text-white text-sm font-figtree transition-colors">Instagram</a></li>
-          <li><a href="https://facebook.com/bdbagency" target="_blank" class="text-white/60 hover:text-white text-sm font-figtree transition-colors">Facebook</a></li>
-          <li><span class="text-white/60 text-sm font-figtree">Canc&uacute;n, M&eacute;xico</span></li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="mt-16 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
-      <p class="text-white/25 text-xs font-figtree">&copy; 2025 BDB Agency. Todos los derechos reservados.</p>
-      <p class="text-white/25 text-xs font-figtree">Canc&uacute;n, Quintana Roo, M&eacute;xico</p>
     </div>
   </div>
 </footer>
