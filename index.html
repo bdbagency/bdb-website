@@ -293,31 +293,27 @@
 <!-- ══════════════════════════════════════════════
      HERO — VIDEO BACKGROUND
 ═══════════════════════════════════════════════ -->
-<section class="bg-white pt-24 px-4 md:px-6 pb-0">
-  <div class="relative min-h-[85vh] flex flex-col justify-center overflow-hidden rounded-3xl">
+<section class="bg-white px-3 md:px-4 pt-3 pb-0">
+  <div class="relative min-h-screen flex flex-col overflow-hidden rounded-3xl">
     <!-- Hero background photo -->
     <img src="img/hero-bg.jpg" alt="" class="absolute inset-0 w-full h-full object-cover pointer-events-none" />
 
-    <!-- Subtle gradient overlay (lighter) -->
-    <div class="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-black/10 z-10"></div>
+    <!-- Very subtle gradient overlay -->
+    <div class="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent z-10"></div>
 
-    <!-- Hero Text -->
-    <div class="relative z-20 max-w-7xl mx-auto px-6 w-full text-center mt-16">
+    <!-- Hero Text — centered in upper half -->
+    <div class="relative z-20 max-w-7xl mx-auto px-6 w-full text-center flex-1 flex flex-col justify-center" style="padding-top: 10vh;">
       <h1 class="font-almarai font-extrabold text-white leading-[0.95] tracking-tight"
           style="font-size: clamp(4rem, 10vw, 9rem);">
         BDB Agency
       </h1>
-    </div>
-
-    <!-- Subtitle right-aligned -->
-    <div class="relative z-20 max-w-7xl mx-auto px-6 w-full mt-8">
-      <p class="text-white/85 text-base md:text-lg font-figtree max-w-sm ml-auto text-right leading-relaxed">
+      <p class="text-white/80 text-base md:text-lg font-figtree max-w-sm ml-auto text-right leading-relaxed mt-4 mr-4 md:mr-16">
         Ven y cambia la forma de comunicar tu marca
       </p>
     </div>
 
     <!-- Service bar at bottom (inside rounded container) -->
-    <div class="relative z-20 w-full mt-auto px-4 md:px-8 pb-6 pt-12">
+    <div class="relative z-20 w-full px-4 md:px-8 pb-6 pt-8">
       <div class="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-3">
       <div class="service-bar-item bg-white/95 backdrop-blur-sm rounded-2xl px-5 py-4 flex items-center justify-between">
         <div class="flex items-center gap-3">
