@@ -180,6 +180,31 @@
       box-shadow: 0 16px 40px rgba(0,0,0,0.08);
     }
 
+    /* ── WORK CARDS — POLAROID ── */
+    .work-card-polaroid {
+      background: #f6f6f6;
+      border-radius: 16px;
+      padding: 8px 8px 16px;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+    .work-card-polaroid:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 48px rgba(0,0,0,0.09);
+    }
+    .work-card-polaroid .polaroid-img {
+      overflow: hidden;
+      border-radius: 10px;
+    }
+    .work-card-polaroid .polaroid-img img {
+      width: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.6s ease;
+    }
+    .work-card-polaroid:hover .polaroid-img img {
+      transform: scale(1.04);
+    }
+
     /* ── TAG PILLS ── */
     .tag-pill {
       display: inline-block;
@@ -567,6 +592,84 @@
           </div>
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     NUESTRO TRABAJO
+═══════════════════════════════════════════════ -->
+<section class="py-20 md:py-28 bg-white">
+  <div class="max-w-7xl mx-auto px-6 md:px-10">
+    <!-- Header -->
+    <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-10">
+      <div>
+        <span class="section-label mb-3 block">
+          <span style="width:7px;height:7px;border-radius:50%;background:#0e1011;display:inline-block;"></span>
+          Portafolio
+          <span class="arrow-icon">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 9.5L9.5 2.5M9.5 2.5H4M9.5 2.5V8" stroke="#0e1011" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </span>
+        <h2 class="text-4xl md:text-5xl font-bold font-figtree text-dark leading-tight">Nuestro Trabajo</h2>
+      </div>
+      <a href="portafolio.html" class="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-black/15 text-dark font-figtree font-medium text-sm hover:bg-black hover:text-white transition-all duration-300 self-start sm:self-auto">
+        Ver más
+        <svg width="14" height="14" viewBox="0 0 12 12" fill="none"><path d="M2.5 9.5L9.5 2.5M9.5 2.5H4M9.5 2.5V8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+
+    <!-- Grid 2x2 — Polaroid Style -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
+
+      <!-- Card 1 — Carpenter Group -->
+      <a href="portfolio/carpenter-group.html" class="work-card-polaroid reveal block cursor-pointer">
+        <div class="polaroid-img">
+          <img src="img/portfolio/carpenter-group.jpg" alt="Carpenter Group"
+               class="h-80 md:h-[400px]">
+        </div>
+        <div class="flex items-center justify-between mt-4 px-1">
+          <span class="text-dark font-figtree font-semibold text-lg">Carpenter Group</span>
+          <span class="text-dark/40 font-figtree text-sm">Branding</span>
+        </div>
+      </a>
+
+      <!-- Card 2 — Casa Rolandi -->
+      <a href="portfolio/casa-rolandi.html" class="work-card-polaroid reveal block cursor-pointer">
+        <div class="polaroid-img">
+          <img src="img/portfolio/casa-rolandi-cancun.jpg" alt="Casa Rolandi"
+               class="h-80 md:h-[400px]">
+        </div>
+        <div class="flex items-center justify-between mt-4 px-1">
+          <span class="text-dark font-figtree font-semibold text-lg">Casa Rolandi</span>
+          <span class="text-dark/40 font-figtree text-sm">Hospitality</span>
+        </div>
+      </a>
+
+      <!-- Card 3 — Al Sahar -->
+      <a href="portafolio.html" class="work-card-polaroid reveal block cursor-pointer">
+        <div class="polaroid-img">
+          <img src="img/portfolio/al-sahar.jpg" alt="Al Sahar"
+               class="h-80 md:h-[400px]">
+        </div>
+        <div class="flex items-center justify-between mt-4 px-1">
+          <span class="text-dark font-figtree font-semibold text-lg">Al Sahar</span>
+          <span class="text-dark/40 font-figtree text-sm">Marketing</span>
+        </div>
+      </a>
+
+      <!-- Card 4 — Maku Poke -->
+      <a href="portafolio.html" class="work-card-polaroid reveal block cursor-pointer">
+        <div class="polaroid-img">
+          <img src="img/portfolio/maku-poke.jpg" alt="Maku Poke"
+               class="h-80 md:h-[400px]">
+        </div>
+        <div class="flex items-center justify-between mt-4 px-1">
+          <span class="text-dark font-figtree font-semibold text-lg">Maku Poke</span>
+          <span class="text-dark/40 font-figtree text-sm">Branding &amp; Web</span>
+        </div>
+      </a>
+
     </div>
   </div>
 </section>
