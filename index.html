@@ -52,6 +52,22 @@
     }
     .reveal.visible { opacity: 1; transform: translateY(0); }
 
+    /* ── VIDEO SCROLL REVEAL — Cinematic entrance ── */
+    .video-scroll-reveal {
+      opacity: 0;
+      transform: scale(0.92) translateY(40px);
+      clip-path: inset(8% 4% 8% 4% round 24px);
+      transition:
+        opacity 1.1s cubic-bezier(.16,1,.3,1),
+        transform 1.1s cubic-bezier(.16,1,.3,1),
+        clip-path 1.1s cubic-bezier(.16,1,.3,1);
+    }
+    .video-scroll-reveal.visible {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+      clip-path: inset(0% 0% 0% 0% round 24px);
+    }
+
     /* ── NAV (3 separate containers) ── */
     #navbar {
       background: transparent;
@@ -338,8 +354,8 @@
     <!-- Very subtle gradient overlay -->
     <div class="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent z-10"></div>
 
-    <!-- Hero Text — centered in upper half -->
-    <div class="relative z-20 max-w-7xl mx-auto px-6 w-full text-center flex-1 flex flex-col justify-center" style="padding-top: 10vh;">
+    <!-- Hero Text — fixed position, not affected by service bar -->
+    <div class="absolute inset-0 z-20 flex flex-col items-center justify-center px-6" style="padding-bottom: 15vh;">
       <h1 class="font-almarai font-light text-white leading-[0.95] tracking-tight"
           style="font-size: clamp(4rem, 10vw, 9rem);">
         BDB Agency
@@ -350,35 +366,81 @@
     </div>
 
     <!-- Service bar at bottom (inside rounded container) -->
-    <div class="relative z-20 w-full px-4 md:px-8 pb-6 pt-8">
-      <div class="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-3">
-      <div class="service-bar-item bg-white/95 backdrop-blur-sm rounded-2xl px-5 py-4 flex items-center justify-between">
-        <div class="flex items-center gap-3">
-          <span class="w-7 h-7 rounded-full bg-dark text-white text-xs flex items-center justify-center font-figtree font-semibold">01</span>
-          <span class="font-figtree font-medium text-dark text-sm">Branding</span>
+    <div class="relative z-20 w-full px-4 md:px-8 pb-6 pt-8 mt-auto">
+      <div class="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-3 items-end">
+      <!-- 01 Branding -->
+      <div class="service-bar-item bg-white/95 backdrop-blur-sm rounded-2xl px-5 py-4">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <span class="w-7 h-7 rounded-full bg-dark text-white text-xs flex items-center justify-center font-figtree font-semibold">01</span>
+            <span class="font-figtree font-medium text-dark text-sm">Branding</span>
+          </div>
+          <svg class="icon-plus w-5 h-5 text-dark/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 5v14m-7-7h14"/></svg>
         </div>
-        <svg class="icon-plus w-5 h-5 text-dark/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 5v14m-7-7h14"/></svg>
+        <div class="service-bar-detail">
+          <p class="text-dark/60 text-xs font-figtree leading-relaxed mt-3 mb-3">Creamos identidades de marca distintivas que conectan, inspiran confianza y generan v&iacute;nculos emocionales duraderos con tu audiencia. Eleva la presencia de tu marca.</p>
+          <div class="flex flex-wrap gap-1.5">
+            <span class="tag-pill text-[10px] px-2.5 py-1">Brand Strategy</span>
+            <span class="tag-pill text-[10px] px-2.5 py-1">Visual Identity Design</span>
+            <span class="tag-pill text-[10px] px-2.5 py-1">Brand Guidelines</span>
+          </div>
+        </div>
       </div>
-      <div class="service-bar-item bg-white/95 backdrop-blur-sm rounded-2xl px-5 py-4 flex items-center justify-between">
-        <div class="flex items-center gap-3">
-          <span class="w-7 h-7 rounded-full bg-dark text-white text-xs flex items-center justify-center font-figtree font-semibold">02</span>
-          <span class="font-figtree font-medium text-dark text-sm">Producci&oacute;n Audiovisual</span>
+
+      <!-- 02 Producción Audiovisual -->
+      <div class="service-bar-item bg-white/95 backdrop-blur-sm rounded-2xl px-5 py-4">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <span class="w-7 h-7 rounded-full bg-dark text-white text-xs flex items-center justify-center font-figtree font-semibold">02</span>
+            <span class="font-figtree font-medium text-dark text-sm">Producci&oacute;n Audiovisual</span>
+          </div>
+          <svg class="icon-plus w-5 h-5 text-dark/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 5v14m-7-7h14"/></svg>
         </div>
-        <svg class="icon-plus w-5 h-5 text-dark/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 5v14m-7-7h14"/></svg>
+        <div class="service-bar-detail">
+          <p class="text-dark/60 text-xs font-figtree leading-relaxed mt-3 mb-3">Creamos producciones audiovisuales cinematogr&aacute;ficas que comunican, emocionan y elevan la percepci&oacute;n de tu marca, generando experiencias visuales memorables.</p>
+          <div class="flex flex-wrap gap-1.5">
+            <span class="tag-pill text-[10px] px-2.5 py-1">Cinematic Reels</span>
+            <span class="tag-pill text-[10px] px-2.5 py-1">Commercial</span>
+          </div>
+        </div>
       </div>
-      <div class="service-bar-item bg-white/95 backdrop-blur-sm rounded-2xl px-5 py-4 flex items-center justify-between">
-        <div class="flex items-center gap-3">
-          <span class="w-7 h-7 rounded-full bg-dark text-white text-xs flex items-center justify-center font-figtree font-semibold">03</span>
-          <span class="font-figtree font-medium text-dark text-sm">Marketing</span>
+
+      <!-- 03 Marketing -->
+      <div class="service-bar-item bg-white/95 backdrop-blur-sm rounded-2xl px-5 py-4">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <span class="w-7 h-7 rounded-full bg-dark text-white text-xs flex items-center justify-center font-figtree font-semibold">03</span>
+            <span class="font-figtree font-medium text-dark text-sm">Marketing</span>
+          </div>
+          <svg class="icon-plus w-5 h-5 text-dark/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 5v14m-7-7h14"/></svg>
         </div>
-        <svg class="icon-plus w-5 h-5 text-dark/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 5v14m-7-7h14"/></svg>
+        <div class="service-bar-detail">
+          <p class="text-dark/60 text-xs font-figtree leading-relaxed mt-3 mb-3">Desarrollamos sistemas de marketing enfocados en la adquisici&oacute;n de clientes, dise&ntilde;ados para atraer, convertir y escalar resultados de forma estrat&eacute;gica y medible.</p>
+          <div class="flex flex-wrap gap-1.5">
+            <span class="tag-pill text-[10px] px-2.5 py-1">Tiktok, Meta &amp; Google Ads</span>
+            <span class="tag-pill text-[10px] px-2.5 py-1">Adquisition Clients</span>
+            <span class="tag-pill text-[10px] px-2.5 py-1">Funnel of Sales</span>
+          </div>
+        </div>
       </div>
-      <div class="service-bar-item bg-white/95 backdrop-blur-sm rounded-2xl px-5 py-4 flex items-center justify-between">
-        <div class="flex items-center gap-3">
-          <span class="w-7 h-7 rounded-full bg-dark text-white text-xs flex items-center justify-center font-figtree font-semibold">04</span>
-          <span class="font-figtree font-medium text-dark text-sm">IA &amp; Web</span>
+
+      <!-- 04 IA & Web -->
+      <div class="service-bar-item bg-white/95 backdrop-blur-sm rounded-2xl px-5 py-4">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <span class="w-7 h-7 rounded-full bg-dark text-white text-xs flex items-center justify-center font-figtree font-semibold">04</span>
+            <span class="font-figtree font-medium text-dark text-sm">IA &amp; Web</span>
+          </div>
+          <svg class="icon-plus w-5 h-5 text-dark/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 5v14m-7-7h14"/></svg>
         </div>
-        <svg class="icon-plus w-5 h-5 text-dark/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 5v14m-7-7h14"/></svg>
+        <div class="service-bar-detail">
+          <p class="text-dark/60 text-xs font-figtree leading-relaxed mt-3 mb-3">Automatizamos procesos y desarrollamos soluciones web inteligentes que optimizan operaciones, mejoran la eficiencia y potencian el crecimiento de tu negocio.</p>
+          <div class="flex flex-wrap gap-1.5">
+            <span class="tag-pill text-[10px] px-2.5 py-1">Web Design</span>
+            <span class="tag-pill text-[10px] px-2.5 py-1">AI Automation</span>
+            <span class="tag-pill text-[10px] px-2.5 py-1">Sales Landing Page</span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -399,7 +461,7 @@
       </span>
     </div>
 
-    <p class="text-2xl md:text-4xl lg:text-[42px] leading-[1.35] font-figtree font-normal text-dark reveal" style="letter-spacing: -0.01em;">
+    <p class="text-2xl md:text-4xl lg:text-[42px] leading-[1.35] font-figtree font-normal text-dark scroll-word-reveal" style="letter-spacing: -0.01em;">
       BDB es una agencia digital enfocada en <em class="font-serif italic font-normal not-italic" style="font-family: 'Instrument Serif', Georgia, serif; font-style: italic;">branding, marketing, producci&oacute;n audiovisual y desarrollo web</em>, creando marcas s&oacute;lidas, con 10 a&ntilde;os de experiencia dando soluciones estrat&eacute;gicas que impulsan el crecimiento de nuestros clientes.
     </p>
   </div>
@@ -409,7 +471,7 @@
      VIDEO BREAK — FULL WIDTH
 ═══════════════════════════════════════════════ -->
 <section class="px-4 md:px-8 pb-8">
-  <div class="max-w-7xl mx-auto rounded-3xl overflow-hidden reveal" style="aspect-ratio: 16/7;">
+  <div class="max-w-7xl mx-auto overflow-hidden video-scroll-reveal" style="aspect-ratio: 16/7;">
     <video
       class="w-full h-full object-cover"
       autoplay muted loop playsinline
@@ -422,9 +484,9 @@
 <!-- ══════════════════════════════════════════════
      SERVICIOS — 2x2 GRID WITH IMAGES
 ═══════════════════════════════════════════════ -->
-<section class="py-24 md:py-32 bg-white">
-  <div class="max-w-7xl mx-auto px-6">
-    <div class="mb-14 reveal">
+<section class="pt-28 md:pt-36 pb-14 md:pb-20 bg-white">
+  <div class="px-10 md:px-14">
+    <div class="mb-14 reveal max-w-7xl mx-auto">
       <span class="section-label">
         <span class="arrow-icon">
           <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
@@ -433,18 +495,18 @@
       </span>
     </div>
 
-    <div class="grid md:grid-cols-2 gap-6">
+    <div class="grid md:grid-cols-2 gap-4">
       <!-- Brand Identity -->
-      <div class="service-card reveal flex flex-col sm:flex-row gap-6 p-6">
-        <div class="sm:w-2/5 flex-shrink-0">
-          <img src="img/services/branding.jpg" alt="Brand Identity" class="w-full h-48 sm:h-full object-cover rounded-xl" />
+      <div class="service-card reveal flex flex-col sm:flex-row gap-7 p-6">
+        <div class="sm:w-[27%] flex-shrink-0 rounded-xl overflow-hidden sm:ml-1">
+          <img src="img/services/branding.jpg" alt="Brand Identity" class="w-full h-[275px] sm:h-[275px] object-cover" />
         </div>
-        <div class="flex flex-col justify-between py-2">
+        <div class="flex flex-col justify-between py-1">
           <div>
-            <h3 class="font-almarai font-bold text-dark text-2xl mb-3 leading-tight">Brand <em class="font-serif italic font-normal" style="font-family: 'Instrument Serif', Georgia, serif;">Identity</em></h3>
-            <p class="text-dark/50 leading-relaxed text-sm font-figtree">Creamos identidades de marca distintivas que conectan, inspiran confianza y generan v&iacute;nculos emocionales duraderos con tu audiencia. Elevamos la presencia de tu marca.</p>
+            <h3 class="font-almarai font-bold text-dark text-[34px] mb-2 leading-tight">Brand <em class="font-serif italic font-normal" style="font-family: 'Instrument Serif', Georgia, serif;">Identity</em></h3>
+            <p class="text-dark/50 leading-relaxed text-[16px] font-figtree">Creamos identidades de marca distintivas que conectan, inspiran confianza y generan v&iacute;nculos emocionales duraderos con tu audiencia. Elevamos la presencia de tu marca.</p>
           </div>
-          <div class="flex flex-wrap gap-2 mt-5">
+          <div class="flex flex-wrap gap-2 mt-3">
             <span class="tag-pill">Brand Strategy</span>
             <span class="tag-pill">Visual Identity Design</span>
             <span class="tag-pill">Brand Guidelines</span>
@@ -453,16 +515,16 @@
       </div>
 
       <!-- Produccion Audiovisual -->
-      <div class="service-card reveal flex flex-col sm:flex-row gap-6 p-6">
-        <div class="sm:w-2/5 flex-shrink-0">
-          <img src="img/services/audiovisual.jpg" alt="Producción Audiovisual" class="w-full h-48 sm:h-full object-cover rounded-xl" />
+      <div class="service-card reveal flex flex-col sm:flex-row gap-7 p-6">
+        <div class="sm:w-[27%] flex-shrink-0 rounded-xl overflow-hidden sm:ml-1">
+          <img src="img/services/audiovisual.jpg" alt="Producción Audiovisual" class="w-full h-[275px] sm:h-[275px] object-cover" />
         </div>
-        <div class="flex flex-col justify-between py-2">
+        <div class="flex flex-col justify-between py-1">
           <div>
-            <h3 class="font-almarai font-bold text-dark text-2xl mb-3 leading-tight">Producci&oacute;n <em class="font-serif italic font-normal" style="font-family: 'Instrument Serif', Georgia, serif;">Audiovisual</em></h3>
-            <p class="text-dark/50 leading-relaxed text-sm font-figtree">Creamos producciones audiovisuales cinematogr&aacute;ficas que comunican, emocionan y elevan la percepci&oacute;n de tu marca, generando experiencias visuales memorables que conectan con tu audiencia.</p>
+            <h3 class="font-almarai font-bold text-dark text-[34px] mb-2 leading-tight">Producci&oacute;n <em class="font-serif italic font-normal" style="font-family: 'Instrument Serif', Georgia, serif;">Audiovisual</em></h3>
+            <p class="text-dark/50 leading-relaxed text-[16px] font-figtree">Creamos producciones audiovisuales cinematogr&aacute;ficas que comunican, emocionan y elevan la percepci&oacute;n de tu marca, generando experiencias visuales memorables que conectan con tu audiencia.</p>
           </div>
-          <div class="flex flex-wrap gap-2 mt-5">
+          <div class="flex flex-wrap gap-2 mt-3">
             <span class="tag-pill">Cinematic Reels</span>
             <span class="tag-pill">Commercial</span>
             <span class="tag-pill">Social media content</span>
@@ -471,16 +533,16 @@
       </div>
 
       <!-- Marketing Strategy -->
-      <div class="service-card reveal flex flex-col sm:flex-row gap-6 p-6">
-        <div class="sm:w-2/5 flex-shrink-0">
-          <img src="img/services/marketing.jpg" alt="Marketing Strategy" class="w-full h-48 sm:h-full object-cover rounded-xl" />
+      <div class="service-card reveal flex flex-col sm:flex-row gap-7 p-6">
+        <div class="sm:w-[27%] flex-shrink-0 rounded-xl overflow-hidden sm:ml-1">
+          <img src="img/services/marketing.jpg" alt="Marketing Strategy" class="w-full h-[275px] sm:h-[275px] object-cover" />
         </div>
-        <div class="flex flex-col justify-between py-2">
+        <div class="flex flex-col justify-between py-1">
           <div>
-            <h3 class="font-almarai font-bold text-dark text-2xl mb-3 leading-tight">Marketing <em class="font-serif italic font-normal" style="font-family: 'Instrument Serif', Georgia, serif;">Strategy</em></h3>
-            <p class="text-dark/50 leading-relaxed text-sm font-figtree">Desarrollamos sistemas de marketing enfocados en la adquisici&oacute;n de clientes, dise&ntilde;ados para atraer, convertir y escalar resultados de forma estrat&eacute;gica y medible.</p>
+            <h3 class="font-almarai font-bold text-dark text-[34px] mb-2 leading-tight">Marketing <em class="font-serif italic font-normal" style="font-family: 'Instrument Serif', Georgia, serif;">Strategy</em></h3>
+            <p class="text-dark/50 leading-relaxed text-[16px] font-figtree">Desarrollamos sistemas de marketing enfocados en la adquisici&oacute;n de clientes, dise&ntilde;ados para atraer, convertir y escalar resultados de forma estrat&eacute;gica y medible.</p>
           </div>
-          <div class="flex flex-wrap gap-2 mt-5">
+          <div class="flex flex-wrap gap-2 mt-3">
             <span class="tag-pill">Tiktok, Meta &amp; Google Ads</span>
             <span class="tag-pill">Customer Acquisition System</span>
             <span class="tag-pill">Sales Funnels</span>
@@ -489,16 +551,16 @@
       </div>
 
       <!-- IA & Web -->
-      <div class="service-card reveal flex flex-col sm:flex-row gap-6 p-6">
-        <div class="sm:w-2/5 flex-shrink-0">
-          <img src="img/services/ia-web.jpg" alt="IA & Web" class="w-full h-48 sm:h-full object-cover rounded-xl" />
+      <div class="service-card reveal flex flex-col sm:flex-row gap-7 p-6">
+        <div class="sm:w-[27%] flex-shrink-0 rounded-xl overflow-hidden sm:ml-1">
+          <img src="img/services/ia-web.jpg" alt="IA & Web" class="w-full h-[275px] sm:h-[275px] object-cover" />
         </div>
-        <div class="flex flex-col justify-between py-2">
+        <div class="flex flex-col justify-between py-1">
           <div>
-            <h3 class="font-almarai font-bold text-dark text-2xl mb-3 leading-tight">IA &amp; <em class="font-serif italic font-normal" style="font-family: 'Instrument Serif', Georgia, serif;">Web</em></h3>
-            <p class="text-dark/50 leading-relaxed text-sm font-figtree">Automatizamos procesos y desarrollamos soluciones web inteligentes que optimizan operaciones, mejoran la eficiencia y potencian el crecimiento de tu negocio.</p>
+            <h3 class="font-almarai font-bold text-dark text-[34px] mb-2 leading-tight">IA &amp; <em class="font-serif italic font-normal" style="font-family: 'Instrument Serif', Georgia, serif;">Web</em></h3>
+            <p class="text-dark/50 leading-relaxed text-[16px] font-figtree">Automatizamos procesos y desarrollamos soluciones web inteligentes que optimizan operaciones, mejoran la eficiencia y potencian el crecimiento de tu negocio.</p>
           </div>
-          <div class="flex flex-wrap gap-2 mt-5">
+          <div class="flex flex-wrap gap-2 mt-3">
             <span class="tag-pill">Web Design &amp; Development</span>
             <span class="tag-pill">AI Automation</span>
             <span class="tag-pill">Landing Pages &amp; CRM</span>

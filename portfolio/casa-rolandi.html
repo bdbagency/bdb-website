@@ -4,170 +4,303 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Casa Rolandi Tulum — BDB Agency</title>
-  <meta name="description" content="Caso de estudio: Expansión de marca de Casa Rolandi de Cancún a Tulum. Reconstrucción de imagen corporativa, desarrollo web, producción audiovisual y estrategia de lanzamiento." />
+  <meta name="description" content="Caso de estudio: Expansi&oacute;n de marca de Casa Rolandi de Canc&uacute;n a Tulum. Reconstrucci&oacute;n de imagen corporativa, desarrollo web, producci&oacute;n audiovisual y estrategia de lanzamiento." />
   <link rel="icon" href="../img/favicon.png" />
+
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Instrument+Serif:ital@0;1&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&family=Figtree:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
       theme: {
         extend: {
           colors: {
-            bg:      '#FAFAFA',
-            text:    '#1A1A1A',
-            accent:  '#178087',
-            'accent-h': '#126469',
-            muted:   '#6B7280',
-            border:  '#E5E7EB',
-            'card-bg': '#FFFFFF',
+            dark:      '#0e1011',
+            'dark-card': '#202527',
+            'dark-bd': '#2c2e2f',
+            cream:     '#fdfbf6',
+            'light-g': '#f6f6f6',
+            lime:      '#cbfb45',
           },
           fontFamily: {
-            serif:  ['Instrument Serif', 'Georgia', 'serif'],
-            sans:   ['DM Sans', 'system-ui', 'sans-serif'],
-            label:  ['Figtree', 'sans-serif'],
-          }
+            almarai: ['Almarai', 'sans-serif'],
+            figtree: ['Figtree', 'sans-serif'],
+            serif:   ['Instrument Serif', 'Georgia', 'serif'],
+            inter:   ['Inter', 'system-ui', 'sans-serif'],
+          },
         }
       }
     }
   </script>
+
   <style>
-    :root {
-      --accent: #178087;
-      --accent-h: #126469;
-    }
     html { scroll-behavior: smooth; }
-    body { font-family: 'DM Sans', system-ui, sans-serif; color: #1A1A1A; background: #FAFAFA; }
+    body { font-family: 'Figtree', sans-serif; background: #ffffff; color: #0e1011; overflow-x: hidden; }
 
-    /* Nav scroll state */
-    .nav-scrolled {
-      background: rgba(250,250,250,0.85);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
-    }
-
-    /* Scroll reveal */
+    /* ── SCROLL REVEAL ── */
     .reveal {
       opacity: 0;
       transform: translateY(30px);
-      transition: opacity 0.7s ease, transform 0.7s ease;
+      transition: opacity 0.7s cubic-bezier(.25,.46,.45,.94), transform 0.7s cubic-bezier(.25,.46,.45,.94);
     }
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
 
-    /* CTA button ripple */
-    .btn-accent {
-      position: relative;
-      overflow: hidden;
+    /* ── NAV (3 separate containers) ── */
+    #navbar { background: transparent; }
+    .nav-part {
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: saturate(180%) blur(20px);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      transition: all 0.5s cubic-bezier(.4,0,.2,1);
     }
-    .btn-accent::after {
+    .nav-center { border-radius: 0 0 20px 20px; }
+    .nav-left { border-radius: 24px 0 20px 0; background: transparent; backdrop-filter: none; -webkit-backdrop-filter: none; }
+    .nav-right { border-radius: 0 24px 0 20px; background: transparent; backdrop-filter: none; -webkit-backdrop-filter: none; }
+    .nav-left, .nav-right {
+      opacity: 1;
+      max-width: 200px;
+      overflow: hidden;
+      transition: opacity 0.4s cubic-bezier(.4,0,.2,1), max-width 0.4s cubic-bezier(.4,0,.2,1), padding 0.4s cubic-bezier(.4,0,.2,1);
+    }
+    #navbar.nav-hide-sides .nav-left,
+    #navbar.nav-hide-sides .nav-right {
+      opacity: 0;
+      max-width: 0;
+      padding-left: 0;
+      padding-right: 0;
+      pointer-events: none;
+    }
+    .nav-center { transition: none; }
+    #navbar .nav-link { color: rgba(14,16,17,0.6); transition: color 0.3s ease; }
+    #navbar .nav-link:hover { color: #0e1011; }
+    #navbar .nav-logo { color: #0e1011; }
+    #navbar .nav-cta-btn {
+      background: #0e1011;
+      color: #fff;
+      border-radius: 500px;
+      transition: all 0.3s ease;
+    }
+    #navbar .nav-cta-btn:hover { background: #2a2d2f; }
+    #navbar .menu-bar { background: #0e1011; }
+
+    /* ── WHITE TOP BAR + INVERSE CORNERS ── */
+    .white-top-bar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 12px;
+      background: #fff;
+      z-index: 40;
+    }
+    .white-top-bar::before,
+    .white-top-bar::after {
       content: '';
       position: absolute;
-      inset: 0;
-      background: rgba(255,255,255,0.15);
-      transform: translateX(-100%);
-      transition: transform 0.4s ease;
+      bottom: -32px;
+      width: 32px;
+      height: 32px;
     }
-    .btn-accent:hover::after {
-      transform: translateX(0);
+    .white-top-bar::before {
+      left: 12px;
+      background: radial-gradient(circle at 100% 100%, transparent 32px, #fff 32px);
+    }
+    .white-top-bar::after {
+      right: 12px;
+      background: radial-gradient(circle at 0 100%, transparent 32px, #fff 32px);
     }
 
-    /* Mobile menu */
-    .mobile-menu {
+    /* ── MOBILE MENU ── */
+    #mobile-menu {
       transform: translateX(100%);
-      transition: transform 0.3s ease;
+      transition: transform 0.35s cubic-bezier(.77,0,.175,1);
     }
-    .mobile-menu.open {
-      transform: translateX(0);
+    #mobile-menu.open { transform: translateX(0); }
+
+    /* ── SECTION LABEL ── */
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Figtree', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      color: #0e1011;
+    }
+    .section-label .arrow-icon {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      border: 1px solid rgba(14,16,17,0.15);
+      display: flex; align-items: center; justify-content: center;
     }
 
-    /* Gallery image hover */
+    /* ── CTA ARROW BUTTONS ── */
+    .btn-arrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 24px;
+      border: 1px solid rgba(14,16,17,0.15);
+      border-radius: 9999px;
+      font-family: 'Figtree', sans-serif;
+      font-weight: 500;
+      font-size: 14px;
+      color: #0e1011;
+      transition: all 0.3s ease;
+    }
+    .btn-arrow:hover { background: #0e1011; color: #fff; border-color: #0e1011; }
+    .btn-arrow:hover svg { stroke: #fff; }
+    .btn-arrow-white {
+      border-color: rgba(255,255,255,0.25);
+      color: #fff;
+    }
+    .btn-arrow-white:hover { background: #fff; color: #0e1011; border-color: #fff; }
+    .btn-arrow-white:hover svg { stroke: #0e1011; }
+
+    /* ── GALLERY ── */
     .gallery-item {
       overflow: hidden;
-      border-radius: 0.75rem;
+      border-radius: 1rem;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .gallery-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 48px rgba(0,0,0,0.1);
     }
     .gallery-item img {
       transition: transform 0.5s ease;
     }
     .gallery-item:hover img {
-      transform: scale(1.05);
+      transform: scale(1.03);
     }
 
-    /* Hero overlay */
-    .hero-overlay {
-      background: linear-gradient(to bottom, rgba(26,26,26,0.55) 0%, rgba(26,26,26,0.75) 100%);
+    /* ── LIGHTBOX ── */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      background: rgba(0,0,0,0.9);
+      backdrop-filter: blur(8px);
+      justify-content: center;
+      align-items: center;
+      cursor: zoom-out;
+    }
+    .lightbox.active {
+      display: flex;
+    }
+    .lightbox img {
+      max-width: 90vw;
+      max-height: 90vh;
+      object-fit: contain;
+      border-radius: 0.5rem;
+    }
+
+    /* ── SERVICE CARDS ── */
+    .service-card {
+      background: #f6f6f6;
+      border-radius: 20px;
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .service-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.08);
     }
   </style>
 </head>
 <body>
 
 <!-- ══════════════════════════════════════════════
-     1. NAVIGATION
+     NAV
 ═══════════════════════════════════════════════ -->
-<nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
-  <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-    <a href="../index.html" class="flex items-center gap-2">
-      <img src="../img/logo.png" alt="BDB Agency" class="h-8" />
-    </a>
+<div class="white-top-bar"></div>
 
-    <!-- Desktop links -->
-    <div class="hidden md:flex items-center gap-8">
-      <a href="../portafolio.html" class="text-sm font-medium text-muted hover:text-text transition-colors">Portafolio</a>
-      <a href="../nosotros.html" class="text-sm font-medium text-muted hover:text-text transition-colors">Nosotros</a>
-      <a href="../blog.html" class="text-sm font-medium text-muted hover:text-text transition-colors">Blog</a>
-      <a href="../contacto.html" class="text-sm font-medium text-muted hover:text-text transition-colors">Contacto</a>
-      <a href="../contacto.html" class="btn-accent inline-flex items-center gap-2 bg-accent hover:bg-accent-h text-white text-sm font-semibold px-5 py-2.5 rounded-full transition-colors">
-        Cotiza
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-      </a>
+<nav id="navbar" class="fixed top-0 left-0 right-0 z-50">
+  <div class="px-3 md:px-4 pt-3 flex items-start justify-between gap-2">
+    <!-- LEFT: Logo -->
+    <div class="nav-part nav-left hidden md:flex items-center px-5 h-11 mt-4 ml-4">
+      <a href="../index.html" class="nav-logo font-almarai font-bold text-base tracking-tight whitespace-nowrap">BDB <sup class="text-[9px] font-normal">&reg;</sup></a>
     </div>
 
-    <!-- Mobile hamburger -->
-    <button id="menu-toggle" class="md:hidden flex flex-col gap-1.5 p-2" aria-label="Menu">
-      <span class="block w-6 h-0.5 bg-text transition-transform" id="bar1"></span>
-      <span class="block w-6 h-0.5 bg-text transition-opacity" id="bar2"></span>
-      <span class="block w-6 h-0.5 bg-text transition-transform" id="bar3"></span>
-    </button>
-  </div>
+    <!-- CENTER: Nav links -->
+    <div class="nav-part nav-center flex items-center justify-center h-11 px-2">
+      <div class="hidden md:flex items-center gap-1">
+        <a href="../portafolio.html" class="nav-link text-sm font-figtree font-medium px-4 py-2 rounded-full hover:bg-black/5 transition-colors">Portafolio</a>
+        <a href="../nosotros.html" class="nav-link text-sm font-figtree font-medium px-4 py-2 rounded-full hover:bg-black/5 transition-colors">Nosotros</a>
+        <a href="../blog.html" class="nav-link text-sm font-figtree font-medium px-4 py-2 rounded-full hover:bg-black/5 transition-colors">Blog</a>
+        <a href="../contacto.html" class="nav-link text-sm font-figtree font-medium px-4 py-2 rounded-full hover:bg-black/5 transition-colors">Cont&aacute;ctanos</a>
+      </div>
 
-  <!-- Mobile menu -->
-  <div id="mobile-menu" class="mobile-menu fixed top-0 right-0 h-screen w-72 bg-white shadow-2xl z-50 p-8 flex flex-col gap-6">
-    <button id="menu-close" class="self-end p-2 text-muted hover:text-text" aria-label="Cerrar">
-      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
-    </button>
-    <a href="../portafolio.html" class="text-lg font-medium text-text">Portafolio</a>
-    <a href="../nosotros.html" class="text-lg font-medium text-text">Nosotros</a>
-    <a href="../blog.html" class="text-lg font-medium text-text">Blog</a>
-    <a href="../contacto.html" class="text-lg font-medium text-text">Contacto</a>
-    <a href="../contacto.html" class="btn-accent mt-4 text-center bg-accent hover:bg-accent-h text-white font-semibold px-6 py-3 rounded-full transition-colors">Cotiza</a>
+      <!-- Mobile: logo + hamburger -->
+      <div class="md:hidden flex items-center justify-between w-full px-3">
+        <a href="../index.html" class="nav-logo font-almarai font-bold text-base tracking-tight">BDB <sup class="text-[9px] font-normal">&reg;</sup></a>
+        <button id="menu-toggle" class="p-2 flex flex-col gap-1.5" aria-label="Men&uacute;">
+          <span class="menu-bar w-5 h-px block"></span>
+          <span class="menu-bar w-5 h-px block"></span>
+          <span class="menu-bar w-3 h-px block ml-auto"></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- RIGHT: CTA button -->
+    <div class="nav-part nav-right hidden md:flex items-center px-2 h-11 mt-4 mr-4">
+      <a href="../contacto.html" class="nav-cta-btn inline-flex items-center gap-2 px-5 py-2 text-sm font-figtree font-semibold">
+        Cont&aacute;ctanos
+      </a>
+    </div>
   </div>
 </nav>
 
+<!-- Mobile menu -->
+<div id="mobile-menu" class="fixed top-0 right-0 h-screen w-72 bg-white z-[100] p-8 flex flex-col gap-6 border-l border-black/5 shadow-2xl">
+  <button id="menu-close" class="self-end text-dark/40 hover:text-dark p-1">
+    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"/></svg>
+  </button>
+  <a href="../portafolio.html" class="text-xl text-dark font-almarai font-bold">Portafolio</a>
+  <a href="../nosotros.html" class="text-xl text-dark font-almarai font-bold">Nosotros</a>
+  <a href="../blog.html" class="text-xl text-dark font-almarai font-bold">Blog</a>
+  <a href="../contacto.html" class="text-xl text-dark font-almarai font-bold">Cont&aacute;ctanos</a>
+  <a href="../contacto.html" class="mt-4 bg-dark text-white text-center px-6 py-3 rounded-full text-base font-figtree font-semibold">Cotiza tu proyecto</a>
+</div>
+
 <!-- ══════════════════════════════════════════════
-     2. HERO
+     1. HERO
 ═══════════════════════════════════════════════ -->
-<section class="relative min-h-[85vh] flex items-end">
-  <img src="../img/casa-rolandi/full-screen.jpg" alt="Casa Rolandi Tulum" class="absolute inset-0 w-full h-full object-cover" />
-  <div class="hero-overlay absolute inset-0"></div>
-  <div class="relative z-10 max-w-7xl mx-auto px-6 pb-16 md:pb-24 w-full">
-    <div class="reveal">
-      <p class="font-label text-accent text-sm font-semibold tracking-widest uppercase mb-4">Caso de Estudio</p>
-      <h1 class="font-serif text-5xl md:text-6xl lg:text-7xl leading-[1.1] text-white mb-4">
-        Casa Rolandi <em class="text-accent">Tulum</em>
-      </h1>
-      <p class="text-white/70 text-lg md:text-xl max-w-xl leading-relaxed">
-        Expansión de marca de un restaurante suizo-italiano gourmet con m&aacute;s de 40 a&ntilde;os de tradici&oacute;n.
-      </p>
+<section class="bg-white px-3 md:px-4 pt-3">
+  <div class="relative flex flex-col justify-end overflow-hidden rounded-3xl" style="min-height: calc(100vh - 24px);">
+    <!-- Background image -->
+    <img src="../img/casa-rolandi/full-screen.jpg" alt="Casa Rolandi Tulum" class="absolute inset-0 w-full h-full object-cover" />
+    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/10 rounded-3xl"></div>
+
+    <!-- Back link -->
+    <a href="../portafolio.html" class="absolute top-24 left-6 md:left-10 z-10 inline-flex items-center gap-2 text-white/70 hover:text-white text-sm font-figtree font-medium transition-colors">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16l-4-4m0 0l4-4m-4 4h18"/></svg>
+      Portafolio
+    </a>
+
+    <!-- Hero content -->
+    <div class="relative z-10 max-w-7xl mx-auto px-6 pb-16 md:pb-24 w-full">
+      <div class="reveal">
+        <span class="section-label text-white/60 mb-4 inline-flex">
+          <span class="arrow-icon border-white/20">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25"/></svg>
+          </span>
+          Caso de Estudio
+        </span>
+        <h1 class="font-almarai font-bold text-4xl md:text-6xl lg:text-7xl text-white leading-[1.1] mb-4">Casa Rolandi <em class="font-serif italic font-normal">Tulum</em></h1>
+        <p class="text-white/60 text-lg md:text-xl max-w-xl font-figtree leading-relaxed">
+          Expansi&oacute;n de marca de un restaurante suizo-italiano gourmet con m&aacute;s de 40 a&ntilde;os de tradici&oacute;n.
+        </p>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- ══════════════════════════════════════════════
-     3. PROJECT OVERVIEW
+     2. PROJECT OVERVIEW
 ═══════════════════════════════════════════════ -->
 <section class="py-20 md:py-28">
   <div class="max-w-7xl mx-auto px-6">
@@ -175,43 +308,48 @@
 
       <!-- Left: Project Info -->
       <div class="reveal">
-        <p class="font-label text-accent text-sm font-semibold tracking-widest uppercase mb-4">El Proyecto</p>
-        <h2 class="font-serif text-4xl md:text-5xl leading-[1.15] mb-6">
-          De Canc&uacute;n a Tulum: <em class="text-accent">una marca que trasciende</em>
+        <span class="section-label mb-4 inline-flex">
+          <span class="arrow-icon">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25"/></svg>
+          </span>
+          El Proyecto
+        </span>
+        <h2 class="font-almarai font-bold text-4xl md:text-5xl leading-[1.15] mb-6">
+          De Canc&uacute;n a Tulum: una marca que <em class="font-serif italic font-normal">trasciende</em>
         </h2>
-        <p class="text-muted text-lg leading-relaxed mb-6">
+        <p class="text-dark/50 text-lg leading-relaxed mb-6 font-figtree">
           Casa Rolandi es un restaurante gourmet suizo-italiano con presencia en Canc&uacute;n desde 1981. Con m&aacute;s de cuatro d&eacute;cadas de trayectoria, la marca decidi&oacute; expandirse a Tulum, uno de los destinos gastron&oacute;micos m&aacute;s vibrantes de M&eacute;xico.
         </p>
-        <p class="text-muted text-lg leading-relaxed">
+        <p class="text-dark/50 text-lg leading-relaxed font-figtree">
           El reto: trasladar la esencia de una marca cl&aacute;sica y elegante a un entorno tropical, manteniendo su identidad pero adapt&aacute;ndola al esp&iacute;ritu relajado y creativo de Tulum. BDB Agency cre&oacute; un proyecto 360 que abarc&oacute; desde la reconstrucci&oacute;n de imagen corporativa hasta el lanzamiento completo de la nueva sede.
         </p>
       </div>
 
       <!-- Right: Project Details -->
       <div class="reveal">
-        <div class="bg-card-bg rounded-2xl border border-border p-8 md:p-10">
-          <h3 class="font-label text-sm font-semibold tracking-widest uppercase text-muted mb-8">Detalles del Proyecto</h3>
+        <div class="bg-light-g rounded-2xl p-8 md:p-10">
+          <h3 class="font-figtree text-xs font-semibold tracking-widest uppercase text-dark/40 mb-8">Detalles del Proyecto</h3>
 
           <div class="space-y-6">
-            <div class="flex justify-between items-start border-b border-border pb-5">
-              <span class="text-sm font-medium text-muted uppercase tracking-wide">Cliente</span>
-              <span class="text-right font-medium">Casa Rolandi</span>
+            <div class="flex justify-between items-start border-b border-dark/5 pb-5">
+              <span class="text-sm font-medium text-dark/40 uppercase tracking-wide font-figtree">Cliente</span>
+              <span class="text-right font-medium font-figtree">Casa Rolandi</span>
             </div>
-            <div class="flex justify-between items-start border-b border-border pb-5">
-              <span class="text-sm font-medium text-muted uppercase tracking-wide">Industria</span>
-              <span class="text-right font-medium">Gastronom&iacute;a Gourmet</span>
+            <div class="flex justify-between items-start border-b border-dark/5 pb-5">
+              <span class="text-sm font-medium text-dark/40 uppercase tracking-wide font-figtree">Industria</span>
+              <span class="text-right font-medium font-figtree">Gastronom&iacute;a Gourmet</span>
             </div>
-            <div class="flex justify-between items-start border-b border-border pb-5">
-              <span class="text-sm font-medium text-muted uppercase tracking-wide">Desde</span>
-              <span class="text-right font-medium">1981</span>
+            <div class="flex justify-between items-start border-b border-dark/5 pb-5">
+              <span class="text-sm font-medium text-dark/40 uppercase tracking-wide font-figtree">Desde</span>
+              <span class="text-right font-medium font-figtree">1981</span>
             </div>
-            <div class="flex justify-between items-start border-b border-border pb-5">
-              <span class="text-sm font-medium text-muted uppercase tracking-wide">Ubicaci&oacute;n</span>
-              <span class="text-right font-medium">Canc&uacute;n &rarr; Tulum</span>
+            <div class="flex justify-between items-start border-b border-dark/5 pb-5">
+              <span class="text-sm font-medium text-dark/40 uppercase tracking-wide font-figtree">Ubicaci&oacute;n</span>
+              <span class="text-right font-medium font-figtree">Canc&uacute;n &rarr; Tulum</span>
             </div>
             <div class="flex justify-between items-start">
-              <span class="text-sm font-medium text-muted uppercase tracking-wide">Posicionamiento</span>
-              <span class="text-right font-medium text-accent">Be more, be creative,<br>be digital brand</span>
+              <span class="text-sm font-medium text-dark/40 uppercase tracking-wide font-figtree">Posicionamiento</span>
+              <span class="text-right font-medium font-figtree">Be more, be creative,<br>be digital brand</span>
             </div>
           </div>
         </div>
@@ -221,99 +359,109 @@
 </section>
 
 <!-- ══════════════════════════════════════════════
-     4. SERVICES PROVIDED
+     3. SERVICES PROVIDED
 ═══════════════════════════════════════════════ -->
-<section class="py-20 md:py-28 bg-card-bg">
+<section class="py-20 md:py-28 bg-light-g">
   <div class="max-w-7xl mx-auto px-6">
     <div class="text-center mb-16 reveal">
-      <p class="font-label text-accent text-sm font-semibold tracking-widest uppercase mb-4">Servicios</p>
-      <h2 class="font-serif text-4xl md:text-5xl leading-[1.15]">
-        Un proyecto <em class="text-accent">360&deg;</em>
+      <span class="section-label justify-center mb-4 inline-flex">
+        <span class="arrow-icon">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25"/></svg>
+        </span>
+        Servicios
+      </span>
+      <h2 class="font-almarai font-bold text-4xl md:text-5xl leading-[1.15]">
+        Un proyecto <em class="font-serif italic font-normal">360&deg;</em>
       </h2>
     </div>
 
     <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 reveal">
       <!-- Service 1 -->
-      <div class="bg-bg rounded-2xl border border-border p-8 hover:border-accent/30 transition-colors">
-        <div class="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mb-5">
-          <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.53 16.122a3 3 0 00-5.78 1.128 2.25 2.25 0 01-2.4 2.245 4.5 4.5 0 008.4-2.245c0-.399-.078-.78-.22-1.128zm0 0a15.998 15.998 0 003.388-1.62m-5.043-.025a15.994 15.994 0 011.622-3.395m3.42 3.42a15.995 15.995 0 004.764-4.648l3.876-5.814a1.151 1.151 0 00-1.597-1.597L14.146 6.32a15.996 15.996 0 00-4.649 4.763m3.42 3.42a6.776 6.776 0 00-3.42-3.42"/></svg>
+      <div class="service-card p-8">
+        <div class="w-12 h-12 rounded-xl bg-dark/5 flex items-center justify-center mb-5">
+          <svg class="w-6 h-6 text-dark/60" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.53 16.122a3 3 0 00-5.78 1.128 2.25 2.25 0 01-2.4 2.245 4.5 4.5 0 008.4-2.245c0-.399-.078-.78-.22-1.128zm0 0a15.998 15.998 0 003.388-1.62m-5.043-.025a15.994 15.994 0 011.622-3.395m3.42 3.42a15.995 15.995 0 004.764-4.648l3.876-5.814a1.151 1.151 0 00-1.597-1.597L14.146 6.32a15.996 15.996 0 00-4.649 4.763m3.42 3.42a6.776 6.776 0 00-3.42-3.42"/></svg>
         </div>
-        <h3 class="font-semibold text-lg mb-2">Imagen Corporativa</h3>
-        <p class="text-muted text-sm leading-relaxed">Reconstrucci&oacute;n y tropicalizaci&oacute;n de la identidad visual para el contexto de Tulum.</p>
+        <h3 class="font-almarai font-bold text-lg mb-2">Imagen Corporativa</h3>
+        <p class="text-dark/50 text-sm leading-relaxed font-figtree">Reconstrucci&oacute;n y tropicalizaci&oacute;n de la identidad visual para el contexto de Tulum.</p>
       </div>
 
       <!-- Service 2 -->
-      <div class="bg-bg rounded-2xl border border-border p-8 hover:border-accent/30 transition-colors">
-        <div class="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mb-5">
-          <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6.115 5.19l.319 1.913A6 6 0 008.11 10.36L9.75 12l-.387.775c-.217.433-.132.956.21 1.298l1.348 1.348c.21.21.329.497.329.795v1.089c0 .426.24.815.622 1.006l.153.076c.433.217.956.132 1.298-.21l.723-.723a8.7 8.7 0 002.288-4.042 1.087 1.087 0 00-.358-1.099l-1.33-1.108c-.251-.21-.582-.299-.905-.245l-1.17.195a1.125 1.125 0 01-.98-.314l-.295-.295a1.125 1.125 0 010-1.591l.13-.132a1.125 1.125 0 011.3-.21l.603.302a.809.809 0 001.086-1.086L14.25 7.5l1.256-.837a4.5 4.5 0 001.528-1.732l.146-.292M6.115 5.19A9 9 0 1017.18 4.64M6.115 5.19A8.965 8.965 0 0112 3c1.929 0 3.716.607 5.18 1.64"/></svg>
+      <div class="service-card p-8">
+        <div class="w-12 h-12 rounded-xl bg-dark/5 flex items-center justify-center mb-5">
+          <svg class="w-6 h-6 text-dark/60" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6.115 5.19l.319 1.913A6 6 0 008.11 10.36L9.75 12l-.387.775c-.217.433-.132.956.21 1.298l1.348 1.348c.21.21.329.497.329.795v1.089c0 .426.24.815.622 1.006l.153.076c.433.217.956.132 1.298-.21l.723-.723a8.7 8.7 0 002.288-4.042 1.087 1.087 0 00-.358-1.099l-1.33-1.108c-.251-.21-.582-.299-.905-.245l-1.17.195a1.125 1.125 0 01-.98-.314l-.295-.295a1.125 1.125 0 010-1.591l.13-.132a1.125 1.125 0 011.3-.21l.603.302a.809.809 0 001.086-1.086L14.25 7.5l1.256-.837a4.5 4.5 0 001.528-1.732l.146-.292M6.115 5.19A9 9 0 1017.18 4.64M6.115 5.19A8.965 8.965 0 0112 3c1.929 0 3.716.607 5.18 1.64"/></svg>
         </div>
-        <h3 class="font-semibold text-lg mb-2">Desarrollo Web</h3>
-        <p class="text-muted text-sm leading-relaxed">Sitio web que refleja la nueva identidad y posiciona la marca en el entorno digital.</p>
+        <h3 class="font-almarai font-bold text-lg mb-2">Desarrollo Web</h3>
+        <p class="text-dark/50 text-sm leading-relaxed font-figtree">Sitio web que refleja la nueva identidad y posiciona la marca en el entorno digital.</p>
       </div>
 
       <!-- Service 3 -->
-      <div class="bg-bg rounded-2xl border border-border p-8 hover:border-accent/30 transition-colors">
-        <div class="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mb-5">
-          <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m15.75 10.5 4.72-4.72a.75.75 0 0 1 1.28.53v11.38a.75.75 0 0 1-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25h-9A2.25 2.25 0 0 0 2.25 7.5v9a2.25 2.25 0 0 0 2.25 2.25Z"/></svg>
+      <div class="service-card p-8">
+        <div class="w-12 h-12 rounded-xl bg-dark/5 flex items-center justify-center mb-5">
+          <svg class="w-6 h-6 text-dark/60" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m15.75 10.5 4.72-4.72a.75.75 0 0 1 1.28.53v11.38a.75.75 0 0 1-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25h-9A2.25 2.25 0 0 0 2.25 7.5v9a2.25 2.25 0 0 0 2.25 2.25Z"/></svg>
         </div>
-        <h3 class="font-semibold text-lg mb-2">Producci&oacute;n Audiovisual</h3>
-        <p class="text-muted text-sm leading-relaxed">Contenido en video profesional para comunicar la experiencia gastron&oacute;mica.</p>
+        <h3 class="font-almarai font-bold text-lg mb-2">Producci&oacute;n Audiovisual</h3>
+        <p class="text-dark/50 text-sm leading-relaxed font-figtree">Contenido en video profesional para comunicar la experiencia gastron&oacute;mica.</p>
       </div>
 
       <!-- Service 4 -->
-      <div class="bg-bg rounded-2xl border border-border p-8 hover:border-accent/30 transition-colors">
-        <div class="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mb-5">
-          <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.59 14.37a6 6 0 01-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 006.16-12.12A14.98 14.98 0 009.631 8.41m5.96 5.96a14.926 14.926 0 01-5.841 2.58m-.119-8.54a6 6 0 00-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 00-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 01-2.448-2.448 14.9 14.9 0 01.06-.312m-2.24 2.39a4.493 4.493 0 00-1.757 4.306 4.493 4.493 0 004.306-1.758M16.5 9a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"/></svg>
+      <div class="service-card p-8">
+        <div class="w-12 h-12 rounded-xl bg-dark/5 flex items-center justify-center mb-5">
+          <svg class="w-6 h-6 text-dark/60" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.59 14.37a6 6 0 01-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 006.16-12.12A14.98 14.98 0 009.631 8.41m5.96 5.96a14.926 14.926 0 01-5.841 2.58m-.119-8.54a6 6 0 00-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 00-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 01-2.448-2.448 14.9 14.9 0 01.06-.312m-2.24 2.39a4.493 4.493 0 00-1.757 4.306 4.493 4.493 0 004.306-1.758M16.5 9a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"/></svg>
         </div>
-        <h3 class="font-semibold text-lg mb-2">Estrategia de Lanzamiento</h3>
-        <p class="text-muted text-sm leading-relaxed">Plan integral de lanzamiento de marca para la apertura en Tulum.</p>
+        <h3 class="font-almarai font-bold text-lg mb-2">Estrategia de Lanzamiento</h3>
+        <p class="text-dark/50 text-sm leading-relaxed font-figtree">Plan integral de lanzamiento de marca para la apertura en Tulum.</p>
       </div>
 
       <!-- Service 5 -->
-      <div class="bg-bg rounded-2xl border border-border p-8 hover:border-accent/30 transition-colors sm:col-span-2 lg:col-span-2">
-        <div class="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mb-5">
-          <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 7.5l-9-5.25L3 7.5m18 0l-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9"/></svg>
+      <div class="service-card p-8 sm:col-span-2 lg:col-span-2">
+        <div class="w-12 h-12 rounded-xl bg-dark/5 flex items-center justify-center mb-5">
+          <svg class="w-6 h-6 text-dark/60" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 7.5l-9-5.25L3 7.5m18 0l-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9"/></svg>
         </div>
-        <h3 class="font-semibold text-lg mb-2">Proyecto 360&deg;</h3>
-        <p class="text-muted text-sm leading-relaxed">Creaci&oacute;n integral del proyecto que abarca todos los puntos de contacto de la marca: identidad visual, materiales impresos, presencia digital y experiencia en sitio.</p>
+        <h3 class="font-almarai font-bold text-lg mb-2">Proyecto 360&deg;</h3>
+        <p class="text-dark/50 text-sm leading-relaxed font-figtree">Creaci&oacute;n integral del proyecto que abarca todos los puntos de contacto de la marca: identidad visual, materiales impresos, presencia digital y experiencia en sitio.</p>
       </div>
     </div>
   </div>
 </section>
 
 <!-- ══════════════════════════════════════════════
-     5. GALLERY — Branding & Identity
+     4. GALLERY — Branding & Identity
 ═══════════════════════════════════════════════ -->
 <section class="py-20 md:py-28">
   <div class="max-w-7xl mx-auto px-6">
     <div class="mb-16 reveal">
-      <p class="font-label text-accent text-sm font-semibold tracking-widest uppercase mb-4">Galeria</p>
-      <h2 class="font-serif text-4xl md:text-5xl leading-[1.15]">
-        Branding <em class="text-accent">&amp; Identidad</em>
+      <span class="section-label mb-4 inline-flex">
+        <span class="arrow-icon">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25"/></svg>
+        </span>
+        Galeria
+      </span>
+      <h2 class="font-almarai font-bold text-4xl md:text-5xl leading-[1.15]">
+        Branding <em class="font-serif italic font-normal">&amp; Identidad</em>
       </h2>
     </div>
 
     <!-- Branding full width -->
-    <div class="gallery-item rounded-2xl mb-6 reveal">
+    <div class="gallery-item bg-light-g rounded-2xl mb-6 reveal cursor-pointer" onclick="openLightbox(this)">
       <img src="../img/casa-rolandi/branding-full.jpg" alt="Casa Rolandi - Branding completo" class="w-full h-auto rounded-2xl" loading="lazy" />
     </div>
 
     <!-- 2-column grid -->
     <div class="grid md:grid-cols-2 gap-6 mb-6">
-      <div class="gallery-item reveal">
+      <div class="gallery-item bg-light-g rounded-2xl reveal cursor-pointer" onclick="openLightbox(this)">
         <img src="../img/casa-rolandi/business-card.jpg" alt="Casa Rolandi - Tarjeta de presentaci&oacute;n" class="w-full h-full object-cover rounded-xl" loading="lazy" />
       </div>
-      <div class="gallery-item reveal">
+      <div class="gallery-item bg-light-g rounded-2xl reveal cursor-pointer" onclick="openLightbox(this)">
         <img src="../img/casa-rolandi/artes.jpg" alt="Casa Rolandi - Artes y dise&ntilde;o" class="w-full h-full object-cover rounded-xl" loading="lazy" />
       </div>
     </div>
 
     <!-- 2-column grid -->
     <div class="grid md:grid-cols-2 gap-6">
-      <div class="gallery-item reveal">
+      <div class="gallery-item bg-light-g rounded-2xl reveal cursor-pointer" onclick="openLightbox(this)">
         <img src="../img/casa-rolandi/blondas.jpg" alt="Casa Rolandi - Blondas de marca" class="w-full h-full object-cover rounded-xl" loading="lazy" />
       </div>
-      <div class="gallery-item reveal">
+      <div class="gallery-item bg-light-g rounded-2xl reveal cursor-pointer" onclick="openLightbox(this)">
         <img src="../img/casa-rolandi/membrete.jpg" alt="Casa Rolandi - Membrete" class="w-full h-full object-cover rounded-xl" loading="lazy" />
       </div>
     </div>
@@ -321,54 +469,64 @@
 </section>
 
 <!-- ══════════════════════════════════════════════
-     6. GALLERY — Menu Design
+     5. GALLERY — Menu Design
 ═══════════════════════════════════════════════ -->
-<section class="py-20 md:py-28 bg-card-bg">
+<section class="py-20 md:py-28 bg-light-g">
   <div class="max-w-7xl mx-auto px-6">
     <div class="mb-16 reveal">
-      <p class="font-label text-accent text-sm font-semibold tracking-widest uppercase mb-4">Galeria</p>
-      <h2 class="font-serif text-4xl md:text-5xl leading-[1.15]">
-        Dise&ntilde;o de <em class="text-accent">Men&uacute;</em>
+      <span class="section-label mb-4 inline-flex">
+        <span class="arrow-icon">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25"/></svg>
+        </span>
+        Galeria
+      </span>
+      <h2 class="font-almarai font-bold text-4xl md:text-5xl leading-[1.15]">
+        Dise&ntilde;o de <em class="font-serif italic font-normal">Men&uacute;</em>
       </h2>
     </div>
 
     <!-- Menu 01 full width -->
-    <div class="gallery-item rounded-2xl mb-6 reveal">
+    <div class="gallery-item bg-white rounded-2xl mb-6 reveal cursor-pointer" onclick="openLightbox(this)">
       <img src="../img/casa-rolandi/menu01.jpg" alt="Casa Rolandi - Dise&ntilde;o de men&uacute; 1" class="w-full h-auto rounded-2xl" loading="lazy" />
     </div>
 
     <!-- 2-column -->
     <div class="grid md:grid-cols-2 gap-6 mb-6">
-      <div class="gallery-item reveal">
+      <div class="gallery-item bg-white rounded-2xl reveal cursor-pointer" onclick="openLightbox(this)">
         <img src="../img/casa-rolandi/menu02.jpg" alt="Casa Rolandi - Dise&ntilde;o de men&uacute; 2" class="w-full h-full object-cover rounded-xl" loading="lazy" />
       </div>
-      <div class="gallery-item reveal">
+      <div class="gallery-item bg-white rounded-2xl reveal cursor-pointer" onclick="openLightbox(this)">
         <img src="../img/casa-rolandi/menu03.jpg" alt="Casa Rolandi - Dise&ntilde;o de men&uacute; 3" class="w-full h-full object-cover rounded-xl" loading="lazy" />
       </div>
     </div>
 
     <!-- 2-column -->
     <div class="grid md:grid-cols-2 gap-6">
-      <div class="gallery-item reveal">
+      <div class="gallery-item bg-white rounded-2xl reveal cursor-pointer" onclick="openLightbox(this)">
         <img src="../img/casa-rolandi/menu04.jpg" alt="Casa Rolandi - Dise&ntilde;o de men&uacute; 4" class="w-full h-full object-cover rounded-xl" loading="lazy" />
       </div>
-      <div class="gallery-item reveal">
+      <div class="gallery-item bg-white rounded-2xl reveal cursor-pointer" onclick="openLightbox(this)">
         <img src="../img/casa-rolandi/menu05.jpg" alt="Casa Rolandi - Dise&ntilde;o de men&uacute; 5" class="w-full h-full object-cover rounded-xl" loading="lazy" />
       </div>
     </div>
   </div>
 </section>
 
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <img src="" alt="Lightbox image" id="lightbox-img" />
+</div>
+
 <!-- ══════════════════════════════════════════════
-     7. FULL-WIDTH INTERIOR
+     6. FULL-WIDTH INTERIOR
 ═══════════════════════════════════════════════ -->
-<section class="relative">
-  <div class="reveal">
+<section class="px-3 md:px-4 py-4">
+  <div class="relative rounded-3xl overflow-hidden reveal">
     <img src="../img/casa-rolandi/interior.jpg" alt="Casa Rolandi Tulum - Interior del restaurante" class="w-full h-[50vh] md:h-[65vh] object-cover" loading="lazy" />
-    <div class="absolute inset-0 bg-gradient-to-t from-text/60 to-transparent flex items-end">
+    <div class="absolute inset-0 bg-gradient-to-t from-dark/70 to-transparent flex items-end">
       <div class="max-w-7xl mx-auto px-6 pb-12 md:pb-16 w-full">
-        <p class="font-serif text-3xl md:text-4xl text-white leading-snug max-w-xl">
-          Una experiencia gastron&oacute;mica que combina <em class="text-accent">tradici&oacute;n suiza</em> con el alma del Caribe.
+        <p class="font-almarai font-bold text-3xl md:text-4xl text-white leading-snug max-w-xl">
+          Una experiencia gastron&oacute;mica que combina <em class="font-serif italic font-normal">tradici&oacute;n suiza</em> con el alma del Caribe.
         </p>
       </div>
     </div>
@@ -376,94 +534,104 @@
 </section>
 
 <!-- ══════════════════════════════════════════════
-     8. CTA
+     7. CTA
 ═══════════════════════════════════════════════ -->
-<section class="py-20 md:py-28">
-  <div class="max-w-7xl mx-auto px-6 text-center reveal">
-    <p class="font-label text-accent text-sm font-semibold tracking-widest uppercase mb-4">
-      <a href="https://www.instagram.com/bdb.agencia/" target="_blank" class="hover:underline">@bdb.agencia</a>
-    </p>
-    <h2 class="font-serif text-4xl md:text-5xl leading-[1.15] mb-6">
-      &iquest;Listo para llevar tu marca <em class="text-accent">al siguiente nivel</em>?
-    </h2>
-    <p class="text-muted text-lg max-w-2xl mx-auto mb-10 leading-relaxed">
-      Creamos proyectos integrales que conectan tu marca con las personas indicadas. Hablemos de tu pr&oacute;ximo proyecto.
-    </p>
-    <div class="flex flex-wrap justify-center gap-4">
-      <a href="../portafolio.html" class="inline-flex items-center gap-2 border-2 border-text text-text hover:bg-text hover:text-white font-semibold px-8 py-3.5 rounded-full transition-colors text-base">
-        Ver m&aacute;s proyectos
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-      </a>
-      <a href="../contacto.html" class="btn-accent inline-flex items-center gap-2 bg-accent hover:bg-accent-h text-white font-semibold px-8 py-3.5 rounded-full transition-colors text-base">
-        Cotiza tu proyecto
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-      </a>
+<section class="px-3 md:px-4 py-4">
+  <div class="bg-dark rounded-3xl py-20 md:py-28 relative overflow-hidden">
+    <div class="max-w-4xl mx-auto px-6 text-center relative z-10 reveal">
+      <h2 class="font-almarai font-bold text-4xl md:text-5xl text-white mb-6">&iquest;Listo para llevar tu marca <em class="font-serif italic font-normal">al siguiente nivel</em>?</h2>
+      <p class="text-white/50 text-lg max-w-2xl mx-auto mb-10 leading-relaxed font-figtree">
+        Creamos proyectos integrales que conectan tu marca con las personas indicadas. Hablemos de tu pr&oacute;ximo proyecto.
+      </p>
+      <div class="flex flex-wrap justify-center gap-4">
+        <a href="../portafolio.html" class="btn-arrow btn-arrow-white">
+          Ver m&aacute;s proyectos
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25"/></svg>
+        </a>
+        <a href="../contacto.html" class="btn-arrow btn-arrow-white">
+          Cotiza tu proyecto
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25"/></svg>
+        </a>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- ══════════════════════════════════════════════
-     9. FOOTER
+     8. FOOTER
 ═══════════════════════════════════════════════ -->
-<footer class="bg-text py-16">
-  <div class="max-w-7xl mx-auto px-6">
-    <div class="grid md:grid-cols-4 gap-12 mb-12">
-      <!-- Brand -->
-      <div class="md:col-span-1">
-        <img src="../img/logo.png" alt="BDB Agency" class="h-8 brightness-0 invert mb-4" />
-        <p class="text-white/50 text-sm leading-relaxed">Conectamos tu marca con las personas indicadas. Canc&uacute;n, M&eacute;xico.</p>
-      </div>
+<footer class="bg-white px-3 md:px-4 pb-3">
+  <div class="bg-dark rounded-3xl overflow-hidden">
+    <div class="max-w-7xl mx-auto px-6 py-16">
+      <div class="grid md:grid-cols-4 gap-12">
+        <!-- Brand -->
+        <div class="md:col-span-1">
+          <p class="font-almarai font-bold text-white text-xl mb-4">BDB <sup class="text-[8px] font-normal">&reg;</sup></p>
+          <p class="text-white/40 text-sm font-figtree leading-relaxed">Agencia de marketing digital en Canc&uacute;n. Branding, producci&oacute;n audiovisual, marketing y desarrollo web.</p>
+        </div>
 
-      <!-- Nav -->
-      <div>
-        <h4 class="text-white font-semibold mb-4 font-label text-sm uppercase tracking-wider">Navegaci&oacute;n</h4>
-        <div class="flex flex-col gap-2">
-          <a href="../portafolio.html" class="text-white/50 hover:text-white text-sm transition-colors">Portafolio</a>
-          <a href="../nosotros.html" class="text-white/50 hover:text-white text-sm transition-colors">Nosotros</a>
-          <a href="../blog.html" class="text-white/50 hover:text-white text-sm transition-colors">Blog</a>
-          <a href="../contacto.html" class="text-white/50 hover:text-white text-sm transition-colors">Contacto</a>
+        <!-- Nav -->
+        <div>
+          <h4 class="text-white/30 text-xs uppercase tracking-widest font-figtree font-semibold mb-4">Navegaci&oacute;n</h4>
+          <ul class="space-y-3">
+            <li><a href="../portafolio.html" class="text-white/60 hover:text-white text-sm font-figtree transition-colors">Portafolio</a></li>
+            <li><a href="../nosotros.html" class="text-white/60 hover:text-white text-sm font-figtree transition-colors">Nosotros</a></li>
+            <li><a href="../blog.html" class="text-white/60 hover:text-white text-sm font-figtree transition-colors">Blog</a></li>
+            <li><a href="../contacto.html" class="text-white/60 hover:text-white text-sm font-figtree transition-colors">Contacto</a></li>
+          </ul>
+        </div>
+
+        <!-- Servicios -->
+        <div>
+          <h4 class="text-white/30 text-xs uppercase tracking-widest font-figtree font-semibold mb-4">Servicios</h4>
+          <ul class="space-y-3">
+            <li><span class="text-white/60 text-sm font-figtree">Branding &amp; Identity</span></li>
+            <li><span class="text-white/60 text-sm font-figtree">Producci&oacute;n Audiovisual</span></li>
+            <li><span class="text-white/60 text-sm font-figtree">Marketing Digital</span></li>
+            <li><span class="text-white/60 text-sm font-figtree">IA &amp; Desarrollo Web</span></li>
+          </ul>
+        </div>
+
+        <!-- Contact -->
+        <div>
+          <h4 class="text-white/30 text-xs uppercase tracking-widest font-figtree font-semibold mb-4">Contacto</h4>
+          <ul class="space-y-3">
+            <li><a href="mailto:info@bdbagency.com" class="text-white/60 hover:text-white text-sm font-figtree transition-colors">info@bdbagency.com</a></li>
+            <li><a href="https://instagram.com/bdbagency" target="_blank" class="text-white/60 hover:text-white text-sm font-figtree transition-colors">Instagram</a></li>
+            <li><a href="https://facebook.com/bdbagency" target="_blank" class="text-white/60 hover:text-white text-sm font-figtree transition-colors">Facebook</a></li>
+            <li><span class="text-white/60 text-sm font-figtree">Canc&uacute;n, M&eacute;xico</span></li>
+          </ul>
         </div>
       </div>
 
-      <!-- Services -->
-      <div>
-        <h4 class="text-white font-semibold mb-4 font-label text-sm uppercase tracking-wider">Servicios</h4>
-        <div class="flex flex-col gap-2">
-          <span class="text-white/50 text-sm">Branding & Media</span>
-          <span class="text-white/50 text-sm">Producci&oacute;n Audiovisual</span>
-          <span class="text-white/50 text-sm">Marketing Digital</span>
-          <span class="text-white/50 text-sm">IA & Desarrollo Web</span>
-        </div>
+      <div class="mt-16 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
+        <p class="text-white/25 text-xs font-figtree">&copy; 2025 BDB Agency. Todos los derechos reservados.</p>
+        <p class="text-white/25 text-xs font-figtree">Canc&uacute;n, Quintana Roo, M&eacute;xico</p>
       </div>
-
-      <!-- Contact -->
-      <div>
-        <h4 class="text-white font-semibold mb-4 font-label text-sm uppercase tracking-wider">Contacto</h4>
-        <div class="flex flex-col gap-2">
-          <a href="mailto:info@bdbagency.com" class="text-white/50 hover:text-white text-sm transition-colors">info@bdbagency.com</a>
-          <a href="https://wa.me/529981700402" class="text-white/50 hover:text-white text-sm transition-colors">+52 998 170 0402</a>
-          <div class="flex gap-4 mt-2">
-            <a href="https://www.instagram.com/bdb.agencia/" target="_blank" class="text-white/50 hover:text-accent transition-colors" aria-label="Instagram">
-              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
-            </a>
-            <a href="https://www.facebook.com/BeDigitalBrand" target="_blank" class="text-white/50 hover:text-accent transition-colors" aria-label="Facebook">
-              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-            </a>
-            <a href="https://www.behance.net/bautsdigital" target="_blank" class="text-white/50 hover:text-accent transition-colors" aria-label="Behance">
-              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M22 7h-7V5h7v2zm1.726 10c-.442 1.297-2.029 3-5.101 3-3.074 0-5.564-1.729-5.564-5.675 0-3.91 2.325-5.92 5.466-5.92 3.082 0 4.964 1.782 5.375 4.426.078.506.109 1.188.095 2.14H15.97c.13 3.211 3.483 3.312 4.588 2.029h3.168zm-7.686-4h4.965c-.105-1.547-1.136-2.219-2.477-2.219-1.466 0-2.277.768-2.488 2.219zm-9.574 6.988H0V5.021h6.953c5.476.081 5.58 5.444 2.72 6.906 3.461 1.26 3.577 6.053-1.207 7.061zM2.917 8.241v4.393h3.667c1.684 0 2.655-.988 2.655-2.21 0-1.647-1.238-2.183-2.752-2.183H2.917zm3.667 7.547H2.917v-4.731h4.063c1.992 0 2.72 1.168 2.72 2.394 0 1.478-1.105 2.337-3.116 2.337z"/></svg>
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-      <p class="text-white/30 text-sm">&copy; 2026 BDB Agency. Todos los derechos reservados.</p>
-      <p class="text-white/30 text-sm">Canc&uacute;n, Quintana Roo, M&eacute;xico</p>
     </div>
   </div>
 </footer>
 
 <script src="../effects.js"></script>
+<script>
+  // Lightbox
+  function openLightbox(el) {
+    const img = el.querySelector('img');
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    lightboxImg.src = img.src;
+    lightboxImg.alt = img.alt;
+    lightbox.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox() {
+    const lightbox = document.getElementById('lightbox');
+    lightbox.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeLightbox();
+  });
+</script>
 </body>
 </html>

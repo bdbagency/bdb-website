@@ -6,281 +6,437 @@
   <title>Portafolio — BDB Agency</title>
   <meta name="description" content="Portafolio de proyectos de BDB Agency. Branding, producción audiovisual, marketing digital y desarrollo web para marcas en México y el mundo." />
   <link rel="icon" href="img/favicon.png" />
+
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Instrument+Serif:ital@0;1&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&family=Figtree:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
       theme: {
         extend: {
           colors: {
-            bg:      '#FAFAFA',
-            text:    '#1A1A1A',
-            accent:  '#178087',
-            'accent-h': '#126469',
-            muted:   '#6B7280',
-            border:  '#E5E7EB',
-            'card-bg': '#FFFFFF',
+            dark:        '#0e1011',
+            'dark-card': '#202527',
+            'dark-bd':   '#2c2e2f',
+            cream:       '#fdfbf6',
+            'light-g':   '#f6f6f6',
+            lime:        '#cbfb45',
           },
           fontFamily: {
-            serif:  ['Instrument Serif', 'Georgia', 'serif'],
-            sans:   ['DM Sans', 'system-ui', 'sans-serif'],
-            label:  ['Figtree', 'sans-serif'],
-          }
+            almarai: ['Almarai', 'sans-serif'],
+            figtree: ['Figtree', 'sans-serif'],
+            serif:   ['Instrument Serif', 'Georgia', 'serif'],
+            inter:   ['Inter', 'system-ui', 'sans-serif'],
+          },
         }
       }
     }
   </script>
+
   <style>
-    :root {
-      --accent: #178087;
-      --accent-h: #126469;
-    }
     html { scroll-behavior: smooth; }
-    body { font-family: 'DM Sans', system-ui, sans-serif; color: #1A1A1A; background: #FAFAFA; }
+    body { font-family: 'Figtree', sans-serif; background: #ffffff; color: #0e1011; overflow-x: hidden; cursor: none; }
 
-    /* Nav scroll state */
-    .nav-scrolled {
-      background: rgba(250,250,250,0.85);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
-    }
-
-    /* Scroll reveal */
+    /* ── SCROLL REVEAL ── */
     .reveal {
       opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 0.7s ease, transform 0.7s ease;
+      transform: translateY(28px);
+      transition: opacity 0.7s cubic-bezier(.25,.46,.45,.94), transform 0.7s cubic-bezier(.25,.46,.45,.94);
     }
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── NAV ── */
+    #navbar { background: transparent; }
+    .nav-part {
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: saturate(180%) blur(20px);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      transition: all 0.5s cubic-bezier(.4,0,.2,1);
+    }
+    .nav-center { border-radius: 0 0 20px 20px; }
+    .nav-left  { border-radius: 24px 0 20px 0; background: transparent; backdrop-filter: none; -webkit-backdrop-filter: none; }
+    .nav-right { border-radius: 0 24px 0 20px; background: transparent; backdrop-filter: none; -webkit-backdrop-filter: none; }
+    .nav-left, .nav-right {
+      opacity: 1; max-width: 200px; overflow: hidden;
+      transition: opacity 0.4s cubic-bezier(.4,0,.2,1), max-width 0.4s cubic-bezier(.4,0,.2,1), padding 0.4s cubic-bezier(.4,0,.2,1);
+    }
+    #navbar.nav-hide-sides .nav-left,
+    #navbar.nav-hide-sides .nav-right {
+      opacity: 0; max-width: 0; padding-left: 0; padding-right: 0; pointer-events: none;
+    }
+    .nav-center { transition: none; }
+    #navbar .nav-link { color: rgba(14,16,17,0.6); transition: color 0.3s ease; }
+    #navbar .nav-link:hover { color: #0e1011; }
+    #navbar .nav-logo { color: #0e1011; }
+    #navbar .nav-cta-btn { background: #0e1011; color: #fff; border-radius: 500px; transition: all 0.3s ease; }
+    #navbar .nav-cta-btn:hover { background: #2a2d2f; }
+    #navbar .menu-bar { background: #0e1011; }
+
+    /* ── WHITE TOP BAR ── */
+    .white-top-bar { position: fixed; top: 0; left: 0; right: 0; height: 12px; background: #fff; z-index: 40; }
+    .white-top-bar::before, .white-top-bar::after { content: ''; position: absolute; bottom: -32px; width: 32px; height: 32px; }
+    .white-top-bar::before { left: 12px; background: radial-gradient(circle at 100% 100%, transparent 32px, #fff 32px); }
+    .white-top-bar::after  { right: 12px; background: radial-gradient(circle at 0 100%, transparent 32px, #fff 32px); }
+
+    /* ── MOBILE MENU ── */
+    #mobile-menu { transform: translateX(100%); transition: transform 0.35s cubic-bezier(.77,0,.175,1); }
+    #mobile-menu.open { transform: translateX(0); }
+
+    /* ── SECTION LABEL ── */
+    .section-label {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: 'Figtree', sans-serif; font-size: 13px; font-weight: 500; color: #0e1011;
+    }
+    .section-label .arrow-icon {
+      width: 28px; height: 28px; border-radius: 50%; border: 1px solid rgba(14,16,17,0.15);
+      display: flex; align-items: center; justify-content: center;
     }
 
-    /* Service card hover */
-    .service-card {
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    .service-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+    /* ── HERO DOTS PATTERN ── */
+    .hero-dots {
+      position: absolute; inset: 0; pointer-events: none;
+      background-image: radial-gradient(circle, rgba(14,16,17,0.055) 1px, transparent 1px);
+      background-size: 28px 28px;
+      -webkit-mask-image: radial-gradient(ellipse 70% 80% at 50% 50%, black 40%, transparent 100%);
+      mask-image: radial-gradient(ellipse 70% 80% at 50% 50%, black 40%, transparent 100%);
     }
 
-    /* Portfolio hover overlay */
+    /* ── FILTER BAR (pill style) ── */
+    .filter-wrap {
+      position: relative; display: inline-flex; align-items: center;
+      gap: 2px; padding: 4px; background: #f0f0f0; border-radius: 100px;
+    }
+    .filter-pill {
+      position: absolute; top: 4px; background: #0e1011; border-radius: 100px;
+      transition: left 0.35s cubic-bezier(.4,0,.2,1), width 0.35s cubic-bezier(.4,0,.2,1);
+      pointer-events: none;
+    }
+    .filter-btn {
+      position: relative; z-index: 1;
+      font-family: 'Figtree', sans-serif; font-size: 13px; font-weight: 500;
+      padding: 8px 18px; border-radius: 100px; border: none;
+      background: transparent; color: rgba(14,16,17,0.45);
+      cursor: none; transition: color 0.25s ease; white-space: nowrap;
+    }
+    .filter-btn.active { color: #fff; }
+    .filter-btn:hover:not(.active) { color: #0e1011; }
+
+    /* ── BENTO GRID ── */
+    #portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      grid-auto-rows: 68px;
+      gap: 14px;
+    }
+    .pi-lg   { grid-column: span 7; grid-row: span 6; }
+    .pi-tall { grid-column: span 5; grid-row: span 6; }
+    .pi-md   { grid-column: span 5; grid-row: span 5; }
+    .pi-sm   { grid-column: span 4; grid-row: span 5; }
+    .pi-wide { grid-column: span 8; grid-row: span 5; }
+    .pi-sq   { grid-column: span 4; grid-row: span 4; }
+
+    @media (max-width: 900px) {
+      #portfolio-grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: auto; gap: 12px; }
+      .pi-lg, .pi-tall, .pi-md, .pi-sm, .pi-wide, .pi-sq {
+        grid-column: span 1; grid-row: span 1; aspect-ratio: 3/4;
+      }
+    }
+    @media (max-width: 520px) {
+      #portfolio-grid { grid-template-columns: 1fr; }
+      .pi-lg, .pi-tall, .pi-md, .pi-sm, .pi-wide, .pi-sq {
+        grid-column: span 1; grid-row: span 1; aspect-ratio: 4/3;
+      }
+    }
+
+    /* ── PORTFOLIO ITEM ── */
+    .portfolio-item {
+      position: relative; overflow: hidden;
+      border-radius: 18px; cursor: none; display: block;
+    }
+    .portfolio-item img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.65s cubic-bezier(.4,0,.2,1);
+    }
+    .portfolio-item:hover img { transform: scale(1.07); }
+
     .portfolio-item .overlay {
-      opacity: 0;
-      transition: opacity 0.35s ease;
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.15) 50%, transparent 100%);
+      opacity: 0; transition: opacity 0.4s ease;
+      display: flex; flex-direction: column; justify-content: flex-end; padding: 22px;
     }
-    .portfolio-item:hover .overlay {
-      opacity: 1;
-    }
+    .portfolio-item:hover .overlay { opacity: 1; }
 
-    /* Number badge gradient */
-    .num-badge {
-      background: linear-gradient(135deg, #178087, #126469);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+    /* Floating category pill */
+    .item-pill {
+      position: absolute; top: 14px; left: 14px;
+      background: rgba(255,255,255,0.14);
+      backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.22);
+      color: #fff; font-size: 10px; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 4px 10px; border-radius: 100px;
+      opacity: 0; transform: translateY(-4px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
     }
+    .portfolio-item:hover .item-pill { opacity: 1; transform: translateY(0); }
 
-    /* CTA button ripple */
-    .btn-accent {
-      position: relative;
-      overflow: hidden;
-    }
-    .btn-accent::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: rgba(255,255,255,0.15);
-      transform: translateX(-100%);
-      transition: transform 0.4s ease;
-    }
-    .btn-accent:hover::after {
-      transform: translateX(0);
-    }
+    /* ── STAT DIVIDER ── */
+    .stat-div { width: 1px; height: 36px; background: rgba(14,16,17,0.1); }
 
-    /* Portfolio filter active */
-    .filter-btn.active {
-      color: #178087;
-      border-color: #178087;
+    /* ── CTA BUTTONS ── */
+    .btn-arrow {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 14px 26px; border: 1px solid rgba(14,16,17,0.15); border-radius: 9999px;
+      font-family: 'Figtree', sans-serif; font-weight: 500; font-size: 14px;
+      color: #0e1011; transition: all 0.3s ease; cursor: none;
     }
-
-    /* Mobile menu */
-    .mobile-menu {
-      transform: translateX(100%);
-      transition: transform 0.3s ease;
-    }
-    .mobile-menu.open {
-      transform: translateX(0);
-    }
+    .btn-arrow:hover { background: #0e1011; color: #fff; border-color: #0e1011; }
+    .btn-arrow-white { border-color: rgba(255,255,255,0.25); color: #fff; }
+    .btn-arrow-white:hover { background: #fff; color: #0e1011; border-color: #fff; }
   </style>
 </head>
 <body>
 
-<!-- ══════════════════════════════════════════════
-     NAVIGATION
-═══════════════════════════════════════════════ -->
-<nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
-  <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-    <a href="index.html" class="flex items-center gap-2">
-      <img src="img/logo.png" alt="BDB Agency" class="h-8" />
-    </a>
-
-    <!-- Desktop links -->
-    <div class="hidden md:flex items-center gap-8">
-      <a href="portafolio.html" class="text-sm font-medium text-text transition-colors">Portafolio</a>
-      <a href="nosotros.html" class="text-sm font-medium text-muted hover:text-text transition-colors">Nosotros</a>
-      <a href="blog.html" class="text-sm font-medium text-muted hover:text-text transition-colors">Blog</a>
-      <a href="contacto.html" class="text-sm font-medium text-muted hover:text-text transition-colors">Contacto</a>
-      <a href="contacto.html" class="btn-accent inline-flex items-center gap-2 bg-accent hover:bg-accent-h text-white text-sm font-semibold px-5 py-2.5 rounded-full transition-colors">
-        Cotiza
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-      </a>
+<!-- NAV ═══════════════════════════════════════════ -->
+<div class="white-top-bar"></div>
+<nav id="navbar" class="fixed top-0 left-0 right-0 z-50">
+  <div class="px-3 md:px-4 pt-3 flex items-start justify-between gap-2">
+    <div class="nav-part nav-left hidden md:flex items-center px-5 h-11 mt-4 ml-4">
+      <a href="index.html" class="nav-logo font-almarai font-bold text-base tracking-tight whitespace-nowrap">BDB <sup class="text-[9px] font-normal">&reg;</sup></a>
     </div>
-
-    <!-- Mobile hamburger -->
-    <button id="menu-toggle" class="md:hidden flex flex-col gap-1.5 p-2" aria-label="Menu">
-      <span class="block w-6 h-0.5 bg-text transition-transform" id="bar1"></span>
-      <span class="block w-6 h-0.5 bg-text transition-opacity" id="bar2"></span>
-      <span class="block w-6 h-0.5 bg-text transition-transform" id="bar3"></span>
-    </button>
-  </div>
-
-  <!-- Mobile menu -->
-  <div id="mobile-menu" class="mobile-menu fixed top-0 right-0 h-screen w-72 bg-white shadow-2xl z-50 p-8 flex flex-col gap-6">
-    <button id="menu-close" class="self-end p-2 text-muted hover:text-text" aria-label="Cerrar">
-      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
-    </button>
-    <a href="portafolio.html" class="text-lg font-medium text-text">Portafolio</a>
-    <a href="nosotros.html" class="text-lg font-medium text-text">Nosotros</a>
-    <a href="blog.html" class="text-lg font-medium text-text">Blog</a>
-    <a href="contacto.html" class="text-lg font-medium text-text">Contacto</a>
-    <a href="contacto.html" class="btn-accent mt-4 text-center bg-accent hover:bg-accent-h text-white font-semibold px-6 py-3 rounded-full transition-colors">Cotiza</a>
+    <div class="nav-part nav-center flex items-center justify-center h-11 px-2">
+      <div class="hidden md:flex items-center gap-1">
+        <a href="portafolio.html" class="nav-link text-sm font-figtree font-medium px-4 py-2 rounded-full hover:bg-black/5 transition-colors" style="color:#0e1011;">Portafolio</a>
+        <a href="nosotros.html"   class="nav-link text-sm font-figtree font-medium px-4 py-2 rounded-full hover:bg-black/5 transition-colors">Nosotros</a>
+        <a href="blog.html"       class="nav-link text-sm font-figtree font-medium px-4 py-2 rounded-full hover:bg-black/5 transition-colors">Blog</a>
+        <a href="contacto.html"   class="nav-link text-sm font-figtree font-medium px-4 py-2 rounded-full hover:bg-black/5 transition-colors">Cont&aacute;ctanos</a>
+      </div>
+      <div class="md:hidden flex items-center justify-between w-full px-3">
+        <a href="index.html" class="nav-logo font-almarai font-bold text-base tracking-tight">BDB <sup class="text-[9px] font-normal">&reg;</sup></a>
+        <button id="menu-toggle" class="p-2 flex flex-col gap-1.5">
+          <span class="menu-bar w-5 h-px block"></span>
+          <span class="menu-bar w-5 h-px block"></span>
+          <span class="menu-bar w-3 h-px block ml-auto"></span>
+        </button>
+      </div>
+    </div>
+    <div class="nav-part nav-right hidden md:flex items-center px-2 h-11 mt-4 mr-4">
+      <a href="contacto.html" class="nav-cta-btn inline-flex items-center gap-2 px-5 py-2 text-sm font-figtree font-semibold">Cont&aacute;ctanos</a>
+    </div>
   </div>
 </nav>
 
-<!-- ══════════════════════════════════════════════
-     HERO
-═══════════════════════════════════════════════ -->
-<section class="relative pt-32 pb-16 overflow-hidden">
-  <div class="absolute inset-0 opacity-[0.03]" style="background-image: radial-gradient(#178087 1px, transparent 1px); background-size: 30px 30px;"></div>
+<div id="mobile-menu" class="fixed top-0 right-0 h-screen w-72 bg-white z-[100] p-8 flex flex-col gap-6 border-l border-black/5 shadow-2xl">
+  <button id="menu-close" class="self-end text-dark/40 hover:text-dark p-1">
+    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"/></svg>
+  </button>
+  <a href="portafolio.html" class="text-xl text-dark font-almarai font-bold">Portafolio</a>
+  <a href="nosotros.html"   class="text-xl text-dark font-almarai font-bold">Nosotros</a>
+  <a href="blog.html"       class="text-xl text-dark font-almarai font-bold">Blog</a>
+  <a href="contacto.html"   class="text-xl text-dark font-almarai font-bold">Cont&aacute;ctanos</a>
+  <a href="contacto.html" class="mt-4 bg-dark text-white text-center px-6 py-3 rounded-full text-base font-figtree font-semibold">Cotiza tu proyecto</a>
+</div>
+
+<!-- HERO ═══════════════════════════════════════════ -->
+<section class="pt-28 pb-8 relative overflow-hidden">
+  <div class="hero-dots"></div>
   <div class="max-w-7xl mx-auto px-6 relative z-10">
-    <div class="reveal text-center max-w-3xl mx-auto">
-      <p class="font-label text-accent text-sm font-semibold tracking-widest uppercase mb-4">Nuestro trabajo</p>
-      <h1 class="font-serif text-5xl md:text-6xl lg:text-7xl leading-[1.1] mb-6">Portafolio</h1>
-      <p class="text-muted text-lg md:text-xl leading-relaxed">Cada proyecto es una historia de estrategia, creatividad y resultados. Conoce las marcas que confían en nosotros.</p>
+    <div class="text-center max-w-3xl mx-auto">
+      <span class="section-label mb-5 reveal">
+        <span class="arrow-icon">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        </span>
+        Nuestro trabajo
+      </span>
+      <h1 class="font-almarai font-bold text-dark leading-[1.0] mb-5 reveal" data-delay="80"
+          style="font-size: clamp(3.5rem, 8vw, 7.5rem); letter-spacing: -0.03em;">
+        Portafolio
+      </h1>
+      <p class="text-dark/45 text-lg md:text-xl font-figtree leading-relaxed max-w-xl mx-auto reveal" data-delay="160">
+        Cada proyecto es una historia de estrategia, creatividad y resultados reales.
+      </p>
+    </div>
+
+    <!-- Stats bar -->
+    <div class="flex items-center justify-center gap-8 md:gap-14 flex-wrap mt-12 reveal" data-delay="240">
+      <div class="text-center">
+        <p class="font-almarai font-bold text-dark leading-none" style="font-size:clamp(2rem,4vw,3rem); letter-spacing:-0.02em;">
+          <span data-target="9" data-suffix="+">9+</span>
+        </p>
+        <p class="text-dark/40 text-xs font-figtree mt-1 uppercase tracking-wider">Proyectos</p>
+      </div>
+      <div class="stat-div hidden md:block"></div>
+      <div class="text-center">
+        <p class="font-almarai font-bold text-dark leading-none" style="font-size:clamp(2rem,4vw,3rem); letter-spacing:-0.02em;">
+          <span data-target="5">5</span>
+        </p>
+        <p class="text-dark/40 text-xs font-figtree mt-1 uppercase tracking-wider">Categor&iacute;as</p>
+      </div>
+      <div class="stat-div hidden md:block"></div>
+      <div class="text-center">
+        <p class="font-almarai font-bold text-dark leading-none" style="font-size:clamp(2rem,4vw,3rem); letter-spacing:-0.02em;">
+          10+
+        </p>
+        <p class="text-dark/40 text-xs font-figtree mt-1 uppercase tracking-wider">A&ntilde;os</p>
+      </div>
+      <div class="stat-div hidden md:block"></div>
+      <div class="text-center">
+        <p class="font-almarai font-bold text-dark leading-none" style="font-size:clamp(2rem,4vw,3rem); letter-spacing:-0.02em;">
+          <span data-target="8">8</span>
+        </p>
+        <p class="text-dark/40 text-xs font-figtree mt-1 uppercase tracking-wider">Pa&iacute;ses</p>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ══════════════════════════════════════════════
-     PORTFOLIO GRID
-═══════════════════════════════════════════════ -->
-<section class="py-12 pb-24">
+<!-- PORTFOLIO GRID ═════════════════════════════════ -->
+<section class="py-8 pb-24">
   <div class="max-w-7xl mx-auto px-6">
 
-    <!-- Filters -->
-    <div class="reveal flex flex-wrap justify-center gap-3 mb-12">
-      <button class="filter-btn active font-label text-sm font-medium px-5 py-2 rounded-full border border-border transition-colors" data-filter="all">Todos</button>
-      <button class="filter-btn font-label text-sm font-medium px-5 py-2 rounded-full border border-border text-muted hover:text-accent hover:border-accent transition-colors" data-filter="branding">Branding</button>
-      <button class="filter-btn font-label text-sm font-medium px-5 py-2 rounded-full border border-border text-muted hover:text-accent hover:border-accent transition-colors" data-filter="web">Web</button>
-      <button class="filter-btn font-label text-sm font-medium px-5 py-2 rounded-full border border-border text-muted hover:text-accent hover:border-accent transition-colors" data-filter="audiovisual">Audiovisual</button>
-      <button class="filter-btn font-label text-sm font-medium px-5 py-2 rounded-full border border-border text-muted hover:text-accent hover:border-accent transition-colors" data-filter="social">Social Media</button>
+    <!-- Animated filter pill bar -->
+    <div class="flex justify-center mb-10 reveal">
+      <div class="filter-wrap" id="filter-wrap">
+        <div class="filter-pill" id="filter-pill"></div>
+        <button class="filter-btn active" data-filter="all">Todos</button>
+        <button class="filter-btn" data-filter="branding">Branding</button>
+        <button class="filter-btn" data-filter="web">Web</button>
+        <button class="filter-btn" data-filter="audiovisual">Audiovisual</button>
+        <button class="filter-btn" data-filter="social">Social</button>
+      </div>
     </div>
 
-    <!-- Grid -->
-    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6" id="portfolio-grid">
+    <!-- Bento grid -->
+    <div id="portfolio-grid">
 
-      <!-- Carpenter Group -->
-      <a href="portfolio/carpenter-group.html" class="portfolio-item reveal group relative rounded-2xl overflow-hidden aspect-[3/4]" data-category="web branding">
-        <img src="img/portfolio/carpenter-group.jpg" alt="Carpenter Group" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-        <div class="overlay absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent flex flex-col justify-end p-6">
-          <span class="font-label text-xs text-accent font-semibold uppercase tracking-wider">Web &middot; Branding</span>
-          <h3 class="font-serif text-2xl text-white mt-1">Carpenter Group</h3>
-          <p class="text-white/70 text-sm mt-1">Luxury Real Estate &middot; Canc&uacute;n</p>
+      <!-- 1. Carpenter Group — LARGE -->
+      <a href="portfolio/carpenter-group.html"
+         class="portfolio-item pi-lg reveal"
+         data-category="web branding"
+         data-cursor="Ver proyecto →">
+        <img src="img/portfolio/carpenter-group.jpg" alt="Carpenter Group" />
+        <span class="item-pill">Web · Branding</span>
+        <div class="overlay">
+          <span class="font-figtree text-[10px] text-white/65 font-bold uppercase tracking-widest mb-1">Web &middot; Branding</span>
+          <h3 class="font-serif text-white leading-tight" style="font-size:clamp(1.4rem,2.5vw,2.2rem);">Carpenter Group</h3>
+          <p class="text-white/50 text-sm mt-1">Luxury Real Estate &middot; Canc&uacute;n</p>
         </div>
       </a>
 
-      <!-- Casa Rolandi Tulum -->
-      <a href="portfolio/casa-rolandi.html" class="portfolio-item reveal group relative rounded-2xl overflow-hidden aspect-[3/4]" data-category="branding audiovisual web">
-        <img src="img/portfolio/casa-rolandi-tulum.jpg" alt="Casa Rolandi Tulum" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-        <div class="overlay absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent flex flex-col justify-end p-6">
-          <span class="font-label text-xs text-accent font-semibold uppercase tracking-wider">Branding &middot; Audiovisual &middot; Web</span>
-          <h3 class="font-serif text-2xl text-white mt-1">Casa Rolandi Tulum</h3>
-          <p class="text-white/70 text-sm mt-1">Swiss-Italian Gourmet &middot; Tulum</p>
+      <!-- 2. Casa Rolandi Tulum — TALL -->
+      <a href="portfolio/casa-rolandi.html"
+         class="portfolio-item pi-tall reveal"
+         data-category="branding audiovisual web"
+         data-cursor="Ver proyecto →">
+        <img src="img/portfolio/casa-rolandi-tulum.jpg" alt="Casa Rolandi Tulum" />
+        <span class="item-pill">Branding · Web</span>
+        <div class="overlay">
+          <span class="font-figtree text-[10px] text-white/65 font-bold uppercase tracking-widest mb-1">Branding &middot; Audiovisual &middot; Web</span>
+          <h3 class="font-serif text-2xl text-white leading-tight">Casa Rolandi Tulum</h3>
+          <p class="text-white/50 text-sm mt-1">Swiss-Italian Gourmet &middot; Tulum</p>
         </div>
       </a>
 
-      <!-- Selva Me -->
-      <a href="https://www.instagram.com/bdb.agencia/" target="_blank" class="portfolio-item reveal group relative rounded-2xl overflow-hidden aspect-[3/4]" data-category="social branding audiovisual">
-        <img src="img/portfolio/selva-me.jpg" alt="Selva Me" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-        <div class="overlay absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent flex flex-col justify-end p-6">
-          <span class="font-label text-xs text-accent font-semibold uppercase tracking-wider">Social &middot; Branding &middot; Audiovisual</span>
-          <h3 class="font-serif text-2xl text-white mt-1">Selva Me</h3>
-          <p class="text-white/70 text-sm mt-1">Contenido &middot; Social Media</p>
+      <!-- 3. Selva Me — MD -->
+      <a href="https://www.instagram.com/bdb.agencia/" target="_blank"
+         class="portfolio-item pi-md reveal"
+         data-category="social branding audiovisual"
+         data-cursor="Ver en Instagram →">
+        <img src="img/portfolio/selva-me.jpg" alt="Selva Me" />
+        <span class="item-pill">Social · Branding</span>
+        <div class="overlay">
+          <span class="font-figtree text-[10px] text-white/65 font-bold uppercase tracking-widest mb-1">Social &middot; Branding &middot; Audiovisual</span>
+          <h3 class="font-serif text-2xl text-white leading-tight">Selva Me</h3>
+          <p class="text-white/50 text-sm mt-1">Contenido &middot; Social Media</p>
         </div>
       </a>
 
-      <!-- Casa Rolandi Cancún -->
-      <a href="https://www.instagram.com/bdb.agencia/" target="_blank" class="portfolio-item reveal group relative rounded-2xl overflow-hidden aspect-[3/4]" data-category="social web">
-        <img src="img/portfolio/casa-rolandi-cancun.jpg" alt="Casa Rolandi Cancún" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-        <div class="overlay absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent flex flex-col justify-end p-6">
-          <span class="font-label text-xs text-accent font-semibold uppercase tracking-wider">Social Media &middot; Web</span>
-          <h3 class="font-serif text-2xl text-white mt-1">Casa Rolandi Canc&uacute;n</h3>
-          <p class="text-white/70 text-sm mt-1">Restaurante Gourmet &middot; Canc&uacute;n</p>
+      <!-- 4. Casa Rolandi Cancún — SMALL -->
+      <a href="https://www.instagram.com/bdb.agencia/" target="_blank"
+         class="portfolio-item pi-sm reveal"
+         data-category="social web"
+         data-cursor="Ver →">
+        <img src="img/portfolio/casa-rolandi-cancun.jpg" alt="Casa Rolandi Cancún" />
+        <span class="item-pill">Social · Web</span>
+        <div class="overlay">
+          <span class="font-figtree text-[10px] text-white/65 font-bold uppercase tracking-widest mb-1">Social Media &middot; Web</span>
+          <h3 class="font-serif text-xl text-white leading-tight">Casa Rolandi Canc&uacute;n</h3>
+          <p class="text-white/50 text-sm mt-1">Restaurante Gourmet</p>
         </div>
       </a>
 
-      <!-- Clorofila -->
-      <a href="https://www.instagram.com/bdb.agencia/" target="_blank" class="portfolio-item reveal group relative rounded-2xl overflow-hidden aspect-[3/4]" data-category="audiovisual">
-        <img src="img/portfolio/clorofila.jpg" alt="Clorofila" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-        <div class="overlay absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent flex flex-col justify-end p-6">
-          <span class="font-label text-xs text-accent font-semibold uppercase tracking-wider">Audiovisual</span>
-          <h3 class="font-serif text-2xl text-white mt-1">Clorofila</h3>
-          <p class="text-white/70 text-sm mt-1">Producci&oacute;n de video</p>
+      <!-- 5. Clorofila — SMALL -->
+      <a href="https://www.instagram.com/bdb.agencia/" target="_blank"
+         class="portfolio-item pi-sm reveal"
+         data-category="audiovisual"
+         data-cursor="Ver →">
+        <img src="img/portfolio/clorofila.jpg" alt="Clorofila" />
+        <span class="item-pill">Audiovisual</span>
+        <div class="overlay">
+          <span class="font-figtree text-[10px] text-white/65 font-bold uppercase tracking-widest mb-1">Audiovisual</span>
+          <h3 class="font-serif text-xl text-white leading-tight">Clorofila</h3>
+          <p class="text-white/50 text-sm mt-1">Producci&oacute;n de video</p>
         </div>
       </a>
 
-      <!-- Maku Poke -->
-      <a href="https://www.instagram.com/bdb.agencia/" target="_blank" class="portfolio-item reveal group relative rounded-2xl overflow-hidden aspect-[3/4]" data-category="social web branding">
-        <img src="img/portfolio/maku-poke.jpg" alt="Maku Poke" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-        <div class="overlay absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent flex flex-col justify-end p-6">
-          <span class="font-label text-xs text-accent font-semibold uppercase tracking-wider">Social &middot; Web &middot; Branding</span>
-          <h3 class="font-serif text-2xl text-white mt-1">Maku Poke</h3>
-          <p class="text-white/70 text-sm mt-1">Social Media &middot; Web &middot; Media</p>
+      <!-- 6. Maku Poke — WIDE -->
+      <a href="https://www.instagram.com/bdb.agencia/" target="_blank"
+         class="portfolio-item pi-wide reveal"
+         data-category="social web branding"
+         data-cursor="Ver →">
+        <img src="img/portfolio/maku-poke.jpg" alt="Maku Poke" />
+        <span class="item-pill">Social · Web · Branding</span>
+        <div class="overlay">
+          <span class="font-figtree text-[10px] text-white/65 font-bold uppercase tracking-widest mb-1">Social &middot; Web &middot; Branding</span>
+          <h3 class="font-serif text-2xl text-white leading-tight">Maku Poke</h3>
+          <p class="text-white/50 text-sm mt-1">Social Media &middot; Web &middot; Media</p>
         </div>
       </a>
 
-      <!-- Al Sahar -->
-      <a href="https://www.instagram.com/bdb.agencia/" target="_blank" class="portfolio-item reveal group relative rounded-2xl overflow-hidden aspect-[3/4]" data-category="branding audiovisual social">
-        <img src="img/portfolio/al-sahar.jpg" alt="Al Sahar" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-        <div class="overlay absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent flex flex-col justify-end p-6">
-          <span class="font-label text-xs text-accent font-semibold uppercase tracking-wider">Branding &middot; Video &middot; Social</span>
-          <h3 class="font-serif text-2xl text-white mt-1">Al Sahar</h3>
-          <p class="text-white/70 text-sm mt-1">Branding &middot; Video &middot; Social</p>
+      <!-- 7. Al Sahar — SQ -->
+      <a href="https://www.instagram.com/bdb.agencia/" target="_blank"
+         class="portfolio-item pi-sq reveal"
+         data-category="branding audiovisual social"
+         data-cursor="Ver →">
+        <img src="img/portfolio/al-sahar.jpg" alt="Al Sahar" />
+        <span class="item-pill">Branding · Video</span>
+        <div class="overlay">
+          <span class="font-figtree text-[10px] text-white/65 font-bold uppercase tracking-widest mb-1">Branding &middot; Video &middot; Social</span>
+          <h3 class="font-serif text-xl text-white leading-tight">Al Sahar</h3>
+          <p class="text-white/50 text-sm mt-1">Branding &middot; Video</p>
         </div>
       </a>
 
-      <!-- Boat Show -->
-      <a href="https://www.instagram.com/bdb.agencia/" target="_blank" class="portfolio-item reveal group relative rounded-2xl overflow-hidden aspect-[3/4]" data-category="audiovisual">
-        <img src="img/portfolio/boat-show.jpg" alt="Boat Show" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-        <div class="overlay absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent flex flex-col justify-end p-6">
-          <span class="font-label text-xs text-accent font-semibold uppercase tracking-wider">Audiovisual</span>
-          <h3 class="font-serif text-2xl text-white mt-1">Boat Show</h3>
-          <p class="text-white/70 text-sm mt-1">Producci&oacute;n audiovisual</p>
+      <!-- 8. Boat Show — SQ -->
+      <a href="https://www.instagram.com/bdb.agencia/" target="_blank"
+         class="portfolio-item pi-sq reveal"
+         data-category="audiovisual"
+         data-cursor="Ver →">
+        <img src="img/portfolio/boat-show.jpg" alt="Boat Show" />
+        <span class="item-pill">Audiovisual</span>
+        <div class="overlay">
+          <span class="font-figtree text-[10px] text-white/65 font-bold uppercase tracking-widest mb-1">Audiovisual</span>
+          <h3 class="font-serif text-xl text-white leading-tight">Boat Show</h3>
+          <p class="text-white/50 text-sm mt-1">Producci&oacute;n audiovisual</p>
         </div>
       </a>
 
-      <!-- Elementa -->
-      <a href="https://www.instagram.com/bdb.agencia/" target="_blank" class="portfolio-item reveal group relative rounded-2xl overflow-hidden aspect-[3/4]" data-category="audiovisual branding">
-        <img src="img/portfolio/elementa.jpg" alt="Elementa" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-        <div class="overlay absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent flex flex-col justify-end p-6">
-          <span class="font-label text-xs text-accent font-semibold uppercase tracking-wider">Audiovisual &middot; Branding</span>
-          <h3 class="font-serif text-2xl text-white mt-1">Elementa</h3>
-          <p class="text-white/70 text-sm mt-1">Producci&oacute;n de video</p>
+      <!-- 9. Elementa — SQ -->
+      <a href="https://www.instagram.com/bdb.agencia/" target="_blank"
+         class="portfolio-item pi-sq reveal"
+         data-category="audiovisual branding"
+         data-cursor="Ver →">
+        <img src="img/portfolio/elementa.jpg" alt="Elementa" />
+        <span class="item-pill">Audiovisual · Branding</span>
+        <div class="overlay">
+          <span class="font-figtree text-[10px] text-white/65 font-bold uppercase tracking-widest mb-1">Audiovisual &middot; Branding</span>
+          <h3 class="font-serif text-xl text-white leading-tight">Elementa</h3>
+          <p class="text-white/50 text-sm mt-1">Producci&oacute;n de video</p>
         </div>
       </a>
 
@@ -288,89 +444,107 @@
   </div>
 </section>
 
-<!-- ══════════════════════════════════════════════
-     CTA BAND
-═══════════════════════════════════════════════ -->
-<section class="py-24 bg-accent relative overflow-hidden">
-  <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(white 1px, transparent 1px); background-size: 24px 24px;"></div>
-  <div class="max-w-4xl mx-auto px-6 text-center relative z-10 reveal">
-    <h2 class="font-serif text-4xl md:text-5xl text-white mb-6">&iquest;Tienes un proyecto en mente?</h2>
-    <p class="text-white/80 text-lg mb-8 max-w-2xl mx-auto">Cu&eacute;ntanos tu idea y creemos algo extraordinario juntos.</p>
-    <div class="flex flex-wrap justify-center gap-4">
-      <a href="contacto.html" class="inline-flex items-center gap-2 bg-white text-accent font-semibold px-8 py-3.5 rounded-full hover:bg-gray-100 transition-colors text-base">
-        Cotiza tu proyecto
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-      </a>
-      <a href="https://wa.me/529981700402" target="_blank" class="inline-flex items-center gap-2 border-2 border-white/40 text-white font-semibold px-8 py-3.5 rounded-full hover:bg-white/10 transition-colors text-base">
-        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-        WhatsApp
-      </a>
+<!-- CTA ════════════════════════════════════════════ -->
+<section class="bg-white px-3 md:px-4 py-3">
+  <div class="bg-dark rounded-3xl py-24 md:py-32 overflow-hidden relative">
+    <!-- Lime glow -->
+    <div style="position:absolute;width:600px;height:600px;background:radial-gradient(circle,rgba(203,251,69,0.1),transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;"></div>
+    <div class="max-w-4xl mx-auto px-6 text-center relative z-10">
+      <h2 class="font-almarai font-extrabold text-white leading-[1.0] mb-6 reveal"
+          style="font-size: clamp(2.5rem, 6vw, 5rem); letter-spacing: -0.02em;">
+        &iquest;Tienes un proyecto<br />
+        <em class="font-serif italic font-normal">en mente?</em>
+      </h2>
+      <p class="text-white/50 text-lg font-figtree mb-10 max-w-xl mx-auto reveal" data-delay="100">
+        Cu&eacute;ntanos tu idea y creemos algo extraordinario juntos. Sin compromisos.
+      </p>
+      <div class="flex flex-wrap justify-center gap-4 reveal" data-delay="200">
+        <a href="contacto.html" data-magnetic="0.3"
+           class="bg-lime text-dark font-figtree font-bold px-8 py-4 rounded-full text-base transition-all hover:scale-105">
+          Cotiza tu proyecto &rarr;
+        </a>
+        <a href="https://wa.me/529981700402" target="_blank" class="btn-arrow btn-arrow-white px-8 py-4">
+          WhatsApp
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        </a>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ══════════════════════════════════════════════
-     FOOTER
-═══════════════════════════════════════════════ -->
-<footer class="bg-text py-16">
-  <div class="max-w-7xl mx-auto px-6">
-    <div class="grid md:grid-cols-4 gap-12 mb-12">
-      <!-- Brand -->
-      <div class="md:col-span-1">
-        <img src="img/logo.png" alt="BDB Agency" class="h-8 brightness-0 invert mb-4" />
-        <p class="text-white/50 text-sm leading-relaxed">Conectamos tu marca con las personas indicadas. Canc&uacute;n, M&eacute;xico.</p>
-      </div>
-
-      <!-- Nav -->
-      <div>
-        <h4 class="text-white font-semibold mb-4 font-label text-sm uppercase tracking-wider">Navegaci&oacute;n</h4>
-        <div class="flex flex-col gap-2">
-          <a href="portafolio.html" class="text-white/50 hover:text-white text-sm transition-colors">Portafolio</a>
-          <a href="nosotros.html" class="text-white/50 hover:text-white text-sm transition-colors">Nosotros</a>
-          <a href="blog.html" class="text-white/50 hover:text-white text-sm transition-colors">Blog</a>
-          <a href="contacto.html" class="text-white/50 hover:text-white text-sm transition-colors">Contacto</a>
+<!-- FOOTER ═════════════════════════════════════════ -->
+<footer class="bg-white px-3 md:px-4 pb-3">
+  <div class="bg-dark rounded-3xl overflow-hidden">
+    <div class="max-w-7xl mx-auto px-6 py-16">
+      <div class="grid md:grid-cols-4 gap-12">
+        <div class="md:col-span-1">
+          <p class="font-almarai font-bold text-white text-xl mb-4">BDB <sup class="text-[8px] font-normal">&reg;</sup></p>
+          <p class="text-white/40 text-sm font-figtree leading-relaxed">Agencia de marketing digital en Canc&uacute;n. Branding, producci&oacute;n audiovisual, marketing y desarrollo web.</p>
+        </div>
+        <div>
+          <h4 class="text-white/30 text-xs uppercase tracking-widest font-figtree font-semibold mb-4">Navegaci&oacute;n</h4>
+          <ul class="space-y-3">
+            <li><a href="portafolio.html" class="text-white/60 hover:text-white text-sm font-figtree transition-colors">Portafolio</a></li>
+            <li><a href="nosotros.html"   class="text-white/60 hover:text-white text-sm font-figtree transition-colors">Nosotros</a></li>
+            <li><a href="blog.html"       class="text-white/60 hover:text-white text-sm font-figtree transition-colors">Blog</a></li>
+            <li><a href="contacto.html"   class="text-white/60 hover:text-white text-sm font-figtree transition-colors">Contacto</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-white/30 text-xs uppercase tracking-widest font-figtree font-semibold mb-4">Servicios</h4>
+          <ul class="space-y-3">
+            <li><span class="text-white/60 text-sm font-figtree">Branding &amp; Identity</span></li>
+            <li><span class="text-white/60 text-sm font-figtree">Producci&oacute;n Audiovisual</span></li>
+            <li><span class="text-white/60 text-sm font-figtree">Marketing Digital</span></li>
+            <li><span class="text-white/60 text-sm font-figtree">IA &amp; Desarrollo Web</span></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-white/30 text-xs uppercase tracking-widest font-figtree font-semibold mb-4">Contacto</h4>
+          <ul class="space-y-3">
+            <li><a href="mailto:info@bdbagency.com" class="text-white/60 hover:text-white text-sm font-figtree transition-colors">info@bdbagency.com</a></li>
+            <li><a href="https://instagram.com/bdbagency" target="_blank" class="text-white/60 hover:text-white text-sm font-figtree transition-colors">Instagram</a></li>
+            <li><a href="https://facebook.com/bdbagency" target="_blank" class="text-white/60 hover:text-white text-sm font-figtree transition-colors">Facebook</a></li>
+            <li><span class="text-white/60 text-sm font-figtree">Canc&uacute;n, M&eacute;xico</span></li>
+          </ul>
         </div>
       </div>
-
-      <!-- Services -->
-      <div>
-        <h4 class="text-white font-semibold mb-4 font-label text-sm uppercase tracking-wider">Servicios</h4>
-        <div class="flex flex-col gap-2">
-          <span class="text-white/50 text-sm">Branding & Media</span>
-          <span class="text-white/50 text-sm">Producci&oacute;n Audiovisual</span>
-          <span class="text-white/50 text-sm">Marketing Digital</span>
-          <span class="text-white/50 text-sm">IA & Desarrollo Web</span>
-        </div>
+      <div class="mt-16 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
+        <p class="text-white/25 text-xs font-figtree">&copy; 2025 BDB Agency. Todos los derechos reservados.</p>
+        <p class="text-white/25 text-xs font-figtree">Canc&uacute;n, Quintana Roo, M&eacute;xico</p>
       </div>
-
-      <!-- Contact -->
-      <div>
-        <h4 class="text-white font-semibold mb-4 font-label text-sm uppercase tracking-wider">Contacto</h4>
-        <div class="flex flex-col gap-2">
-          <a href="mailto:info@bdbagency.com" class="text-white/50 hover:text-white text-sm transition-colors">info@bdbagency.com</a>
-          <a href="https://wa.me/529981700402" class="text-white/50 hover:text-white text-sm transition-colors">+52 998 170 0402</a>
-          <div class="flex gap-4 mt-2">
-            <a href="https://www.instagram.com/bdb.agencia/" target="_blank" class="text-white/50 hover:text-accent transition-colors" aria-label="Instagram">
-              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
-            </a>
-            <a href="https://www.facebook.com/BeDigitalBrand" target="_blank" class="text-white/50 hover:text-accent transition-colors" aria-label="Facebook">
-              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-            </a>
-            <a href="https://www.behance.net/bautsdigital" target="_blank" class="text-white/50 hover:text-accent transition-colors" aria-label="Behance">
-              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M22 7h-7V5h7v2zm1.726 10c-.442 1.297-2.029 3-5.101 3-3.074 0-5.564-1.729-5.564-5.675 0-3.91 2.325-5.92 5.466-5.92 3.082 0 4.964 1.782 5.375 4.426.078.506.109 1.188.095 2.14H15.97c.13 3.211 3.483 3.312 4.588 2.029h3.168zm-7.686-4h4.965c-.105-1.547-1.136-2.219-2.477-2.219-1.466 0-2.277.768-2.488 2.219zm-9.574 6.988H0V5.021h6.953c5.476.081 5.58 5.444 2.72 6.906 3.461 1.26 3.577 6.053-1.207 7.061zM2.917 8.241v4.393h3.667c1.684 0 2.655-.988 2.655-2.21 0-1.647-1.238-2.183-2.752-2.183H2.917zm3.667 7.547H2.917v-4.731h4.063c1.992 0 2.72 1.168 2.72 2.394 0 1.478-1.105 2.337-3.116 2.337z"/></svg>
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-      <p class="text-white/30 text-sm">&copy; 2026 BDB Agency. Todos los derechos reservados.</p>
-      <p class="text-white/30 text-sm">Canc&uacute;n, Quintana Roo, M&eacute;xico</p>
     </div>
   </div>
 </footer>
 
 <script src="effects.js"></script>
+
+<!-- Filter pill init -->
+<script>
+(function() {
+  function placePill() {
+    var pill = document.getElementById('filter-pill');
+    var active = document.querySelector('.filter-btn.active');
+    if (!pill || !active) return;
+    pill.style.top    = '4px';
+    pill.style.left   = active.offsetLeft + 'px';
+    pill.style.width  = active.offsetWidth + 'px';
+    pill.style.height = active.offsetHeight + 'px';
+  }
+
+  window.addEventListener('load', function() {
+    var pill = document.getElementById('filter-pill');
+    if (pill) pill.style.transition = 'none';
+    placePill();
+    setTimeout(function() {
+      if (pill) pill.style.transition = 'left 0.35s cubic-bezier(.4,0,.2,1), width 0.35s cubic-bezier(.4,0,.2,1)';
+    }, 80);
+  });
+
+  document.querySelectorAll('.filter-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() { placePill(); });
+  });
+})();
+</script>
 </body>
 </html>
