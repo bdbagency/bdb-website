@@ -759,9 +759,11 @@
       <!-- Card 1 — Carpenter Group -->
       <a href="portfolio/carpenter-group.html" class="work-card-polaroid reveal block cursor-pointer">
         <div class="polaroid-img">
-          <img src="img/portfolio/carpenter-group.jpg" alt="Carpenter Group"
-               class="h-80 md:h-[400px]">
-          <div class="polaroid-overlay"><span class="overlay-cta">Ver proyecto →</span></div>
+          <video id="carpenter-video"
+                 class="h-80 md:h-[400px] w-full object-cover"
+                 autoplay muted loop playsinline
+                 data-src="https://customer-pu6o7odn1t38g6ae.cloudflarestream.com/9fe9f68e6e324558003429028eabaab9/manifest/video.m3u8"
+          ></video>
         </div>
         <div class="flex items-center justify-between mt-4 px-1">
           <span class="text-dark font-figtree font-semibold text-lg">Carpenter Group</span>
@@ -774,7 +776,6 @@
         <div class="polaroid-img">
           <img src="img/portfolio/casa-rolandi-cancun.jpg" alt="Casa Rolandi"
                class="h-80 md:h-[400px]">
-          <div class="polaroid-overlay"><span class="overlay-cta">Ver proyecto →</span></div>
         </div>
         <div class="flex items-center justify-between mt-4 px-1">
           <span class="text-dark font-figtree font-semibold text-lg">Casa Rolandi</span>
@@ -787,7 +788,6 @@
         <div class="polaroid-img">
           <img src="img/portfolio/al-sahar.jpg" alt="Al Sahar"
                class="h-80 md:h-[400px]">
-          <div class="polaroid-overlay"><span class="overlay-cta">Ver proyecto →</span></div>
         </div>
         <div class="flex items-center justify-between mt-4 px-1">
           <span class="text-dark font-figtree font-semibold text-lg">Al Sahar</span>
@@ -800,7 +800,6 @@
         <div class="polaroid-img">
           <img src="img/portfolio/maku-poke.jpg" alt="Maku Poke"
                class="h-80 md:h-[400px]">
-          <div class="polaroid-overlay"><span class="overlay-cta">Ver proyecto →</span></div>
         </div>
         <div class="flex items-center justify-between mt-4 px-1">
           <span class="text-dark font-figtree font-semibold text-lg">Maku Poke</span>
@@ -1154,7 +1153,7 @@
     <!-- ░░ RIGHT — Stacked benefit cards ░░ -->
     <div class="w-full lg:w-1/3 lg:max-w-[600px] flex flex-col gap-3 lg:gap-4 lg:py-4">
 
-      <div class="benefit-card reveal">
+      <div class="benefit-card spotlight-card reveal">
         <div class="flex items-center gap-2 mb-3">
           <span class="w-6 h-6 rounded-full bg-dark text-white text-[10px] flex items-center justify-center font-figtree font-semibold">01</span>
           <span class="text-xs font-figtree font-medium text-dark/50 uppercase tracking-wider">Satisfacci&oacute;n</span>
@@ -1163,7 +1162,7 @@
         <p class="text-dark/50 text-sm font-figtree leading-relaxed">No terminamos el proyecto si no es de tu agrado, cumpliendo con los requisitos garantizamos tu proyecto.</p>
       </div>
 
-      <div class="benefit-card reveal">
+      <div class="benefit-card spotlight-card reveal">
         <div class="flex items-center gap-2 mb-3">
           <span class="w-6 h-6 rounded-full bg-dark text-white text-[10px] flex items-center justify-center font-figtree font-semibold">02</span>
           <span class="text-xs font-figtree font-medium text-dark/50 uppercase tracking-wider">Trazabilidad</span>
@@ -1172,7 +1171,7 @@
         <p class="text-dark/50 text-sm font-figtree leading-relaxed">No improvisamos, todos nuestros servicios tienen un proceso establecido con tecnolog&iacute;a y conocimiento de nuestros 10 a&ntilde;os de experiencia.</p>
       </div>
 
-      <div class="benefit-card reveal">
+      <div class="benefit-card spotlight-card reveal">
         <div class="flex items-center gap-2 mb-3">
           <span class="w-6 h-6 rounded-full bg-dark text-white text-[10px] flex items-center justify-center font-figtree font-semibold">03</span>
           <span class="text-xs font-figtree font-medium text-dark/50 uppercase tracking-wider">Personalizaci&oacute;n</span>
@@ -1181,7 +1180,7 @@
         <p class="text-dark/50 text-sm font-figtree leading-relaxed">Cada uno de nuestros servicios tiene su propio ADN, nuestras propuestas creativas son diferentes y adecuadas para cada marca.</p>
       </div>
 
-      <div class="benefit-card reveal">
+      <div class="benefit-card spotlight-card reveal">
         <div class="flex items-center gap-2 mb-3">
           <span class="w-6 h-6 rounded-full bg-dark text-white text-[10px] flex items-center justify-center font-figtree font-semibold">04</span>
           <span class="text-xs font-figtree font-medium text-dark/50 uppercase tracking-wider">Objetivos</span>
@@ -1218,36 +1217,48 @@
       <a href="blog/tendencias-marketing-digital-2026/" class="blog-card group reveal">
         <div class="relative rounded-2xl overflow-hidden mb-4" style="aspect-ratio: 3/4;">
           <span class="absolute top-4 left-4 text-sm font-figtree text-dark/60 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full z-10">15 ene 2026</span>
+          <!-- Category badge (21st Magic overlay pattern) -->
+          <span class="absolute bottom-14 left-4 text-[10px] font-figtree font-semibold text-white/90 bg-black/35 backdrop-blur-sm px-3 py-1 rounded-full z-10 uppercase tracking-widest">Marketing Digital</span>
           <img src="img/blog/blog-01.jpg" alt="Tendencias de marketing digital en 2026" class="w-full h-full object-cover" />
-          <div class="absolute bottom-4 right-4 w-10 h-10 rounded-full bg-white flex items-center justify-center z-10 group-hover:bg-dark group-hover:text-white transition-colors">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+          <!-- Bottom gradient -->
+          <div class="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent pointer-events-none"></div>
+          <div class="absolute bottom-4 right-4 w-10 h-10 rounded-full bg-white flex items-center justify-center z-10 group-hover:bg-lime group-hover:border-lime transition-all duration-300">
+            <svg class="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25"/></svg>
           </div>
         </div>
-        <h3 class="font-almarai font-bold text-dark text-lg leading-tight">Tendencias de marketing digital en 2026</h3>
+        <h3 class="font-almarai font-bold text-dark text-lg leading-tight group-hover:text-dark/70 transition-colors">Tendencias de marketing digital en 2026</h3>
       </a>
 
       <!-- Article 2 -->
       <a href="blog/como-construir-una-marca-que-conecta/" class="blog-card group reveal">
         <div class="relative rounded-2xl overflow-hidden mb-4" style="aspect-ratio: 3/4;">
           <span class="absolute top-4 left-4 text-sm font-figtree text-dark/60 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full z-10">10 feb 2026</span>
+          <!-- Category badge -->
+          <span class="absolute bottom-14 left-4 text-[10px] font-figtree font-semibold text-white/90 bg-black/35 backdrop-blur-sm px-3 py-1 rounded-full z-10 uppercase tracking-widest">Branding</span>
           <img src="img/blog/blog-02.jpg" alt="Cómo construir una marca que conecta" class="w-full h-full object-cover" />
-          <div class="absolute bottom-4 right-4 w-10 h-10 rounded-full bg-white flex items-center justify-center z-10 group-hover:bg-dark group-hover:text-white transition-colors">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+          <!-- Bottom gradient -->
+          <div class="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent pointer-events-none"></div>
+          <div class="absolute bottom-4 right-4 w-10 h-10 rounded-full bg-white flex items-center justify-center z-10 group-hover:bg-lime group-hover:border-lime transition-all duration-300">
+            <svg class="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25"/></svg>
           </div>
         </div>
-        <h3 class="font-almarai font-bold text-dark text-lg leading-tight">C&oacute;mo construir una marca que conecta</h3>
+        <h3 class="font-almarai font-bold text-dark text-lg leading-tight group-hover:text-dark/70 transition-colors">C&oacute;mo construir una marca que conecta</h3>
       </a>
 
       <!-- Article 3 -->
       <a href="blog/ia-aplicada-al-marketing-casos-reales/" class="blog-card group reveal">
         <div class="relative rounded-2xl overflow-hidden mb-4" style="aspect-ratio: 3/4;">
           <span class="absolute top-4 left-4 text-sm font-figtree text-dark/60 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full z-10">5 mar 2026</span>
+          <!-- Category badge -->
+          <span class="absolute bottom-14 left-4 text-[10px] font-figtree font-semibold text-white/90 bg-black/35 backdrop-blur-sm px-3 py-1 rounded-full z-10 uppercase tracking-widest">Tecnolog&iacute;a e IA</span>
           <img src="img/blog/blog-03.jpg" alt="IA aplicada al marketing: casos reales" class="w-full h-full object-cover" />
-          <div class="absolute bottom-4 right-4 w-10 h-10 rounded-full bg-white flex items-center justify-center z-10 group-hover:bg-dark group-hover:text-white transition-colors">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+          <!-- Bottom gradient -->
+          <div class="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent pointer-events-none"></div>
+          <div class="absolute bottom-4 right-4 w-10 h-10 rounded-full bg-white flex items-center justify-center z-10 group-hover:bg-lime group-hover:border-lime transition-all duration-300">
+            <svg class="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25"/></svg>
           </div>
         </div>
-        <h3 class="font-almarai font-bold text-dark text-lg leading-tight">IA aplicada al marketing: casos reales</h3>
+        <h3 class="font-almarai font-bold text-dark text-lg leading-tight group-hover:text-dark/70 transition-colors">IA aplicada al marketing: casos reales</h3>
       </a>
     </div>
 
@@ -1343,5 +1354,34 @@
 </footer>
 
 <script src="effects.js"></script>
+<script>
+// HLS init for Carpenter Group portfolio card
+(function () {
+  var v = document.getElementById('carpenter-video');
+  if (!v) return;
+  var src = v.dataset.src;
+  if (v.canPlayType('application/vnd.apple.mpegurl')) {
+    v.src = src;
+    v.play().catch(function(){});
+  } else if (window.Hls && Hls.isSupported()) {
+    var hls = new Hls({ enableWorker: false });
+    hls.loadSource(src);
+    hls.attachMedia(v);
+    hls.on(Hls.Events.MANIFEST_PARSED, function () { v.play().catch(function(){}); });
+  }
+})();
+</script>
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+<script>
+  if (window.netlifyIdentity) {
+    window.netlifyIdentity.on("init", user => {
+      if (!user) {
+        window.netlifyIdentity.on("login", () => {
+          document.location.href = "/admin/";
+        });
+      }
+    });
+  }
+</script>
 </body>
 </html>

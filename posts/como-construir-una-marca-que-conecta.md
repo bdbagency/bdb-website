@@ -4,6 +4,7 @@ date: 2026-02-10
 categoria: Branding
 description: "Los elementos clave para crear una identidad de marca que resuene con tu audiencia y genere lealtad a largo plazo."
 imagen: /img/blog/blog-02.jpg
+readingTime: 5
 ---
 
 Una marca no es un logo. No es un color. No es una tipografía bonita en tu tarjeta de presentación.

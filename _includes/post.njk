@@ -84,6 +84,13 @@
     html { scroll-behavior: smooth; }
     body { font-family: 'Figtree', sans-serif; background: #ffffff; color: #0e1011; overflow-x: hidden; }
 
+    /* ── READING PROGRESS BAR ── */
+    #reading-progress-bar {
+      position: fixed; top: 12px; left: 0; height: 2px; width: 0%;
+      background: #0FB4F7; z-index: 9998; transition: width 0.1s linear;
+      box-shadow: 0 0 10px rgba(15,180,247,0.55);
+    }
+
     /* ── SCROLL REVEAL ── */
     .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s cubic-bezier(.25,.46,.45,.94), transform 0.7s cubic-bezier(.25,.46,.45,.94); }
     .reveal.visible { opacity: 1; transform: translateY(0); }
@@ -114,37 +121,104 @@
     #mobile-menu { transform: translateX(100%); transition: transform 0.35s cubic-bezier(.77,0,.175,1); }
     #mobile-menu.open { transform: translateX(0); }
 
-    /* ── SECTION LABEL ── */
-    .section-label { display: inline-flex; align-items: center; gap: 8px; font-family: 'Figtree', sans-serif; font-size: 13px; font-weight: 500; }
-    .section-label { background: linear-gradient(90deg, #0e1011 0%, #0e1011 40%, #0FB4F7 55%, #0e1011 70%, #0e1011 100%); background-size: 300% 100%; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; animation: label-shine 4s ease infinite; }
-    @keyframes label-shine { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-    .section-label .arrow-icon { width: 28px; height: 28px; border-radius: 50%; border: 1px solid rgba(14,16,17,0.15); display: flex; align-items: center; justify-content: center; -webkit-text-fill-color: initial; color: #0e1011; }
-
     /* ── BUTTONS ── */
     .btn-arrow { display: inline-flex; align-items: center; gap: 10px; padding: 12px 24px; border: 1px solid rgba(14,16,17,0.15); border-radius: 9999px; font-family: 'Figtree', sans-serif; font-weight: 500; font-size: 14px; color: #0e1011; transition: all 0.3s ease; }
     .btn-arrow:hover { background: #0e1011; color: #fff; border-color: #0e1011; }
-    .btn-arrow-white { border-color: rgba(255,255,255,0.25); color: #fff; }
-    .btn-arrow-white:hover { background: #fff; color: #0e1011; border-color: #fff; }
 
-    /* ── ARTICLE PROSE ── */
-    .prose h2 { font-family: 'Almarai', sans-serif; font-weight: 700; font-size: 1.625rem; line-height: 1.25; margin: 2.75rem 0 1rem; color: #0e1011; }
-    .prose h3 { font-family: 'Almarai', sans-serif; font-weight: 700; font-size: 1.2rem; line-height: 1.35; margin: 2rem 0 0.75rem; color: #0e1011; }
-    .prose p  { font-family: 'Figtree', sans-serif; font-size: 1.0625rem; line-height: 1.8; color: rgba(14,16,17,0.72); margin-bottom: 1.5rem; }
-    .prose ul { list-style: disc; padding-left: 1.5rem; margin-bottom: 1.5rem; }
-    .prose ol { list-style: decimal; padding-left: 1.5rem; margin-bottom: 1.5rem; }
-    .prose li { font-family: 'Figtree', sans-serif; font-size: 1.0625rem; line-height: 1.75; color: rgba(14,16,17,0.72); margin-bottom: 0.4rem; }
+    /* ── ARTICLE PROSE — Enhanced Editorial ── */
+    .prose { max-width: 68ch; }
+    .prose > * + * { margin-top: 1.5rem; }
+
+    .prose h2 {
+      font-family: 'Almarai', sans-serif; font-weight: 700;
+      font-size: clamp(1.35rem, 2.5vw, 1.7rem); line-height: 1.2;
+      margin: 3.5rem 0 1.25rem; color: #0e1011; letter-spacing: -0.015em;
+    }
+    .prose h2::before {
+      content: ''; display: block; width: 24px; height: 2px;
+      background: #0FB4F7; margin-bottom: 1rem; border-radius: 2px;
+    }
+    .prose h3 {
+      font-family: 'Almarai', sans-serif; font-weight: 700;
+      font-size: 1.15rem; line-height: 1.35; margin: 2.5rem 0 0.75rem;
+      color: #0e1011;
+    }
+    .prose p {
+      font-family: 'Figtree', sans-serif; font-size: 1.075rem;
+      line-height: 1.85; color: rgba(14,16,17,0.70); margin-bottom: 1.5rem;
+    }
+    .prose p:first-of-type {
+      font-size: 1.15rem; color: rgba(14,16,17,0.80);
+    }
     .prose strong { color: #0e1011; font-weight: 600; }
-    .prose a { color: #0FB4F7; text-decoration: underline; text-underline-offset: 2px; }
+    .prose em { font-family: 'Instrument Serif', Georgia, serif; font-style: italic; }
+    .prose a { color: #0FB4F7; text-decoration-thickness: 1px; text-underline-offset: 3px; }
     .prose a:hover { color: #0a8fc4; }
-    .prose blockquote { border-left: 3px solid #0FB4F7; padding: 0.5rem 0 0.5rem 1.5rem; margin: 2rem 0; font-style: italic; color: rgba(14,16,17,0.55); background: #f6f6f6; border-radius: 0 12px 12px 0; }
-    .prose img { width: 100%; border-radius: 16px; margin: 2rem 0; }
-    .prose hr { border: none; border-top: 1px solid rgba(14,16,17,0.08); margin: 3rem 0; }
 
-    /* ── HIDE NATIVE CURSOR when custom cursor active ── */
+    /* Lists with cyan bullets */
+    .prose ul { list-style: none; padding-left: 0; margin-bottom: 1.5rem; }
+    .prose ul li {
+      font-family: 'Figtree', sans-serif; font-size: 1.075rem;
+      line-height: 1.8; color: rgba(14,16,17,0.70);
+      margin-bottom: 0.5rem; padding-left: 1.5rem; position: relative;
+    }
+    .prose ul li::before {
+      content: ''; position: absolute; left: 0; top: 0.68em;
+      width: 6px; height: 6px; border-radius: 50%; background: #0FB4F7;
+    }
+    .prose ol { counter-reset: ol-counter; padding-left: 0; margin-bottom: 1.5rem; }
+    .prose ol li {
+      counter-increment: ol-counter; padding-left: 2rem; position: relative;
+      font-family: 'Figtree', sans-serif; font-size: 1.075rem;
+      line-height: 1.8; color: rgba(14,16,17,0.70); margin-bottom: 0.5rem;
+    }
+    .prose ol li::before {
+      content: counter(ol-counter) '.'; position: absolute; left: 0;
+      font-weight: 700; color: #0FB4F7; font-family: 'Figtree', sans-serif;
+    }
+
+    /* Blockquote — editorial serif */
+    .prose blockquote {
+      border-left: 3px solid #0FB4F7;
+      background: #f6f6f6;
+      padding: 1.25rem 1.5rem 1.25rem 1.75rem;
+      margin: 2.5rem 0;
+      border-radius: 0 16px 16px 0;
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-style: italic;
+      font-size: 1.2rem;
+      line-height: 1.65;
+      color: rgba(14,16,17,0.60);
+    }
+    .prose img { width: 100%; border-radius: 16px; margin: 2.5rem 0; }
+    .prose hr { border: none; border-top: 1px solid rgba(14,16,17,0.07); margin: 4rem 0; }
+
+    /* ── SHARE BUTTONS ── */
+    .share-icon-btn {
+      width: 36px; height: 36px; border-radius: 50%; background: #f6f6f6;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.25s ease, color 0.25s ease;
+      color: rgba(14,16,17,0.5);
+    }
+    .share-icon-btn:hover { color: #fff; }
+
+    /* ── RELATED CARDS ── */
+    .related-card { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+    .related-card:hover { transform: translateY(-3px); box-shadow: 0 16px 40px rgba(0,0,0,0.08); }
+    .related-card .rc-img { transition: transform 0.5s ease; }
+    .related-card:hover .rc-img { transform: scale(1.04); }
+
+    /* ── LINE CLAMP ── */
+    .line-clamp-2 { overflow: hidden; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
+
+    /* ── HIDE NATIVE CURSOR ── */
     @media (pointer: fine) { *, *::before, *::after { cursor: none !important; } }
   </style>
 </head>
 <body>
+
+<!-- Reading progress bar (styled, wired by effects.js initScrollProgress) -->
+<div id="reading-progress-bar"></div>
 
 <!-- NAV -->
 <div class="white-top-bar"></div>
@@ -187,57 +261,89 @@
   <a href="/contacto.html" class="mt-4 bg-dark text-white text-center px-6 py-3 rounded-full text-base font-figtree font-semibold">Cotiza tu proyecto</a>
 </div>
 
-<!-- ═══ ARTICLE HEADER ═══ -->
+<!-- ════════════════════════════════════════
+     ARTICLE
+════════════════════════════════════════ -->
 <article>
-  <header class="pt-32 pb-12 bg-white">
+
+  <!-- ── ENHANCED HEADER ── -->
+  <header class="pt-32 pb-0 bg-white">
     <div class="max-w-3xl mx-auto px-6">
-      <!-- Breadcrumb + category -->
-      <div class="flex items-center gap-3 mb-8 reveal">
-        <a href="/blog.html" class="section-label">
-          <span class="arrow-icon">
-            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="-webkit-text-fill-color:initial;color:#0e1011;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
-          </span>
+
+      <!-- Back link + category badge -->
+      <div class="flex items-center justify-between mb-10 reveal">
+        <a href="/blog.html" class="inline-flex items-center gap-2 text-dark/40 hover:text-dark text-sm font-figtree transition-colors group">
+          <svg class="w-4 h-4 transition-transform group-hover:-translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+          </svg>
           Blog
         </a>
         {% if categoria %}
-        <span class="text-dark/25">·</span>
-        <span class="bg-dark/5 text-dark/60 font-figtree text-xs font-semibold px-3 py-1 rounded-full">{{ categoria }}</span>
+        <span class="inline-flex items-center bg-lime/10 text-lime border border-lime/20 font-figtree text-[11px] font-semibold px-3 py-1.5 rounded-full uppercase tracking-widest">
+          {{ categoria }}
+        </span>
         {% endif %}
       </div>
 
-      <!-- Title -->
-      <h1 class="font-almarai font-bold leading-[1.05] tracking-tight mb-6 reveal" style="font-size: clamp(2rem, 5vw, 3.5rem);">{{ title }}</h1>
+      <!-- Decorative thin rule -->
+      <div class="w-10 h-px bg-dark/15 mb-8 reveal"></div>
 
-      <!-- Meta row -->
-      <div class="flex items-center gap-6 text-sm text-dark/40 font-figtree mb-8 reveal">
-        <time datetime="{{ date | isoDate }}">{{ date | readableDate }}</time>
-        <span>BDB Agency</span>
+      <!-- Title — large editorial -->
+      <h1 class="font-almarai font-bold leading-[1.04] tracking-tight mb-8 reveal"
+          style="font-size: clamp(2rem, 5.5vw, 3.75rem); letter-spacing: -0.02em;">
+        {{ title }}
+      </h1>
+
+      <!-- Meta row: date · reading time · author -->
+      <div class="flex flex-wrap items-center gap-3 mb-10 reveal">
+        <time datetime="{{ date | isoDate }}" class="font-figtree text-sm text-dark/40">
+          {{ date | readableDate }}
+        </time>
+        <span class="w-px h-3 bg-dark/15 inline-block"></span>
+        {% if readingTime %}
+        <span class="font-figtree text-sm text-dark/40">{{ readingTime }} min de lectura</span>
+        <span class="w-px h-3 bg-dark/15 inline-block"></span>
+        {% endif %}
+        <span class="font-figtree text-sm text-dark/40 font-medium">BDB Agency</span>
       </div>
 
-      <!-- Description -->
+      <!-- Description as editorial pull-quote -->
       {% if description %}
-      <p class="text-dark/55 text-lg font-figtree leading-relaxed border-l-4 pl-5 mb-0 reveal" style="border-color:#0FB4F7;">{{ description }}</p>
+      <div class="relative pl-5 mb-12 reveal">
+        <div class="absolute left-0 top-0 bottom-0 w-[3px] bg-lime rounded-full"></div>
+        <p class="font-figtree text-lg leading-[1.75] text-dark/60 italic">{{ description }}</p>
+      </div>
       {% endif %}
+
     </div>
   </header>
 
-  <!-- Cover image -->
+  <!-- ── COVER IMAGE — Aspect ratio editorial ── -->
   {% if imagen %}
-  <div class="max-w-5xl mx-auto px-6 mb-12 reveal">
-    <img src="{{ imagen }}" alt="{{ title }}" class="w-full rounded-3xl object-cover" style="max-height:520px;" />
+  <div class="w-full mb-14 reveal">
+    <div class="max-w-5xl mx-auto px-6">
+      <div class="relative rounded-2xl overflow-hidden" style="aspect-ratio:16/8;">
+        <img src="{{ imagen }}" alt="{{ title }}"
+             class="w-full h-full object-cover" />
+        <!-- Subtle depth overlay -->
+        <div class="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent pointer-events-none"></div>
+      </div>
+    </div>
   </div>
   {% endif %}
 
-  <!-- ═══ POST CONTENT ═══ -->
-  <div class="max-w-3xl mx-auto px-6 pb-20">
+  <!-- ── POST CONTENT ── -->
+  <div class="max-w-3xl mx-auto px-6 pb-10">
     <div class="prose">
       {{ content | safe }}
     </div>
 
-    <!-- Back + CTA -->
-    <div class="mt-16 pt-10 border-t border-black/8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+    <!-- Back + CTA buttons -->
+    <div class="mt-16 pt-10 border-t border-black/[0.06] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
       <a href="/blog.html" class="btn-arrow text-sm">
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+        </svg>
         Volver al blog
       </a>
       <a href="/contacto.html" class="bg-dark text-white font-figtree font-semibold px-7 py-3 rounded-full text-sm hover:bg-dark/80 transition-colors">
@@ -245,9 +351,137 @@
       </a>
     </div>
   </div>
+
+  <!-- ── SHARE BUTTONS — Compact bar ── -->
+  <div class="max-w-3xl mx-auto px-6 pb-10">
+    <div class="flex items-center gap-5 py-7 border-t border-b border-black/[0.06]">
+      <p class="text-[11px] font-figtree font-semibold uppercase tracking-[0.12em] text-dark/30 whitespace-nowrap">
+        Compartir
+      </p>
+      <div class="flex items-center gap-2" id="share-buttons">
+        <!-- WhatsApp -->
+        <a id="share-wa" href="#" target="_blank" rel="noopener"
+           class="share-icon-btn hover:bg-[#25D366]" title="WhatsApp">
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.124.558 4.121 1.531 5.857L.057 23.116a.75.75 0 00.921.921l5.259-1.474A11.95 11.95 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.75a9.713 9.713 0 01-4.951-1.355l-.355-.212-3.683 1.032 1.032-3.683-.212-.355A9.712 9.712 0 012.25 12C2.25 6.615 6.615 2.25 12 2.25S21.75 6.615 21.75 12 17.385 21.75 12 21.75z"/>
+          </svg>
+        </a>
+        <!-- X (Twitter) -->
+        <a id="share-tw" href="#" target="_blank" rel="noopener"
+           class="share-icon-btn hover:bg-black" title="X (Twitter)">
+          <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.747l7.73-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+          </svg>
+        </a>
+        <!-- Facebook -->
+        <a id="share-fb" href="#" target="_blank" rel="noopener"
+           class="share-icon-btn hover:bg-[#1877F2]" title="Facebook">
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+          </svg>
+        </a>
+        <!-- Divider -->
+        <div class="w-px h-4 bg-black/10 mx-1"></div>
+        <!-- Copy link pill -->
+        <button id="share-copy"
+                class="inline-flex items-center gap-2 h-9 px-4 rounded-full bg-[#f6f6f6] hover:bg-dark hover:text-white text-dark/60 text-xs font-figtree font-semibold transition-all duration-300">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+          </svg>
+          Copiar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── AUTHOR CARD ── -->
+  <div class="max-w-3xl mx-auto px-6 pb-14">
+    <div class="flex items-start gap-5 p-6 rounded-2xl bg-[#f6f6f6]">
+      <!-- Avatar -->
+      <div class="w-14 h-14 rounded-full bg-dark flex-shrink-0 overflow-hidden flex items-center justify-center">
+        <span class="font-almarai font-bold text-white text-lg">B</span>
+      </div>
+      <div>
+        <p class="font-almarai font-bold text-dark text-base mb-0.5">BDB Agency</p>
+        <p class="font-figtree text-[11px] text-dark/40 uppercase tracking-wider font-semibold mb-2">Agencia de Marketing Digital &middot; Canc&uacute;n</p>
+        <p class="font-figtree text-sm text-dark/55 leading-relaxed">
+          Estrategias de branding, marketing, producci&oacute;n audiovisual y tecnolog&iacute;a para marcas que quieren crecer en el mundo digital.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── RELATED POSTS — Enhanced ── -->
+  {% set related = collections.posts | relatedPosts(page.url, categoria, 3) %}
+  {% if related.length > 0 %}
+  <section class="max-w-3xl mx-auto px-6 pb-24">
+    <!-- Header row -->
+    <div class="flex items-center justify-between mb-8">
+      <h2 class="font-almarai font-bold text-xl" style="letter-spacing:-0.01em;">Art&iacute;culos relacionados</h2>
+      <a href="/blog.html" class="text-xs font-figtree font-semibold text-dark/35 hover:text-dark uppercase tracking-widest transition-colors">
+        Ver todos &rarr;
+      </a>
+    </div>
+
+    <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-5">
+      {% for post in related %}
+      <a href="{{ post.url }}"
+         class="related-card spotlight-card group block bg-[#f6f6f6] rounded-2xl overflow-hidden border border-transparent hover:border-dark/[0.05] transition-colors">
+        <!-- Image -->
+        <div class="overflow-hidden relative" style="aspect-ratio:16/10;">
+          {% if post.data.imagen %}
+          <img src="{{ post.data.imagen }}" alt="{{ post.data.title }}"
+               class="rc-img w-full h-full object-cover" />
+          {% else %}
+          <div class="w-full h-full bg-gradient-to-br from-dark/10 to-dark/5 flex items-center justify-center">
+            <span class="font-serif text-5xl text-dark/[0.08]" style="font-family:'Instrument Serif',serif;">{{ loop.index }}</span>
+          </div>
+          {% endif %}
+          <!-- Category badge on image -->
+          {% if post.data.categoria %}
+          <span class="absolute top-3 left-3 bg-white/90 backdrop-blur-sm text-dark/65 font-figtree text-[10px] font-semibold uppercase tracking-widest px-2.5 py-1 rounded-full">
+            {{ post.data.categoria }}
+          </span>
+          {% endif %}
+        </div>
+        <!-- Card content -->
+        <div class="p-5">
+          <h3 class="font-almarai font-bold text-dark text-[0.95rem] leading-snug mb-2 group-hover:text-dark/70 transition-colors"
+              style="letter-spacing:-0.01em;">
+            {{ post.data.title }}
+          </h3>
+          <p class="text-xs font-figtree text-dark/45 leading-relaxed line-clamp-2">{{ post.data.description }}</p>
+        </div>
+      </a>
+      {% endfor %}
+    </div>
+  </section>
+  {% endif %}
+
 </article>
 
-<!-- ═══ FOOTER ═══ -->
+<!-- ── SHARE JS ── -->
+<script>
+(function() {
+  var url = window.location.href;
+  var title = encodeURIComponent(document.title);
+  var urlEnc = encodeURIComponent(url);
+  document.getElementById('share-wa').href = 'https://wa.me/?text=' + title + '%20' + urlEnc;
+  document.getElementById('share-tw').href = 'https://twitter.com/intent/tweet?text=' + title + '&url=' + urlEnc;
+  document.getElementById('share-fb').href = 'https://www.facebook.com/sharer/sharer.php?u=' + urlEnc;
+  var copyBtn = document.getElementById('share-copy');
+  copyBtn.addEventListener('click', function() {
+    navigator.clipboard.writeText(url).then(function() {
+      copyBtn.innerHTML = '<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> \u00a1Copiado!';
+      setTimeout(function() {
+        copyBtn.innerHTML = '<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg> Copiar';
+      }, 2000);
+    });
+  });
+})();
+</script>
+
+<!-- ── FOOTER ── -->
 <footer class="bg-white px-3 md:px-4 pb-3">
   <div class="bg-dark rounded-3xl overflow-hidden">
     <div class="max-w-7xl mx-auto px-6 py-16">

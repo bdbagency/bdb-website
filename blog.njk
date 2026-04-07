@@ -80,10 +80,30 @@ description: "Blog de BDB Agency. Ideas, tendencias y estrategias de marketing d
     .btn-arrow:hover { background: #0e1011; color: #fff; border-color: #0e1011; }
     .btn-arrow-white { border-color: rgba(255,255,255,0.25); color: #fff; }
     .btn-arrow-white:hover { background: #fff; color: #0e1011; border-color: #fff; }
-    .blog-card { transition: transform 0.3s ease, box-shadow 0.3s ease; }
-    .blog-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.08); }
-    .blog-card img { transition: transform 0.5s cubic-bezier(.25,.46,.45,.94); }
-    .blog-card:hover img { transform: scale(1.04); }
+
+    /* ── BLOG CARDS ── */
+    .blog-card-item { transition: transform 0.35s ease, box-shadow 0.35s ease; }
+    .blog-card-item:hover { transform: translateY(-4px); box-shadow: 0 24px 56px rgba(0,0,0,0.09); }
+    .blog-card-img { transition: transform 0.55s cubic-bezier(.25,.46,.45,.94); }
+    .blog-card-item:hover .blog-card-img { transform: scale(1.04); }
+
+    /* ── FEATURED CARD ── */
+    .featured-card { transition: transform 0.35s ease, box-shadow 0.35s ease; }
+    .featured-card:hover { transform: translateY(-3px); box-shadow: 0 28px 64px rgba(0,0,0,0.1); }
+    .featured-card .feat-img { transition: transform 0.65s cubic-bezier(.25,.46,.45,.94); }
+    .featured-card:hover .feat-img { transform: scale(1.03); }
+    .feat-arrow { transition: background 0.3s ease, transform 0.3s ease; }
+    .featured-card:hover .feat-arrow { background: #0e1011; }
+    .featured-card:hover .feat-arrow svg { stroke: #fff; }
+
+    /* ── CATEGORY FILTER ── */
+    .cat-btn { transition: all 0.25s ease; }
+    .cat-btn.active { background: #0e1011; color: #fff; border-color: #0e1011; }
+
+    /* ── LINE CLAMP ── */
+    .line-clamp-2 { overflow: hidden; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
+    .line-clamp-3 { overflow: hidden; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; }
+
     @media (pointer: fine) { *, *::before, *::after { cursor: none !important; } }
   </style>
 </head>
@@ -130,93 +150,255 @@ description: "Blog de BDB Agency. Ideas, tendencias y estrategias de marketing d
   <a href="contacto.html" class="mt-4 bg-dark text-white text-center px-6 py-3 rounded-full text-base font-figtree font-semibold">Cotiza tu proyecto</a>
 </div>
 
-<!-- HERO -->
-<section class="pt-32 pb-16">
+<!-- ════════════════════════════════════════
+     HERO — Editorial left-aligned
+════════════════════════════════════════ -->
+<section class="pt-36 pb-16 bg-white overflow-hidden">
   <div class="max-w-7xl mx-auto px-6">
-    <div class="reveal text-center max-w-3xl mx-auto">
-      <div class="flex justify-center mb-6">
-        <div class="section-label">
-          <span class="arrow-icon" style="-webkit-text-fill-color:initial;color:#0e1011;">
-            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25"/></svg>
-          </span>
-          Blog
+    <div class="relative">
+
+      <!-- Ghost decorative text (21st Magic "Blog Posts" pattern) -->
+      <span class="absolute -top-8 -left-2 select-none font-almarai font-extrabold leading-none text-dark pointer-events-none z-0 whitespace-nowrap hidden md:block"
+            style="font-size:clamp(5rem,18vw,13rem); opacity:0.028;">BLOG</span>
+
+      <div class="relative z-10">
+        <!-- Section label -->
+        <div class="flex items-center gap-3 mb-8 reveal">
+          <div class="section-label">
+            <span class="arrow-icon" style="-webkit-text-fill-color:initial;color:#0e1011;">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25"/></svg>
+            </span>
+            Ideas y Tendencias
+          </div>
+        </div>
+
+        <!-- Two-column hero: title left, description right -->
+        <div class="grid md:grid-cols-2 gap-8 md:gap-16 items-end">
+          <div class="reveal">
+            <h1 class="font-almarai font-bold leading-[1.0] tracking-tight"
+                style="font-size:clamp(3rem,8vw,6.5rem); letter-spacing:-0.025em;">
+              Nuestra <br class="hidden md:block"><em class="font-serif italic font-normal" style="font-family:'Instrument Serif',Georgia,serif;">perspectiva</em>
+            </h1>
+          </div>
+          <div class="md:pb-2 reveal" data-delay="100">
+            <div class="w-8 h-px bg-dark/20 mb-6 hidden md:block"></div>
+            <p class="text-dark/50 text-lg font-figtree leading-relaxed max-w-md">
+              Estrategias, insights y tendencias del mundo digital para ayudarte a tomar mejores decisiones.
+            </p>
+          </div>
         </div>
       </div>
-      <h1 class="font-almarai font-bold leading-[1.05] tracking-tight mb-6" style="font-size: clamp(2.8rem, 7vw, 5.5rem);">Ideas y Tendencias</h1>
-      <p class="text-dark/50 text-lg md:text-xl font-figtree leading-relaxed max-w-xl mx-auto">Estrategias, insights y tendencias del mundo digital para ayudarte a tomar mejores decisiones.</p>
+
     </div>
   </div>
 </section>
 
-<!-- BLOG GRID -->
-<section class="py-12 pb-24">
+<!-- ════════════════════════════════════════
+     CATEGORY FILTER
+════════════════════════════════════════ -->
+<div class="max-w-7xl mx-auto px-6 pb-10 reveal">
+  <div class="flex flex-wrap gap-2" id="category-filter">
+    <button class="cat-btn active font-figtree text-sm font-semibold px-5 py-2 rounded-full bg-dark text-white border border-dark" data-cat="all">
+      Todos
+    </button>
+    <button class="cat-btn font-figtree text-sm font-medium px-5 py-2 rounded-full border border-dark/15 text-dark/60 hover:border-dark hover:text-dark" data-cat="Marketing Digital">
+      Marketing Digital
+    </button>
+    <button class="cat-btn font-figtree text-sm font-medium px-5 py-2 rounded-full border border-dark/15 text-dark/60 hover:border-dark hover:text-dark" data-cat="Branding">
+      Branding
+    </button>
+    <button class="cat-btn font-figtree text-sm font-medium px-5 py-2 rounded-full border border-dark/15 text-dark/60 hover:border-dark hover:text-dark" data-cat="Tecnología e IA">
+      Tecnolog&iacute;a e IA
+    </button>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+     BLOG GRID
+════════════════════════════════════════ -->
+<section class="pb-24">
   <div class="max-w-7xl mx-auto px-6">
 
     {% if collections.posts and collections.posts.length > 0 %}
-    <!-- Real posts from CMS -->
-    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-      {% for post in collections.posts %}
-      <a href="{{ post.url }}" class="reveal blog-card bg-light-g rounded-2xl overflow-hidden block group">
-        <div class="overflow-hidden">
-          {% if post.data.imagen %}
-          <img src="{{ post.data.imagen }}" alt="{{ post.data.title }}"
-               class="w-full h-52 object-cover" />
+
+    <!-- ── FEATURED FIRST POST ── -->
+    {% set featured = collections.posts[0] %}
+    <div class="mb-8 reveal">
+      <a href="{{ featured.url }}"
+         class="featured-card blog-card-item group grid md:grid-cols-[1.2fr_1fr] bg-light-g rounded-2xl overflow-hidden block"
+         data-categoria="{{ featured.data.categoria }}">
+
+        <!-- Image: left, tall -->
+        <div class="overflow-hidden relative" style="aspect-ratio:4/3; min-height:280px;">
+          {% if featured.data.imagen %}
+          <img src="{{ featured.data.imagen }}" alt="{{ featured.data.title }}"
+               class="feat-img w-full h-full object-cover" />
           {% else %}
-          <div class="h-52 bg-gradient-to-br from-dark/10 via-dark/5 to-transparent flex items-center justify-center">
-            <span class="font-serif text-6xl text-dark/10" style="font-family:'Instrument Serif',serif;">{{ loop.index | string | padStart(2, '0') }}</span>
+          <div class="w-full h-full bg-gradient-to-br from-dark/10 to-dark/5 flex items-center justify-center">
+            <span class="font-serif text-9xl text-dark/[0.08]" style="font-family:'Instrument Serif',serif;">01</span>
           </div>
           {% endif %}
+          <!-- Subtle gradient overlay -->
+          <div class="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent pointer-events-none"></div>
         </div>
-        <div class="p-6">
-          <div class="flex items-center justify-between mb-2">
-            <span class="font-figtree text-xs text-dark/50 font-semibold uppercase tracking-wider">{{ post.data.categoria }}</span>
-            <span class="font-figtree text-xs text-dark/35">{{ post.date | readableDate }}</span>
+
+        <!-- Content: right, vertically distributed -->
+        <div class="flex flex-col justify-between p-8 md:p-10 lg:p-12">
+          <div>
+            <!-- Top row: category + date -->
+            <div class="flex items-center justify-between mb-6">
+              {% if featured.data.categoria %}
+              <span class="inline-flex items-center bg-lime/10 text-lime border border-lime/20 font-figtree text-[11px] font-semibold px-3 py-1.5 rounded-full uppercase tracking-widest">
+                {{ featured.data.categoria }}
+              </span>
+              {% endif %}
+              <time class="font-figtree text-xs text-dark/35">{{ featured.date | readableDate }}</time>
+            </div>
+
+            <!-- Title -->
+            <h2 class="font-almarai font-bold text-dark leading-[1.08] mb-4 group-hover:text-dark/80 transition-colors"
+                style="font-size:clamp(1.5rem,3vw,2.2rem); letter-spacing:-0.02em;">
+              {{ featured.data.title }}
+            </h2>
+
+            <!-- Description -->
+            <p class="text-dark/55 font-figtree leading-relaxed text-base line-clamp-3">
+              {{ featured.data.description }}
+            </p>
           </div>
-          <h3 class="font-almarai font-bold text-dark text-xl mt-1 mb-2 group-hover:text-dark/80 transition-colors">{{ post.data.title }}</h3>
-          <p class="text-dark/50 text-sm font-figtree leading-relaxed">{{ post.data.description }}</p>
-          <div class="mt-4 flex items-center gap-2 text-sm font-figtree font-medium text-dark/60 group-hover:text-dark transition-colors">
-            Leer art&iacute;culo
-            <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+
+          <!-- CTA row -->
+          <div class="mt-8 flex items-center gap-3 pt-6 border-t border-dark/[0.06]">
+            <span class="font-figtree text-sm font-semibold text-dark group-hover:text-lime transition-colors">
+              Leer art&iacute;culo
+            </span>
+            <div class="feat-arrow w-8 h-8 rounded-full border border-dark/15 flex items-center justify-center ml-auto">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25"/>
+              </svg>
+            </div>
           </div>
         </div>
+
       </a>
-      {% endfor %}
     </div>
 
+    <!-- ── SECONDARY POSTS GRID ── -->
+    {% if collections.posts.length > 1 %}
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+      {% for post in collections.posts %}
+      {% if loop.index > 1 %}
+      <a href="{{ post.url }}"
+         class="blog-card-item spotlight-card group flex flex-col bg-light-g rounded-2xl overflow-hidden reveal"
+         data-categoria="{{ post.data.categoria }}"
+         data-delay="{{ (loop.index - 2) * 80 }}">
+
+        <!-- Image with overlay badge -->
+        <div class="overflow-hidden relative" style="aspect-ratio:16/10;">
+          {% if post.data.imagen %}
+          <img src="{{ post.data.imagen }}" alt="{{ post.data.title }}"
+               class="blog-card-img w-full h-full object-cover" />
+          {% else %}
+          <div class="w-full h-full bg-gradient-to-br from-dark/[0.09] via-dark/[0.05] to-transparent flex items-center justify-center">
+            <span class="font-serif text-7xl text-dark/[0.08]" style="font-family:'Instrument Serif',serif;">
+              {{ loop.index | string | padStart(2, '0') }}
+            </span>
+          </div>
+          {% endif %}
+
+          <!-- Gradient overlay -->
+          <div class="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent pointer-events-none"></div>
+
+          <!-- Category badge overlaid on image (21st Magic "Blogs" pattern) -->
+          {% if post.data.categoria %}
+          <span class="absolute top-3 left-3 bg-white/90 backdrop-blur-sm text-dark/70 font-figtree text-[10px] font-semibold uppercase tracking-widest px-3 py-1.5 rounded-full">
+            {{ post.data.categoria }}
+          </span>
+          {% endif %}
+        </div>
+
+        <!-- Card body -->
+        <div class="p-5 flex flex-col flex-1">
+          <time class="font-figtree text-xs text-dark/35 mb-3 block">{{ post.date | readableDate }}</time>
+          <h3 class="font-almarai font-bold text-dark leading-snug mb-2 flex-1 group-hover:text-dark/75 transition-colors"
+              style="font-size:1.05rem; letter-spacing:-0.01em;">
+            {{ post.data.title }}
+          </h3>
+          <p class="text-dark/50 text-sm font-figtree leading-relaxed line-clamp-2 mb-4">{{ post.data.description }}</p>
+
+          <!-- Footer row -->
+          <div class="flex items-center gap-2 text-sm font-figtree font-medium text-dark/45 group-hover:text-dark transition-colors mt-auto pt-4 border-t border-dark/[0.05]">
+            Leer art&iacute;culo
+            <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+            </svg>
+          </div>
+        </div>
+
+      </a>
+      {% endif %}
+      {% endfor %}
+    </div>
+    {% endif %}
+
     {% else %}
-    <!-- Placeholder cards when no posts yet -->
-    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-      <div class="reveal blog-card bg-light-g rounded-2xl overflow-hidden">
-        <div class="h-52 bg-gradient-to-br from-dark/10 via-dark/5 to-transparent flex items-center justify-center relative">
-          <span class="font-serif text-6xl text-dark/10">01</span>
-          <div class="absolute top-4 right-4"><span class="bg-white/80 backdrop-blur-sm text-dark/60 font-figtree text-[10px] font-semibold px-3 py-1 rounded-full uppercase tracking-wider">Pr&oacute;ximamente</span></div>
+
+    <!-- ── PLACEHOLDER CARDS (when no posts) ── -->
+    <div class="mb-8 reveal">
+      <div class="featured-card grid md:grid-cols-[1.2fr_1fr] bg-light-g rounded-2xl overflow-hidden">
+        <div class="relative overflow-hidden" style="aspect-ratio:4/3; min-height:280px;">
+          <div class="w-full h-full bg-gradient-to-br from-dark/10 to-dark/5 flex items-center justify-center">
+            <span class="font-serif text-9xl text-dark/[0.08]" style="font-family:'Instrument Serif',serif;">01</span>
+          </div>
+          <div class="absolute top-3 right-3">
+            <span class="bg-white/80 backdrop-blur-sm text-dark/60 font-figtree text-[10px] font-semibold px-3 py-1.5 rounded-full uppercase tracking-widest">Pr&oacute;ximamente</span>
+          </div>
         </div>
-        <div class="p-6">
-          <span class="font-figtree text-xs text-dark/50 font-semibold uppercase tracking-wider">Marketing Digital</span>
-          <h3 class="font-almarai font-bold text-dark text-xl mt-2 mb-2">Tendencias de marketing digital en 2026</h3>
-          <p class="text-dark/50 text-sm font-figtree leading-relaxed">Las estrategias que est&aacute;n definiendo el futuro del marketing este a&ntilde;o.</p>
+        <div class="flex flex-col justify-between p-8 md:p-12">
+          <div>
+            <span class="inline-flex items-center bg-lime/10 text-lime border border-lime/20 font-figtree text-[11px] font-semibold px-3 py-1.5 rounded-full uppercase tracking-widest mb-6 block w-fit">Marketing Digital</span>
+            <h2 class="font-almarai font-bold text-dark text-2xl md:text-3xl leading-tight mb-4">Tendencias de marketing digital en 2026</h2>
+            <p class="text-dark/55 font-figtree leading-relaxed">Las estrategias que est&aacute;n definiendo el futuro del marketing este a&ntilde;o.</p>
+          </div>
+          <div class="mt-8 flex items-center gap-3 pt-6 border-t border-dark/[0.06]">
+            <span class="font-figtree text-sm font-semibold text-dark">Leer art&iacute;culo</span>
+            <div class="w-8 h-8 rounded-full border border-dark/15 flex items-center justify-center ml-auto">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25"/></svg>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="reveal blog-card bg-light-g rounded-2xl overflow-hidden">
-        <div class="h-52 bg-gradient-to-br from-dark/[0.07] via-dark/[0.04] to-transparent flex items-center justify-center relative">
-          <span class="font-serif text-6xl text-dark/10">02</span>
-          <div class="absolute top-4 right-4"><span class="bg-white/80 backdrop-blur-sm text-dark/60 font-figtree text-[10px] font-semibold px-3 py-1 rounded-full uppercase tracking-wider">Pr&oacute;ximamente</span></div>
+    </div>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+      <div class="reveal blog-card-item flex flex-col bg-light-g rounded-2xl overflow-hidden">
+        <div class="relative overflow-hidden" style="aspect-ratio:16/10;">
+          <div class="w-full h-full bg-gradient-to-br from-dark/[0.08] via-dark/[0.04] to-transparent flex items-center justify-center">
+            <span class="font-serif text-7xl text-dark/[0.08]" style="font-family:'Instrument Serif',serif;">02</span>
+          </div>
+          <div class="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent"></div>
+          <span class="absolute top-3 left-3 bg-white/90 backdrop-blur-sm text-dark/70 font-figtree text-[10px] font-semibold uppercase tracking-widest px-3 py-1.5 rounded-full">Branding</span>
+          <span class="absolute top-3 right-3 bg-white/80 backdrop-blur-sm text-dark/60 font-figtree text-[10px] font-semibold px-3 py-1 rounded-full">Pr&oacute;ximamente</span>
         </div>
-        <div class="p-6">
-          <span class="font-figtree text-xs text-dark/50 font-semibold uppercase tracking-wider">Branding</span>
-          <h3 class="font-almarai font-bold text-dark text-xl mt-2 mb-2">C&oacute;mo construir una marca que conecta</h3>
-          <p class="text-dark/50 text-sm font-figtree leading-relaxed">Los elementos clave para crear una identidad que resuene con tu audiencia.</p>
+        <div class="p-5 flex flex-col flex-1">
+          <h3 class="font-almarai font-bold text-dark text-[1.05rem] leading-snug mb-2 flex-1">C&oacute;mo construir una marca que conecta</h3>
+          <p class="text-dark/50 text-sm font-figtree leading-relaxed line-clamp-2 mb-4">Los elementos clave para crear una identidad que resuene con tu audiencia.</p>
+          <div class="flex items-center gap-2 text-sm font-figtree font-medium text-dark/40 mt-auto pt-4 border-t border-dark/[0.05]">Leer art&iacute;culo <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg></div>
         </div>
       </div>
-      <div class="reveal blog-card bg-light-g rounded-2xl overflow-hidden">
-        <div class="h-52 bg-gradient-to-br from-dark/[0.08] via-dark/[0.03] to-transparent flex items-center justify-center relative">
-          <span class="font-serif text-6xl text-dark/10">03</span>
-          <div class="absolute top-4 right-4"><span class="bg-white/80 backdrop-blur-sm text-dark/60 font-figtree text-[10px] font-semibold px-3 py-1 rounded-full uppercase tracking-wider">Pr&oacute;ximamente</span></div>
+      <div class="reveal blog-card-item flex flex-col bg-light-g rounded-2xl overflow-hidden">
+        <div class="relative overflow-hidden" style="aspect-ratio:16/10;">
+          <div class="w-full h-full bg-gradient-to-br from-dark/[0.07] via-dark/[0.03] to-transparent flex items-center justify-center">
+            <span class="font-serif text-7xl text-dark/[0.08]" style="font-family:'Instrument Serif',serif;">03</span>
+          </div>
+          <div class="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent"></div>
+          <span class="absolute top-3 left-3 bg-white/90 backdrop-blur-sm text-dark/70 font-figtree text-[10px] font-semibold uppercase tracking-widest px-3 py-1.5 rounded-full">Tecnolog&iacute;a e IA</span>
+          <span class="absolute top-3 right-3 bg-white/80 backdrop-blur-sm text-dark/60 font-figtree text-[10px] font-semibold px-3 py-1 rounded-full">Pr&oacute;ximamente</span>
         </div>
-        <div class="p-6">
-          <span class="font-figtree text-xs text-dark/50 font-semibold uppercase tracking-wider">Tecnolog&iacute;a e IA</span>
-          <h3 class="font-almarai font-bold text-dark text-xl mt-2 mb-2">IA aplicada al marketing: casos reales</h3>
-          <p class="text-dark/50 text-sm font-figtree leading-relaxed">C&oacute;mo la inteligencia artificial est&aacute; revolucionando la comunicaci&oacute;n de marcas.</p>
+        <div class="p-5 flex flex-col flex-1">
+          <h3 class="font-almarai font-bold text-dark text-[1.05rem] leading-snug mb-2 flex-1">IA aplicada al marketing: casos reales</h3>
+          <p class="text-dark/50 text-sm font-figtree leading-relaxed line-clamp-2 mb-4">C&oacute;mo la inteligencia artificial est&aacute; revolucionando la comunicaci&oacute;n de marcas.</p>
+          <div class="flex items-center gap-2 text-sm font-figtree font-medium text-dark/40 mt-auto pt-4 border-t border-dark/[0.05]">Leer art&iacute;culo <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg></div>
         </div>
       </div>
     </div>
@@ -225,7 +407,9 @@ description: "Blog de BDB Agency. Ideas, tendencias y estrategias de marketing d
   </div>
 </section>
 
-<!-- CTA FINAL -->
+<!-- ════════════════════════════════════════
+     CTA FINAL
+════════════════════════════════════════ -->
 <section class="px-3 md:px-4 pb-6">
   <div class="bg-dark rounded-3xl overflow-hidden py-20 md:py-28 relative">
     <div class="max-w-3xl mx-auto px-6 text-center relative z-10 reveal">
@@ -291,5 +475,37 @@ description: "Blog de BDB Agency. Ideas, tendencias y estrategias de marketing d
 </footer>
 
 <script src="effects.js"></script>
+
+<!-- Category filter logic -->
+<script>
+(function () {
+  var btns = document.querySelectorAll('.cat-btn');
+  var featured = document.querySelector('[data-categoria]');
+  var allCards = document.querySelectorAll('[data-categoria]');
+
+  btns.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      // Update active state
+      btns.forEach(function (b) {
+        b.classList.remove('active', 'bg-dark', 'text-white', 'border-dark');
+        b.classList.add('text-dark/60', 'border-dark/15');
+      });
+      btn.classList.add('active', 'bg-dark', 'text-white', 'border-dark');
+      btn.classList.remove('text-dark/60', 'border-dark/15');
+
+      var cat = btn.dataset.cat;
+
+      allCards.forEach(function (card) {
+        var match = cat === 'all' || card.dataset.categoria === cat;
+        card.style.opacity = match ? '1' : '0.2';
+        card.style.transform = match ? '' : 'scale(0.97)';
+        card.style.pointerEvents = match ? '' : 'none';
+        card.style.transition = 'opacity 0.35s ease, transform 0.35s ease';
+      });
+    });
+  });
+})();
+</script>
+
 </body>
 </html>

@@ -69,3 +69,167 @@ collections:
         name: "tags"
         widget: "hidden"
         default: "post"
+
+  - name: "portfolio"
+    label: "Portafolio"
+    label_singular: "Proyecto"
+    folder: "projects"
+    create: true
+    delete: true
+    slug: "{{slug}}"
+    summary: "{{title}} — {{year}}"
+    fields:
+      - label: "Título del proyecto"
+        name: "title"
+        widget: "string"
+
+      - label: "Cliente"
+        name: "cliente"
+        widget: "string"
+
+      - label: "Industria"
+        name: "industria"
+        widget: "string"
+
+      - label: "Ubicación"
+        name: "ubicacion"
+        widget: "string"
+        default: "Cancún, México"
+
+      - label: "Año"
+        name: "year"
+        widget: "number"
+        value_type: "int"
+
+      - label: "Categoría"
+        name: "categoria"
+        widget: "select"
+        options:
+          - "Branding"
+          - "Marketing Digital"
+          - "Diseño Web"
+          - "Social Media"
+          - "Producción Audiovisual"
+          - "Tecnología e IA"
+
+      - label: "Descripción SEO"
+        name: "description"
+        widget: "text"
+        hint: "Resumen del proyecto para Google y compartir en redes. Máx. 160 caracteres."
+
+      - label: "Video hero (HLS .m3u8)"
+        name: "heroVideo"
+        widget: "string"
+        required: false
+        hint: "URL del stream de Cloudflare (.m3u8). Si se proporciona, reemplaza la imagen hero."
+
+      - label: "Imagen hero"
+        name: "heroImage"
+        widget: "image"
+        required: false
+        hint: "Usada como fallback si no hay video, o como poster del video."
+
+      - label: "Scope (alcance)"
+        name: "scope"
+        widget: "string"
+        required: false
+        hint: "Resumen corto del alcance (ej: 'App Visual Direction'). Aparece en la barra de metadatos del hero."
+
+      - label: "Duración"
+        name: "duration"
+        widget: "string"
+        required: false
+        hint: "Tiempo del proyecto (ej: '2 meses')."
+
+      - label: "URL en vivo"
+        name: "liveUrl"
+        widget: "string"
+        required: false
+        hint: "Si existe, muestra el botón 'Live preview' en el hero."
+
+      - label: "Subtítulo del hero"
+        name: "heroSubtitle"
+        widget: "text"
+        required: false
+        hint: "Frase corta a la derecha del título grande (1-2 líneas)."
+
+      - label: "Servicios"
+        name: "servicios"
+        widget: "list"
+        hint: "Lista de servicios entregados en el proyecto."
+
+      - label: "El reto"
+        name: "challenge"
+        widget: "markdown"
+        hint: "Descripción del problema o reto del cliente."
+
+      - label: "La solución"
+        name: "solution"
+        widget: "markdown"
+        hint: "Cómo BDB Agency abordó el reto."
+
+      - label: "Resultados"
+        name: "result"
+        widget: "markdown"
+        hint: "Métricas y resultados concretos."
+
+      - label: "Galería"
+        name: "gallery"
+        widget: "list"
+        required: false
+        fields:
+          - label: "Imagen"
+            name: "src"
+            widget: "image"
+          - label: "Alt text"
+            name: "alt"
+            widget: "string"
+          - label: "Tamaño en bento grid"
+            name: "span"
+            widget: "select"
+            options:
+              - { label: "Ancho completo", value: "full" }
+              - { label: "Dos tercios", value: "two-thirds" }
+              - { label: "Un tercio", value: "third" }
+
+      - label: "Testimonio (texto)"
+        name: "testimonialText"
+        widget: "text"
+        required: false
+
+      - label: "Testimonio — Nombre"
+        name: "testimonialAuthor"
+        widget: "string"
+        required: false
+
+      - label: "Testimonio — Cargo"
+        name: "testimonialRole"
+        widget: "string"
+        required: false
+
+      - label: "Siguiente proyecto (slug)"
+        name: "nextProjectSlug"
+        widget: "string"
+        required: false
+        hint: "Slug del archivo .md del siguiente proyecto (sin extensión)."
+
+      - label: "Siguiente proyecto (título)"
+        name: "nextProjectTitle"
+        widget: "string"
+        required: false
+
+      - label: "Siguiente proyecto (imagen)"
+        name: "nextProjectImage"
+        widget: "image"
+        required: false
+
+      # Campos ocultos
+      - label: "Layout"
+        name: "layout"
+        widget: "hidden"
+        default: "project.njk"
+
+      - label: "Tags"
+        name: "tags"
+        widget: "hidden"
+        default: "project"

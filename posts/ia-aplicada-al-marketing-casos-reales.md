@@ -4,6 +4,7 @@ date: 2026-03-05
 categoria: Tecnología e IA
 description: "Cómo la inteligencia artificial está revolucionando la comunicación de marcas con resultados tangibles y medibles."
 imagen: /img/blog/blog-03.jpg
+readingTime: 7
 ---
 
 Hay mucho ruido sobre inteligencia artificial en marketing. La mayoría es hipérbole: "la IA lo hará todo", "los creativos quedarán obsoletos", "el marketing tal como lo conocemos ha muerto".

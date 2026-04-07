@@ -251,38 +251,43 @@
           <h2 class="font-almarai font-bold text-dark text-3xl mb-2">Env&iacute;anos un mensaje</h2>
           <p class="text-dark/50 font-figtree mb-8">Completa el formulario y te responderemos en menos de 24 horas.</p>
 
-          <form name="contacto" method="POST" data-netlify="true" netlify-honeypot="bot-field" class="space-y-6">
-            <input type="hidden" name="form-name" value="contacto" />
-            <p class="hidden">
-              <label>No llenar: <input name="bot-field" /></label>
-            </p>
+          <form id="ghl-contact-form" novalidate class="space-y-6">
+            <!-- Honeypot anti-bot (no visible, no tabulable) -->
+            <div class="hidden" aria-hidden="true">
+              <label>No llenar: <input type="text" name="website" tabindex="-1" autocomplete="off" /></label>
+            </div>
 
             <div class="grid md:grid-cols-2 gap-6">
               <div>
-                <label for="nombre" class="block font-figtree text-sm font-medium text-dark mb-2">Nombre *</label>
-                <input type="text" id="nombre" name="nombre" required placeholder="Tu nombre completo" class="form-input w-full px-4 py-3 rounded-xl border border-dark/10 bg-white text-dark placeholder-dark/30 font-figtree transition-all" />
+                <label for="first_name" class="block font-figtree text-sm font-medium text-dark mb-2">Nombre *</label>
+                <input type="text" id="first_name" name="first_name" required placeholder="Tu nombre" class="form-input w-full px-4 py-3 rounded-xl border border-dark/10 bg-white text-dark placeholder-dark/30 font-figtree transition-all" />
               </div>
               <div>
-                <label for="email" class="block font-figtree text-sm font-medium text-dark mb-2">Email *</label>
-                <input type="email" id="email" name="email" required placeholder="tu@email.com" class="form-input w-full px-4 py-3 rounded-xl border border-dark/10 bg-white text-dark placeholder-dark/30 font-figtree transition-all" />
+                <label for="last_name" class="block font-figtree text-sm font-medium text-dark mb-2">Apellido *</label>
+                <input type="text" id="last_name" name="last_name" required placeholder="Tu apellido" class="form-input w-full px-4 py-3 rounded-xl border border-dark/10 bg-white text-dark placeholder-dark/30 font-figtree transition-all" />
               </div>
             </div>
 
             <div class="grid md:grid-cols-2 gap-6">
               <div>
-                <label for="telefono" class="block font-figtree text-sm font-medium text-dark mb-2">Tel&eacute;fono</label>
-                <input type="tel" id="telefono" name="telefono" placeholder="+52 998 123 4567" class="form-input w-full px-4 py-3 rounded-xl border border-dark/10 bg-white text-dark placeholder-dark/30 font-figtree transition-all" />
+                <label for="email" class="block font-figtree text-sm font-medium text-dark mb-2">Email *</label>
+                <input type="email" id="email" name="email" required placeholder="tu@email.com" class="form-input w-full px-4 py-3 rounded-xl border border-dark/10 bg-white text-dark placeholder-dark/30 font-figtree transition-all" />
               </div>
               <div>
-                <label for="servicio" class="block font-figtree text-sm font-medium text-dark mb-2">Servicio de inter&eacute;s</label>
-                <select id="servicio" name="servicio" class="form-input w-full px-4 py-3 rounded-xl border border-dark/10 bg-white text-dark font-figtree transition-all appearance-none" style="background-image: url(&quot;data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%230e1011' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e&quot;); background-position: right 0.75rem center; background-repeat: no-repeat; background-size: 1.5em 1.5em; padding-right: 2.5rem;">
-                  <option value="" disabled selected>Selecciona un servicio</option>
-                  <option value="branding">Branding &amp; Media</option>
-                  <option value="marketing">Marketing Digital</option>
-                  <option value="audiovisual">Producci&oacute;n Audiovisual</option>
-                  <option value="web">Desarrollo Web</option>
-                </select>
+                <label for="phone" class="block font-figtree text-sm font-medium text-dark mb-2">Tel&eacute;fono *</label>
+                <input type="tel" id="phone" name="phone" required placeholder="+52 998 123 4567" class="form-input w-full px-4 py-3 rounded-xl border border-dark/10 bg-white text-dark placeholder-dark/30 font-figtree transition-all" />
               </div>
+            </div>
+
+            <div>
+              <label for="servicio" class="block font-figtree text-sm font-medium text-dark mb-2">Servicio de inter&eacute;s</label>
+              <select id="servicio" name="servicio" class="form-input w-full px-4 py-3 rounded-xl border border-dark/10 bg-white text-dark font-figtree transition-all appearance-none" style="background-image: url(&quot;data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%230e1011' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e&quot;); background-position: right 0.75rem center; background-repeat: no-repeat; background-size: 1.5em 1.5em; padding-right: 2.5rem;">
+                <option value="" disabled selected>Selecciona un servicio</option>
+                <option value="branding">Branding &amp; Media</option>
+                <option value="marketing">Marketing Digital</option>
+                <option value="audiovisual">Producci&oacute;n Audiovisual</option>
+                <option value="web">Desarrollo Web</option>
+              </select>
             </div>
 
             <div>
@@ -290,10 +295,12 @@
               <textarea id="mensaje" name="mensaje" required rows="5" placeholder="Cu&eacute;ntanos sobre tu proyecto, objetivos y timeline..." class="form-input w-full px-4 py-3 rounded-xl border border-dark/10 bg-white text-dark placeholder-dark/30 font-figtree transition-all resize-none"></textarea>
             </div>
 
-            <button type="submit" class="inline-flex items-center gap-2 bg-dark text-white font-figtree font-semibold px-8 py-3.5 rounded-full hover:bg-dark-card transition-colors text-base">
-              Enviar mensaje
+            <button type="submit" id="form-submit-btn" class="inline-flex items-center gap-2 bg-dark text-white font-figtree font-semibold px-8 py-3.5 rounded-full hover:bg-dark-card transition-colors text-base disabled:opacity-60 disabled:cursor-not-allowed">
+              <span class="btn-label">Enviar mensaje</span>
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
             </button>
+
+            <div id="form-status" class="hidden mt-4 px-4 py-3 rounded-xl font-figtree text-sm" role="status" aria-live="polite"></div>
           </form>
         </div>
       </div>
@@ -465,5 +472,77 @@
 </footer>
 
 <script src="effects.js"></script>
+
+<!-- ══════════════════════════════════════════════
+     GHL FORM HANDLER
+═══════════════════════════════════════════════ -->
+<script>
+  (function () {
+    // 👇 PEGAR AQUÍ la URL del Inbound Webhook del Workflow de GHL
+    const GHL_WEBHOOK_URL = "/.netlify/functions/contact-submit";
+
+    const form = document.getElementById("ghl-contact-form");
+    const statusEl = document.getElementById("form-status");
+    const btn = document.getElementById("form-submit-btn");
+    const btnLabel = btn.querySelector(".btn-label");
+    if (!form) return;
+
+    function setStatus(kind, msg) {
+      statusEl.className = "mt-4 px-4 py-3 rounded-xl font-figtree text-sm";
+      if (kind === "success") statusEl.classList.add("bg-green-50", "text-green-800", "border", "border-green-200");
+      if (kind === "error")   statusEl.classList.add("bg-red-50",   "text-red-800",   "border", "border-red-200");
+      if (kind === "info")    statusEl.classList.add("bg-dark/5",   "text-dark/70");
+      statusEl.textContent = msg;
+      statusEl.classList.remove("hidden");
+    }
+
+    form.addEventListener("submit", async function (e) {
+      e.preventDefault();
+
+      // Honeypot — bots típicamente llenan todos los inputs
+      if (form.elements["website"] && form.elements["website"].value) return;
+
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+
+      const data = {
+        first_name:   form.first_name.value.trim(),
+        last_name:    form.last_name.value.trim(),
+        email:        form.email.value.trim(),
+        phone:        form.phone.value.trim(),
+        servicio:     form.servicio.value,
+        mensaje:      form.mensaje.value.trim(),
+        source:       "Website - contacto.html",
+        page_url:     window.location.href,
+        submitted_at: new Date().toISOString()
+      };
+
+      btn.disabled = true;
+      btnLabel.textContent = "Enviando\u2026";
+      setStatus("info", "Enviando tu mensaje\u2026");
+
+      try {
+        const res = await fetch(GHL_WEBHOOK_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data)
+        });
+        if (!res.ok) throw new Error("HTTP " + res.status);
+
+        setStatus("success", "\u00a1Mensaje enviado! Te respondemos en menos de 24 horas.");
+        form.reset();
+        btnLabel.textContent = "Enviar mensaje";
+        btn.disabled = false;
+      } catch (err) {
+        console.error("[GHL form] error:", err);
+        setStatus("error", "No pudimos enviar tu mensaje. Escr\u00edbenos por WhatsApp o intenta de nuevo.");
+        btnLabel.textContent = "Enviar mensaje";
+        btn.disabled = false;
+      }
+    });
+  })();
+</script>
 </body>
 </html>

@@ -4,6 +4,7 @@ date: 2026-01-15
 categoria: Marketing Digital
 description: "Las estrategias que están definiendo el futuro del marketing este año: IA generativa, hiperpersonalización y contenido de valor."
 imagen: /img/blog/blog-01.jpg
+readingTime: 6
 ---
 
 El marketing digital en 2026 no se parece al de hace tres años. Las reglas cambiaron. Las marcas que entendieron esto primero llevan ventaja; las que aún operan con el manual de 2021 están perdiendo terreno.
