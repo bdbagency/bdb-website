@@ -1,0 +1,295 @@
+---
+permalink: blog.html
+eleventyExcludeFromCollections: true
+title: "Blog — BDB Agency"
+description: "Blog de BDB Agency. Ideas, tendencias y estrategias de marketing digital, branding, tecnología e inteligencia artificial."
+---
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{ title }}</title>
+  <meta name="description" content="{{ description }}" />
+  <link rel="icon" href="img/favicon.png" />
+  <link rel="canonical" href="{{ site.url }}/blog.html" />
+  <meta property="og:title"       content="{{ title }}" />
+  <meta property="og:description" content="{{ description }}" />
+  <meta property="og:url"         content="{{ site.url }}/blog.html" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&family=Figtree:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            dark:      '#0e1011',
+            'dark-card': '#202527',
+            'dark-bd': '#2c2e2f',
+            cream:     '#fdfbf6',
+            'light-g': '#f6f6f6',
+            lime:      '#0FB4F7',
+          },
+          fontFamily: {
+            almarai: ['Almarai', 'sans-serif'],
+            figtree: ['Figtree', 'sans-serif'],
+            serif:   ['Instrument Serif', 'Georgia', 'serif'],
+            inter:   ['Inter', 'system-ui', 'sans-serif'],
+          },
+        }
+      }
+    }
+  </script>
+
+  <style>
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Figtree', sans-serif; background: #ffffff; color: #0e1011; overflow-x: hidden; }
+    .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s cubic-bezier(.25,.46,.45,.94), transform 0.7s cubic-bezier(.25,.46,.45,.94); }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    #navbar { background: transparent; }
+    .nav-part { background: rgba(255,255,255,0.95); backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px); transition: all 0.5s cubic-bezier(.4,0,.2,1); }
+    .nav-center { border-radius: 0 0 20px 20px; }
+    .nav-left  { border-radius: 24px 0 20px 0; background: transparent; backdrop-filter: none; -webkit-backdrop-filter: none; }
+    .nav-right { border-radius: 0 24px 0 20px; background: transparent; backdrop-filter: none; -webkit-backdrop-filter: none; }
+    .nav-left, .nav-right { opacity: 1; max-width: 200px; overflow: hidden; transition: opacity 0.4s cubic-bezier(.4,0,.2,1), max-width 0.4s cubic-bezier(.4,0,.2,1), padding 0.4s cubic-bezier(.4,0,.2,1); }
+    #navbar.nav-hide-sides .nav-left, #navbar.nav-hide-sides .nav-right { opacity: 0; max-width: 0; padding-left: 0; padding-right: 0; pointer-events: none; }
+    .nav-center { transition: none; }
+    #navbar .nav-link { color: rgba(14,16,17,0.6); transition: color 0.3s ease; }
+    #navbar .nav-link:hover { color: #0e1011; }
+    #navbar .nav-logo { color: #0e1011; }
+    #navbar .nav-cta-btn { background: #0e1011; color: #fff; border-radius: 500px; transition: all 0.3s ease; }
+    #navbar .nav-cta-btn:hover { background: #2a2d2f; }
+    #navbar .menu-bar { background: #0e1011; }
+    .white-top-bar { position: fixed; top: 0; left: 0; right: 0; height: 12px; background: #fff; z-index: 40; }
+    .white-top-bar::before, .white-top-bar::after { content: ''; position: absolute; bottom: -32px; width: 32px; height: 32px; }
+    .white-top-bar::before { left: 12px; background: radial-gradient(circle at 100% 100%, transparent 32px, #fff 32px); }
+    .white-top-bar::after  { right: 12px; background: radial-gradient(circle at 0 100%, transparent 32px, #fff 32px); }
+    #mobile-menu { transform: translateX(100%); transition: transform 0.35s cubic-bezier(.77,0,.175,1); }
+    #mobile-menu.open { transform: translateX(0); }
+    .section-label { display: inline-flex; align-items: center; gap: 8px; font-family: 'Figtree', sans-serif; font-size: 13px; font-weight: 500; }
+    .section-label { background: linear-gradient(90deg, #0e1011 0%, #0e1011 40%, #0FB4F7 55%, #0e1011 70%, #0e1011 100%); background-size: 300% 100%; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; animation: label-shine 4s ease infinite; }
+    @keyframes label-shine { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+    .section-label .arrow-icon { width: 28px; height: 28px; border-radius: 50%; border: 1px solid rgba(14,16,17,0.15); display: flex; align-items: center; justify-content: center; }
+    .btn-arrow { display: inline-flex; align-items: center; gap: 10px; padding: 12px 24px; border: 1px solid rgba(14,16,17,0.15); border-radius: 9999px; font-family: 'Figtree', sans-serif; font-weight: 500; font-size: 14px; color: #0e1011; transition: all 0.3s ease; }
+    .btn-arrow:hover { background: #0e1011; color: #fff; border-color: #0e1011; }
+    .btn-arrow-white { border-color: rgba(255,255,255,0.25); color: #fff; }
+    .btn-arrow-white:hover { background: #fff; color: #0e1011; border-color: #fff; }
+    .blog-card { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+    .blog-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.08); }
+    .blog-card img { transition: transform 0.5s cubic-bezier(.25,.46,.45,.94); }
+    .blog-card:hover img { transform: scale(1.04); }
+    @media (pointer: fine) { *, *::before, *::after { cursor: none !important; } }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<div class="white-top-bar"></div>
+<nav id="navbar" class="fixed top-0 left-0 right-0 z-50">
+  <div class="px-3 md:px-4 pt-3 flex items-start justify-between gap-2">
+    <div class="nav-part nav-left hidden md:flex items-center px-5 h-11 mt-4 ml-4">
+      <a href="index.html" class="nav-logo font-almarai font-bold text-base tracking-tight whitespace-nowrap">BDB <sup class="text-[9px] font-normal">&reg;</sup></a>
+    </div>
+    <div class="nav-part nav-center flex items-center justify-center h-11 px-2">
+      <div class="hidden md:flex items-center gap-1">
+        <a href="portafolio.html" class="nav-link text-sm font-figtree font-medium px-4 py-2 rounded-full hover:bg-black/5 transition-colors">Portafolio</a>
+        <a href="nosotros.html"   class="nav-link text-sm font-figtree font-medium px-4 py-2 rounded-full hover:bg-black/5 transition-colors">Nosotros</a>
+        <a href="blog.html"       class="nav-link text-sm font-figtree font-medium px-4 py-2 rounded-full hover:bg-black/5 transition-colors" style="color:#0e1011;">Blog</a>
+        <a href="contacto.html"   class="nav-link text-sm font-figtree font-medium px-4 py-2 rounded-full hover:bg-black/5 transition-colors">Cont&aacute;ctanos</a>
+      </div>
+      <div class="md:hidden flex items-center justify-between w-full px-3">
+        <a href="index.html" class="nav-logo font-almarai font-bold text-base tracking-tight">BDB <sup class="text-[9px] font-normal">&reg;</sup></a>
+        <button id="menu-toggle" class="p-2 flex flex-col gap-1.5" aria-label="Men&uacute;">
+          <span class="menu-bar w-5 h-px block"></span>
+          <span class="menu-bar w-5 h-px block"></span>
+          <span class="menu-bar w-3 h-px block ml-auto"></span>
+        </button>
+      </div>
+    </div>
+    <div class="nav-part nav-right hidden md:flex items-center px-2 h-11 mt-4 mr-4">
+      <a href="contacto.html" class="nav-cta-btn inline-flex items-center gap-2 px-5 py-2 text-sm font-figtree font-semibold">Cont&aacute;ctanos</a>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile menu -->
+<div id="mobile-menu" class="fixed top-0 right-0 h-screen w-72 bg-white z-[100] p-8 flex flex-col gap-6 border-l border-black/5 shadow-2xl">
+  <button id="menu-close" class="self-end text-dark/40 hover:text-dark p-1">
+    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"/></svg>
+  </button>
+  <a href="portafolio.html" class="text-xl text-dark font-almarai font-bold">Portafolio</a>
+  <a href="nosotros.html"   class="text-xl text-dark font-almarai font-bold">Nosotros</a>
+  <a href="blog.html"       class="text-xl text-dark font-almarai font-bold">Blog</a>
+  <a href="contacto.html"   class="text-xl text-dark font-almarai font-bold">Cont&aacute;ctanos</a>
+  <a href="contacto.html" class="mt-4 bg-dark text-white text-center px-6 py-3 rounded-full text-base font-figtree font-semibold">Cotiza tu proyecto</a>
+</div>
+
+<!-- HERO -->
+<section class="pt-32 pb-16">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="reveal text-center max-w-3xl mx-auto">
+      <div class="flex justify-center mb-6">
+        <div class="section-label">
+          <span class="arrow-icon" style="-webkit-text-fill-color:initial;color:#0e1011;">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25"/></svg>
+          </span>
+          Blog
+        </div>
+      </div>
+      <h1 class="font-almarai font-bold leading-[1.05] tracking-tight mb-6" style="font-size: clamp(2.8rem, 7vw, 5.5rem);">Ideas y Tendencias</h1>
+      <p class="text-dark/50 text-lg md:text-xl font-figtree leading-relaxed max-w-xl mx-auto">Estrategias, insights y tendencias del mundo digital para ayudarte a tomar mejores decisiones.</p>
+    </div>
+  </div>
+</section>
+
+<!-- BLOG GRID -->
+<section class="py-12 pb-24">
+  <div class="max-w-7xl mx-auto px-6">
+
+    {% if collections.posts and collections.posts.length > 0 %}
+    <!-- Real posts from CMS -->
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {% for post in collections.posts %}
+      <a href="{{ post.url }}" class="reveal blog-card bg-light-g rounded-2xl overflow-hidden block group">
+        <div class="overflow-hidden">
+          {% if post.data.imagen %}
+          <img src="{{ post.data.imagen }}" alt="{{ post.data.title }}"
+               class="w-full h-52 object-cover" />
+          {% else %}
+          <div class="h-52 bg-gradient-to-br from-dark/10 via-dark/5 to-transparent flex items-center justify-center">
+            <span class="font-serif text-6xl text-dark/10" style="font-family:'Instrument Serif',serif;">{{ loop.index | string | padStart(2, '0') }}</span>
+          </div>
+          {% endif %}
+        </div>
+        <div class="p-6">
+          <div class="flex items-center justify-between mb-2">
+            <span class="font-figtree text-xs text-dark/50 font-semibold uppercase tracking-wider">{{ post.data.categoria }}</span>
+            <span class="font-figtree text-xs text-dark/35">{{ post.date | readableDate }}</span>
+          </div>
+          <h3 class="font-almarai font-bold text-dark text-xl mt-1 mb-2 group-hover:text-dark/80 transition-colors">{{ post.data.title }}</h3>
+          <p class="text-dark/50 text-sm font-figtree leading-relaxed">{{ post.data.description }}</p>
+          <div class="mt-4 flex items-center gap-2 text-sm font-figtree font-medium text-dark/60 group-hover:text-dark transition-colors">
+            Leer art&iacute;culo
+            <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+          </div>
+        </div>
+      </a>
+      {% endfor %}
+    </div>
+
+    {% else %}
+    <!-- Placeholder cards when no posts yet -->
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div class="reveal blog-card bg-light-g rounded-2xl overflow-hidden">
+        <div class="h-52 bg-gradient-to-br from-dark/10 via-dark/5 to-transparent flex items-center justify-center relative">
+          <span class="font-serif text-6xl text-dark/10">01</span>
+          <div class="absolute top-4 right-4"><span class="bg-white/80 backdrop-blur-sm text-dark/60 font-figtree text-[10px] font-semibold px-3 py-1 rounded-full uppercase tracking-wider">Pr&oacute;ximamente</span></div>
+        </div>
+        <div class="p-6">
+          <span class="font-figtree text-xs text-dark/50 font-semibold uppercase tracking-wider">Marketing Digital</span>
+          <h3 class="font-almarai font-bold text-dark text-xl mt-2 mb-2">Tendencias de marketing digital en 2026</h3>
+          <p class="text-dark/50 text-sm font-figtree leading-relaxed">Las estrategias que est&aacute;n definiendo el futuro del marketing este a&ntilde;o.</p>
+        </div>
+      </div>
+      <div class="reveal blog-card bg-light-g rounded-2xl overflow-hidden">
+        <div class="h-52 bg-gradient-to-br from-dark/[0.07] via-dark/[0.04] to-transparent flex items-center justify-center relative">
+          <span class="font-serif text-6xl text-dark/10">02</span>
+          <div class="absolute top-4 right-4"><span class="bg-white/80 backdrop-blur-sm text-dark/60 font-figtree text-[10px] font-semibold px-3 py-1 rounded-full uppercase tracking-wider">Pr&oacute;ximamente</span></div>
+        </div>
+        <div class="p-6">
+          <span class="font-figtree text-xs text-dark/50 font-semibold uppercase tracking-wider">Branding</span>
+          <h3 class="font-almarai font-bold text-dark text-xl mt-2 mb-2">C&oacute;mo construir una marca que conecta</h3>
+          <p class="text-dark/50 text-sm font-figtree leading-relaxed">Los elementos clave para crear una identidad que resuene con tu audiencia.</p>
+        </div>
+      </div>
+      <div class="reveal blog-card bg-light-g rounded-2xl overflow-hidden">
+        <div class="h-52 bg-gradient-to-br from-dark/[0.08] via-dark/[0.03] to-transparent flex items-center justify-center relative">
+          <span class="font-serif text-6xl text-dark/10">03</span>
+          <div class="absolute top-4 right-4"><span class="bg-white/80 backdrop-blur-sm text-dark/60 font-figtree text-[10px] font-semibold px-3 py-1 rounded-full uppercase tracking-wider">Pr&oacute;ximamente</span></div>
+        </div>
+        <div class="p-6">
+          <span class="font-figtree text-xs text-dark/50 font-semibold uppercase tracking-wider">Tecnolog&iacute;a e IA</span>
+          <h3 class="font-almarai font-bold text-dark text-xl mt-2 mb-2">IA aplicada al marketing: casos reales</h3>
+          <p class="text-dark/50 text-sm font-figtree leading-relaxed">C&oacute;mo la inteligencia artificial est&aacute; revolucionando la comunicaci&oacute;n de marcas.</p>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="px-3 md:px-4 pb-6">
+  <div class="bg-dark rounded-3xl overflow-hidden py-20 md:py-28 relative">
+    <div class="max-w-3xl mx-auto px-6 text-center relative z-10 reveal">
+      <h2 class="font-almarai font-bold text-white text-3xl md:text-5xl leading-tight mb-4">&iquest;Quieres recibir nuestro <em class="font-serif italic font-normal">contenido</em>?</h2>
+      <p class="text-white/50 text-base md:text-lg font-figtree mb-10 max-w-xl mx-auto">Ideas frescas sobre marketing digital, branding y tecnolog&iacute;a para tu negocio.</p>
+      <div class="flex flex-wrap justify-center gap-4">
+        <a href="https://www.instagram.com/bdb.agencia/" target="_blank" class="inline-flex items-center gap-2 bg-white text-dark font-figtree font-semibold px-7 py-3 rounded-full hover:bg-white/90 transition-colors text-sm">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+          S&iacute;guenos en Instagram
+        </a>
+        <a href="contacto.html" class="btn-arrow btn-arrow-white">
+          Contactar
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="bg-white px-3 md:px-4 pb-3">
+  <div class="bg-dark rounded-3xl overflow-hidden">
+    <div class="max-w-7xl mx-auto px-6 py-16">
+      <div class="grid md:grid-cols-4 gap-12">
+        <div class="md:col-span-1">
+          <p class="font-almarai font-bold text-white text-xl mb-4">BDB <sup class="text-[8px] font-normal">&reg;</sup></p>
+          <p class="text-white/40 text-sm font-figtree leading-relaxed">Agencia de marketing digital en Canc&uacute;n. Branding, producci&oacute;n audiovisual, marketing y desarrollo web.</p>
+        </div>
+        <div>
+          <h4 class="text-white/30 text-xs uppercase tracking-widest font-figtree font-semibold mb-4">Navegaci&oacute;n</h4>
+          <ul class="space-y-3">
+            <li><a href="portafolio.html" class="text-white/60 hover:text-white text-sm font-figtree transition-colors">Portafolio</a></li>
+            <li><a href="nosotros.html"   class="text-white/60 hover:text-white text-sm font-figtree transition-colors">Nosotros</a></li>
+            <li><a href="blog.html"       class="text-white/60 hover:text-white text-sm font-figtree transition-colors">Blog</a></li>
+            <li><a href="contacto.html"   class="text-white/60 hover:text-white text-sm font-figtree transition-colors">Contacto</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-white/30 text-xs uppercase tracking-widest font-figtree font-semibold mb-4">Servicios</h4>
+          <ul class="space-y-3">
+            <li><span class="text-white/60 text-sm font-figtree">Branding &amp; Identity</span></li>
+            <li><span class="text-white/60 text-sm font-figtree">Producci&oacute;n Audiovisual</span></li>
+            <li><span class="text-white/60 text-sm font-figtree">Marketing Digital</span></li>
+            <li><span class="text-white/60 text-sm font-figtree">IA &amp; Desarrollo Web</span></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-white/30 text-xs uppercase tracking-widest font-figtree font-semibold mb-4">Contacto</h4>
+          <ul class="space-y-3">
+            <li><a href="mailto:info@bdbagency.com" class="text-white/60 hover:text-white text-sm font-figtree transition-colors">info@bdbagency.com</a></li>
+            <li><a href="https://instagram.com/bdb.agencia" target="_blank" class="text-white/60 hover:text-white text-sm font-figtree transition-colors">Instagram</a></li>
+            <li><a href="https://facebook.com/bdbagency" target="_blank" class="text-white/60 hover:text-white text-sm font-figtree transition-colors">Facebook</a></li>
+            <li><span class="text-white/60 text-sm font-figtree">Canc&uacute;n, M&eacute;xico</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="mt-16 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
+        <p class="text-white/25 text-xs font-figtree">&copy; 2025 BDB Agency. Todos los derechos reservados.</p>
+        <p class="text-white/25 text-xs font-figtree">Canc&uacute;n, Quintana Roo, M&eacute;xico</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="effects.js"></script>
+</body>
+</html>

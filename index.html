@@ -27,7 +27,7 @@
             'dark-bd': '#2c2e2f',
             cream:     '#fdfbf6',
             'light-g': '#f6f6f6',
-            lime:      '#cbfb45',
+            lime:      '#0FB4F7',
           },
           fontFamily: {
             almarai: ['Almarai', 'sans-serif'],
@@ -226,25 +226,54 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      /* Carousel item sizing */
+      scroll-snap-align: start;
+      scroll-snap-stop: always;
+      flex-shrink: 0;
+      flex-grow: 0;
+      width: 100%;                        /* mobile: 1 per view */
+    }
+    @media (min-width: 768px) {
+      .testimonial-card { width: calc(50% - 12px); }  /* md: 2 per view (gap 24 / 2) */
+    }
+    @media (min-width: 1024px) {
+      .testimonial-card { width: calc(25% - 18px); }  /* lg: 4 per view (gap 24 * 3/4) */
     }
 
-    /* ── TESTIMONIAL PAGES ── */
-    .testimonial-page {
-      display: none;
+    /* ── TESTIMONIAL CAROUSEL ── */
+    .testimonial-carousel {
+      display: flex;
+      gap: 24px;
+      overflow-x: auto;
+      overflow-y: hidden;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      cursor: grab;
     }
-    .testimonial-page.active {
-      display: grid;
-    }
+    .testimonial-carousel::-webkit-scrollbar { display: none; }
+    .testimonial-carousel.dragging { cursor: grabbing; scroll-behavior: auto; }
+    .testimonial-carousel:not(.dragging) { scroll-behavior: smooth; }
 
-    /* ── DOTS ── */
-    .dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(14,16,17,0.2); cursor: pointer; transition: background 0.3s; }
-    .dot.dot-active { background: #0e1011; }
+    /* ── CAROUSEL DOTS ── */
+    .carousel-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(14,16,17,0.18);
+      display: inline-block;
+      transition: background 0.35s ease, transform 0.35s ease;
+    }
+    .carousel-dot.carousel-dot-active {
+      background: #0e1011;
+      transform: scale(1.25);
+    }
 
     /* ── MARQUEE ── */
     .marquee-track {
       display: flex;
       gap: 60px;
-      animation: marquee 30s linear infinite;
+      animation: marquee 90s linear infinite;
       width: max-content;
     }
     @keyframes marquee {
@@ -268,16 +297,16 @@
 
     /* ── STAT CARDS ── */
     .stat-card {
-      background: #f6f6f6;
-      border-radius: 20px;
-      padding: 32px;
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 24px;
     }
 
     /* ── BENEFIT CARDS ── */
     .benefit-card {
-      background: #fff;
-      border-bottom: 1px solid rgba(14,16,17,0.06);
-      padding: 28px 0;
+      background: #f6f6f6;
+      border-radius: 20px;
+      padding: 40px 32px;
     }
 
     /* ── CTA ARROW BUTTON ── */
@@ -308,6 +337,110 @@
       transition: transform 0.5s cubic-bezier(.25,.46,.45,.94);
     }
     .blog-card:hover img { transform: scale(1.04); }
+
+    /* ── BLUR-TO-SHARP REVEAL en imágenes ── */
+    .reveal img {
+      filter: blur(10px);
+      transition: filter 0.9s ease;
+    }
+    .reveal.visible img { filter: blur(0); }
+
+    /* ── SHIMMER SWEEP en benefit-card y stat-card ── */
+    .benefit-card, .stat-card {
+      overflow: hidden;
+      position: relative;
+    }
+    .benefit-card::before, .stat-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(105deg, transparent 35%, rgba(255,255,255,0.55) 50%, transparent 65%);
+      background-size: 250% 100%;
+      background-position: -100% 0;
+      transition: background-position 0s;
+      pointer-events: none;
+      z-index: 1;
+      border-radius: inherit;
+    }
+    .benefit-card:hover::before, .stat-card:hover::before {
+      background-position: 200% 0;
+      transition: background-position 0.65s ease;
+    }
+
+    /* ── ANIMATED GRADIENT en section-label ── */
+    @keyframes label-shine {
+      0%   { background-position: 0% 50%; }
+      50%  { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    .section-label {
+      background: linear-gradient(90deg, #0e1011 0%, #0e1011 40%, #0FB4F7 55%, #0e1011 70%, #0e1011 100%);
+      background-size: 300% 100%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: label-shine 4s ease infinite;
+    }
+
+    /* ── HERO WORD / CHAR REVEAL (page load) ── */
+    @keyframes heroWordIn {
+      from { opacity: 0; filter: blur(14px); transform: translateY(12px); }
+      to   { opacity: 1; filter: blur(0);    transform: translateY(0); }
+    }
+    [data-hero-reveal] span.hrev {
+      display: inline-block;
+      opacity: 0;
+      animation: heroWordIn 0.65s cubic-bezier(.16,1,.3,1) forwards;
+    }
+
+    /* ── MARQUEE LOGOS ── */
+    .marquee-track img {
+      height: 48px;
+      width: auto;
+      max-width: 140px;
+      object-fit: contain;
+      filter: grayscale(100%) opacity(0.45);
+      transition: filter 0.3s ease;
+      flex-shrink: 0;
+    }
+    .marquee-track img:hover {
+      filter: grayscale(0%) opacity(1);
+    }
+
+    /* ── POLAROID HOVER OVERLAY ── */
+    .work-card-polaroid .polaroid-img { position: relative; }
+    .polaroid-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(14,16,17,0.82) 0%, rgba(14,16,17,0.15) 55%, transparent 100%);
+      display: flex;
+      align-items: flex-end;
+      padding: 20px 22px;
+      transform: translateY(25%);
+      opacity: 0;
+      transition: transform 0.45s cubic-bezier(.23,1,.32,1), opacity 0.45s ease;
+    }
+    .work-card-polaroid:hover .polaroid-overlay {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    .overlay-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #0FB4F7;
+      color: #0e1011;
+      font-family: 'Figtree', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 8px 18px;
+      border-radius: 100px;
+    }
+
+    /* ── HIDE NATIVE CURSOR when custom cursor active ── */
+    @media (pointer: fine) {
+      *, *::before, *::after { cursor: none !important; }
+    }
   </style>
 </head>
 <body>
@@ -379,13 +512,18 @@
     <!-- Very subtle gradient overlay -->
     <div class="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent z-10"></div>
 
+    <!-- Particle canvas — behind text, above image -->
+    <canvas id="hero-particles" class="absolute inset-0 w-full h-full pointer-events-none" style="z-index:8;"></canvas>
+
     <!-- Hero Text — fixed position, not affected by service bar -->
     <div class="absolute inset-0 z-20 flex flex-col items-center justify-center px-6" style="padding-bottom: 15vh;">
       <h1 class="font-almarai font-light text-white leading-[0.95] tracking-tight"
+          data-hero-reveal
           style="font-size: clamp(4rem, 10vw, 9rem);">
         BDB Agency
       </h1>
-      <p class="text-white/80 text-base md:text-lg font-figtree max-w-sm ml-auto text-right leading-relaxed mt-4 mr-4 md:mr-16">
+      <p class="text-white/80 text-base md:text-lg font-figtree max-w-sm text-center leading-relaxed mt-4"
+         data-hero-reveal data-hero-delay="520">
         Ven y cambia la forma de comunicar tu marca
       </p>
     </div>
@@ -602,17 +740,13 @@
 <section class="py-20 md:py-28 bg-white">
   <div class="max-w-7xl mx-auto px-6 md:px-10">
     <!-- Header -->
-    <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-10">
-      <div>
-        <span class="section-label mb-3 block">
-          <span style="width:7px;height:7px;border-radius:50%;background:#0e1011;display:inline-block;"></span>
-          Portafolio
-          <span class="arrow-icon">
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 9.5L9.5 2.5M9.5 2.5H4M9.5 2.5V8" stroke="#0e1011" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </span>
+    <div class="reveal flex flex-col sm:flex-row sm:items-center justify-between gap-6 mb-10">
+      <span class="section-label">
+        <span class="arrow-icon">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
         </span>
-        <h2 class="text-4xl md:text-5xl font-bold font-figtree text-dark leading-tight">Nuestro Trabajo</h2>
-      </div>
+        Portafolio
+      </span>
       <a href="portafolio.html" class="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-black/15 text-dark font-figtree font-medium text-sm hover:bg-black hover:text-white transition-all duration-300 self-start sm:self-auto">
         Ver más
         <svg width="14" height="14" viewBox="0 0 12 12" fill="none"><path d="M2.5 9.5L9.5 2.5M9.5 2.5H4M9.5 2.5V8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -627,6 +761,7 @@
         <div class="polaroid-img">
           <img src="img/portfolio/carpenter-group.jpg" alt="Carpenter Group"
                class="h-80 md:h-[400px]">
+          <div class="polaroid-overlay"><span class="overlay-cta">Ver proyecto →</span></div>
         </div>
         <div class="flex items-center justify-between mt-4 px-1">
           <span class="text-dark font-figtree font-semibold text-lg">Carpenter Group</span>
@@ -639,6 +774,7 @@
         <div class="polaroid-img">
           <img src="img/portfolio/casa-rolandi-cancun.jpg" alt="Casa Rolandi"
                class="h-80 md:h-[400px]">
+          <div class="polaroid-overlay"><span class="overlay-cta">Ver proyecto →</span></div>
         </div>
         <div class="flex items-center justify-between mt-4 px-1">
           <span class="text-dark font-figtree font-semibold text-lg">Casa Rolandi</span>
@@ -651,6 +787,7 @@
         <div class="polaroid-img">
           <img src="img/portfolio/al-sahar.jpg" alt="Al Sahar"
                class="h-80 md:h-[400px]">
+          <div class="polaroid-overlay"><span class="overlay-cta">Ver proyecto →</span></div>
         </div>
         <div class="flex items-center justify-between mt-4 px-1">
           <span class="text-dark font-figtree font-semibold text-lg">Al Sahar</span>
@@ -663,6 +800,7 @@
         <div class="polaroid-img">
           <img src="img/portfolio/maku-poke.jpg" alt="Maku Poke"
                class="h-80 md:h-[400px]">
+          <div class="polaroid-overlay"><span class="overlay-cta">Ver proyecto →</span></div>
         </div>
         <div class="flex items-center justify-between mt-4 px-1">
           <span class="text-dark font-figtree font-semibold text-lg">Maku Poke</span>
@@ -682,9 +820,6 @@
     <div class="grid md:grid-cols-2 gap-12 md:gap-16 items-center">
       <!-- Photo -->
       <div class="reveal relative">
-        <div class="absolute -top-2 -left-2 flex gap-1 z-10">
-          <span class="text-dark text-lg">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
-        </div>
         <img src="img/angel-ceo.jpg" alt="Angel Bauts, CEO BDB" class="w-full max-w-md rounded-2xl object-cover" style="aspect-ratio: 4/5;" />
         <p class="mt-3 text-sm font-figtree text-dark/60">Angel Bauts, CEO BDB</p>
       </div>
@@ -703,35 +838,79 @@
 <!-- ══════════════════════════════════════════════
      LOGOS MARQUEE
 ═══════════════════════════════════════════════ -->
-<section class="py-12 bg-white overflow-hidden border-t border-b border-black/5">
+<section class="py-12 bg-white overflow-hidden">
   <div class="marquee-track items-center">
-    <span class="text-2xl font-bold text-dark/20 font-figtree whitespace-nowrap tracking-wider">ASGARDIA</span>
-    <span class="text-2xl font-bold text-dark/20 font-figtree whitespace-nowrap tracking-wider">OUTOSIA</span>
-    <span class="text-2xl font-bold text-dark/20 font-figtree whitespace-nowrap tracking-wider">&#9675; circle</span>
-    <span class="text-2xl font-bold text-dark/20 font-figtree whitespace-nowrap tracking-wider">acme</span>
-    <span class="text-2xl font-bold text-dark/20 font-figtree whitespace-nowrap tracking-wider">&amp; kanba</span>
-    <span class="text-2xl font-bold text-dark/20 font-figtree whitespace-nowrap tracking-wider">goldline</span>
-    <span class="text-2xl font-bold text-dark/20 font-figtree whitespace-nowrap tracking-wider">ASGARDIA</span>
-    <span class="text-2xl font-bold text-dark/20 font-figtree whitespace-nowrap tracking-wider">OUTOSIA</span>
+    <!-- Primera mitad -->
+    <img src="img/logos/clientes/al-sahar.png" alt="Al Sahar" />
+    <img src="img/logos/clientes/alf-layla.png" alt="Alf Layla" />
+    <img src="img/logos/clientes/bombay.png" alt="Bombay" />
+    <img src="img/logos/clientes/cancun-country-club.png" alt="Cancun Country Club" />
+    <img src="img/logos/clientes/carpenter-group.png" alt="Carpenter Group" />
+    <img src="img/logos/clientes/casa-rolandi-restaurant.png" alt="Casa Rolandi Restaurant" />
+    <img src="img/logos/clientes/casa-rolandi-tulum.png" alt="Casa Rolandi Tulum" />
+    <img src="img/logos/clientes/cirt.png" alt="CIRT" />
+    <img src="img/logos/clientes/corazon-de-mar.png" alt="Corazón de Mar" />
+    <img src="img/logos/clientes/crab-house.png" alt="Crab House" />
+    <img src="img/logos/clientes/elementa.png" alt="Elementa" />
+    <img src="img/logos/clientes/grupo-xis.png" alt="Grupo XIS" />
+    <img src="img/logos/clientes/imfinity-car-rental.png" alt="Imfinity Car Rental" />
+    <img src="img/logos/clientes/ku-holbox.png" alt="Ku Holbox" />
+    <img src="img/logos/clientes/maderos.png" alt="Maderos" />
+    <img src="img/logos/clientes/maku.png" alt="Maku" />
+    <img src="img/logos/clientes/oasis-hotels.png" alt="Oasis Hotels" />
+    <img src="img/logos/clientes/pampas.png" alt="Pampas" />
+    <img src="img/logos/clientes/parkinn-cancun.png" alt="Park Inn Cancún" />
+    <img src="img/logos/clientes/potzollcalli.png" alt="Potzollcalli" />
+    <img src="img/logos/clientes/preferred.png" alt="Preferred" />
+    <img src="img/logos/clientes/red-bull.png" alt="Red Bull" />
+    <img src="img/logos/clientes/sls.png" alt="SLS" />
+    <img src="img/logos/clientes/universidad-del-caribe.png" alt="Universidad del Caribe" />
+    <img src="img/logos/clientes/vagalume.png" alt="Vagalume" />
+    <!-- Segunda mitad (duplicado para loop continuo) -->
+    <img src="img/logos/clientes/al-sahar.png" alt="Al Sahar" />
+    <img src="img/logos/clientes/alf-layla.png" alt="Alf Layla" />
+    <img src="img/logos/clientes/bombay.png" alt="Bombay" />
+    <img src="img/logos/clientes/cancun-country-club.png" alt="Cancun Country Club" />
+    <img src="img/logos/clientes/carpenter-group.png" alt="Carpenter Group" />
+    <img src="img/logos/clientes/casa-rolandi-restaurant.png" alt="Casa Rolandi Restaurant" />
+    <img src="img/logos/clientes/casa-rolandi-tulum.png" alt="Casa Rolandi Tulum" />
+    <img src="img/logos/clientes/cirt.png" alt="CIRT" />
+    <img src="img/logos/clientes/corazon-de-mar.png" alt="Corazón de Mar" />
+    <img src="img/logos/clientes/crab-house.png" alt="Crab House" />
+    <img src="img/logos/clientes/elementa.png" alt="Elementa" />
+    <img src="img/logos/clientes/grupo-xis.png" alt="Grupo XIS" />
+    <img src="img/logos/clientes/imfinity-car-rental.png" alt="Imfinity Car Rental" />
+    <img src="img/logos/clientes/ku-holbox.png" alt="Ku Holbox" />
+    <img src="img/logos/clientes/maderos.png" alt="Maderos" />
+    <img src="img/logos/clientes/maku.png" alt="Maku" />
+    <img src="img/logos/clientes/oasis-hotels.png" alt="Oasis Hotels" />
+    <img src="img/logos/clientes/pampas.png" alt="Pampas" />
+    <img src="img/logos/clientes/parkinn-cancun.png" alt="Park Inn Cancún" />
+    <img src="img/logos/clientes/potzollcalli.png" alt="Potzollcalli" />
+    <img src="img/logos/clientes/preferred.png" alt="Preferred" />
+    <img src="img/logos/clientes/red-bull.png" alt="Red Bull" />
+    <img src="img/logos/clientes/sls.png" alt="SLS" />
+    <img src="img/logos/clientes/universidad-del-caribe.png" alt="Universidad del Caribe" />
+    <img src="img/logos/clientes/vagalume.png" alt="Vagalume" />
   </div>
 </section>
 
 <!-- ══════════════════════════════════════════════
-     TESTIMONIALES — 4 CARD GRID
+     TESTIMONIALES — CAROUSEL HORIZONTAL (scroll-snap)
 ═══════════════════════════════════════════════ -->
-<section class="py-24 md:py-32 bg-white">
-  <div class="max-w-7xl mx-auto px-6">
-    <div id="testimonial-container">
-      <!-- Page 1 (active) -->
-      <div class="testimonial-page active grid md:grid-cols-2 lg:grid-cols-4 gap-5">
-        <div class="testimonial-card reveal">
+<section class="py-24 md:py-32 bg-white px-3 md:px-4">
+  <div class="bg-[#f6f6f6] rounded-[20px] p-6 md:p-10 pb-12 md:pb-14">
+    <div id="testimonial-container" class="testimonial-carousel" role="region" aria-roledescription="carousel" aria-label="Testimonios de clientes">
+
+        <!-- 1. Erick Rodríguez -->
+        <div class="testimonial-card reveal" aria-label="1 of 8">
           <div>
             <div class="text-dark mb-4 text-sm tracking-wide">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
             <h4 class="font-almarai font-bold text-dark text-lg leading-tight mb-3">Volveremos a trabajar juntos</h4>
             <p class="text-dark/50 text-sm leading-relaxed font-figtree">Quedamos muy contentos con el trabajo que realiz&oacute; BDB para Elementa! Sin duda lo recomiendo ampliamente y volveremos a trabajar juntos seguro!</p>
           </div>
           <div class="flex items-center gap-3 mt-6">
-            <img src="img/testimonials/erick.jpg" alt="Erick Rodríguez" class="w-10 h-10 rounded-full object-cover" />
+            <img src="img/testimonials/erick.jpg" alt="Erick Rodríguez" class="w-10 h-10 rounded-full object-cover flex-shrink-0" />
             <div>
               <p class="text-sm font-figtree font-semibold text-dark">Erick Rodr&iacute;guez</p>
               <p class="text-xs font-figtree text-dark/40">Elementa</p>
@@ -739,14 +918,15 @@
           </div>
         </div>
 
-        <div class="testimonial-card reveal">
+        <!-- 2. Mauricio Gonzalez -->
+        <div class="testimonial-card reveal" aria-label="2 of 8">
           <div>
             <div class="text-dark mb-4 text-sm tracking-wide">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
             <h4 class="font-almarai font-bold text-dark text-lg leading-tight mb-3">Calidad profesional y un servicio impecable.</h4>
             <p class="text-dark/50 text-sm leading-relaxed font-figtree">Definitivamente, recomiendo los servicios de esta agencia. Nos elaboraron proyectos extraordinarios para nuestra marca de productos de bienestar.</p>
           </div>
           <div class="flex items-center gap-3 mt-6">
-            <img src="img/testimonials/mauricio.jpg" alt="Mauricio Gonzalez" class="w-10 h-10 rounded-full object-cover" />
+            <img src="img/testimonials/mauricio.jpg" alt="Mauricio Gonzalez" class="w-10 h-10 rounded-full object-cover flex-shrink-0" />
             <div>
               <p class="text-sm font-figtree font-semibold text-dark">Mauricio Gonzalez</p>
               <p class="text-xs font-figtree text-dark/40">Nativo</p>
@@ -754,14 +934,15 @@
           </div>
         </div>
 
-        <div class="testimonial-card reveal">
+        <!-- 3. Anakaren Cortez -->
+        <div class="testimonial-card reveal" aria-label="3 of 8">
           <div>
             <div class="text-dark mb-4 text-sm tracking-wide">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
             <h4 class="font-almarai font-bold text-dark text-lg leading-tight mb-3">Excelente agencia de publicidad.</h4>
             <p class="text-dark/50 text-sm leading-relaxed font-figtree">Abarcan muchas &aacute;reas y las necesidades de cada cliente, el trato y las ideas son personalizadas para cada proyecto y cada marca. BDB no solo es un sistema de programaci&oacute;n de pautas o contenido, va mucho m&aacute;s all&aacute; de las expectativas de sus clientes ofreciendo sugerencias de marketing, objetivos para incrementar ventas etc. &iexcl;Estamos muy contentos con su trabajo!</p>
           </div>
           <div class="flex items-center gap-3 mt-6">
-            <img src="img/testimonials/anakaren.jpg" alt="Anakaren Cortez" class="w-10 h-10 rounded-full object-cover" />
+            <img src="img/testimonials/anakaren.jpg" alt="Anakaren Cortez" class="w-10 h-10 rounded-full object-cover flex-shrink-0" />
             <div>
               <p class="text-sm font-figtree font-semibold text-dark">Anakaren Cortez</p>
               <p class="text-xs font-figtree text-dark/40">Maku poke</p>
@@ -769,50 +950,124 @@
           </div>
         </div>
 
-        <div class="testimonial-card reveal">
+        <!-- 4. Kevin Carpenter -->
+        <div class="testimonial-card reveal" aria-label="4 of 8">
           <div>
             <div class="text-dark mb-4 text-sm tracking-wide">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
             <h4 class="font-almarai font-bold text-dark text-lg leading-tight mb-3">Tuvimos una muy buena experiencia</h4>
             <p class="text-dark/50 text-sm leading-relaxed font-figtree">Estamos contentos de trabajar de la mano de BDB Agency ya que nos dieron confianza y trabajaron profesionalmente desde el inicio hasta la entrega del producto final que cumpli&oacute; con todas nuestras expectativas.</p>
           </div>
           <div class="flex items-center gap-3 mt-6">
-            <img src="img/testimonials/kevin.jpg" alt="Kevin Carpenter" class="w-10 h-10 rounded-full object-cover" />
+            <img src="img/testimonials/kevin.jpg" alt="Kevin Carpenter" class="w-10 h-10 rounded-full object-cover flex-shrink-0" />
             <div>
               <p class="text-sm font-figtree font-semibold text-dark">Kevin Carpenter</p>
               <p class="text-xs font-figtree text-dark/40">Carpenter Group</p>
             </div>
           </div>
         </div>
-      </div>
+
+        <!-- 5. José Peña -->
+        <div class="testimonial-card reveal" aria-label="5 of 8">
+          <div>
+            <div class="text-dark mb-4 text-sm tracking-wide">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <h4 class="font-almarai font-bold text-dark text-lg leading-tight mb-3">Conocimiento excepcional en comunicaci&oacute;n</h4>
+            <p class="text-dark/50 text-sm leading-relaxed font-figtree">Trabajar con el equipo de BDB ha sido una experiencia extraordinaria. Cuentan con un conocimiento excepcional para desarrollar actividades de comunicaci&oacute;n. En nuestro caso desde AENOR solicitamos el apoyo para el desarrollo de c&aacute;psulas informativas sobre nuestros proyectos internacionales, obteniendo un material corporativo, de primera calidad y con todos los requerimientos solicitados.</p>
+          </div>
+          <div class="flex items-center gap-3 mt-6">
+            <img src="img/testimonials/jose-pena.png" alt="José Peña" class="w-10 h-10 rounded-full object-cover flex-shrink-0" />
+            <div>
+              <p class="text-sm font-figtree font-semibold text-dark">Jos&eacute; Pe&ntilde;a</p>
+              <p class="text-xs font-figtree text-dark/40">Aenor</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 6. Danielle Müller -->
+        <div class="testimonial-card reveal" aria-label="6 of 8">
+          <div>
+            <div class="text-dark mb-4 text-sm tracking-wide">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <h4 class="font-almarai font-bold text-dark text-lg leading-tight mb-3">Excelente agencia, s&uacute;per team creativo</h4>
+            <p class="text-dark/50 text-sm leading-relaxed font-figtree">Trabajamos de la mano de BDB Agency para mejorar la imagen de grupo Rolandi, recomiendo ampliamente su trabajo.</p>
+          </div>
+          <div class="flex items-center gap-3 mt-6">
+            <img src="img/testimonials/danielle-muller.png" alt="Danielle Müller" class="w-10 h-10 rounded-full object-cover flex-shrink-0" />
+            <div>
+              <p class="text-sm font-figtree font-semibold text-dark">Danielle M&uuml;ller</p>
+              <p class="text-xs font-figtree text-dark/40">Rolandi&#39;s</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 7. Kayla Tolentino -->
+        <div class="testimonial-card reveal" aria-label="7 of 8">
+          <div>
+            <div class="text-dark mb-4 text-sm tracking-wide">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <h4 class="font-almarai font-bold text-dark text-lg leading-tight mb-3">The best decision ever</h4>
+            <p class="text-dark/50 text-sm leading-relaxed font-figtree">Investing in my brand using BDB Agency was the best decision ever. I gave them two projects and they exceeded my expectations. Amazing customer service, great turnaround time &amp; listened to my suggestions and changes. They worked with me to get the results I wanted.</p>
+          </div>
+          <div class="flex items-center gap-3 mt-6">
+            <div class="w-10 h-10 rounded-full bg-dark/10 flex items-center justify-center flex-shrink-0">
+              <span class="text-xs font-figtree font-semibold text-dark/70">KT</span>
+            </div>
+            <div>
+              <p class="text-sm font-figtree font-semibold text-dark">Kayla Tolentino</p>
+              <p class="text-xs font-figtree text-dark/40">Crowned</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 8. German Solana -->
+        <div class="testimonial-card reveal" aria-label="8 of 8">
+          <div>
+            <div class="text-dark mb-4 text-sm tracking-wide">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <h4 class="font-almarai font-bold text-dark text-lg leading-tight mb-3">Branding, audiovisual y social media</h4>
+            <p class="text-dark/50 text-sm leading-relaxed font-figtree">Muy satisfecho con todo lo que se ha hecho con Al Sahar, muy recomendable el trabajo de BDB, seguiremos trabajando en m&aacute;s proyectos!!</p>
+          </div>
+          <div class="flex items-center gap-3 mt-6">
+            <img src="img/testimonials/german-solana.jpg" alt="German Solana" class="w-10 h-10 rounded-full object-cover flex-shrink-0" />
+            <div>
+              <p class="text-sm font-figtree font-semibold text-dark">German Solana</p>
+              <p class="text-xs font-figtree text-dark/40">Bombay &middot; Al Sahar</p>
+            </div>
+          </div>
+        </div>
+
     </div>
 
-    <!-- Dots -->
-    <div class="flex justify-center gap-2 mt-10">
-      <button class="dot dot-active" data-tpage="0"></button>
-      <button class="dot" data-tpage="1"></button>
-      <button class="dot" data-tpage="2"></button>
+    <!-- Scroll progress dots (3 symbolic) -->
+    <div class="carousel-dots flex justify-center gap-2 mt-8">
+      <span class="carousel-dot carousel-dot-active"></span>
+      <span class="carousel-dot"></span>
+      <span class="carousel-dot"></span>
     </div>
   </div>
 </section>
 
 <!-- ══════════════════════════════════════════════
-     BDB EXPERIENCE — DARK SECTION
+     BDB EXPERIENCE + STATS — DARK FULL-HEIGHT PANEL
 ═══════════════════════════════════════════════ -->
 <section class="bg-white px-3 md:px-4 py-3">
-  <div class="relative overflow-hidden rounded-3xl" style="background: linear-gradient(135deg, #0e1011 0%, #2a1f3d 50%, #b8a9c9 100%);">
-    <div class="max-w-7xl mx-auto px-6 py-24 md:py-32 relative z-10">
-      <div class="grid md:grid-cols-2 gap-12 items-center">
-        <!-- Title -->
+  <div class="relative rounded-3xl overflow-hidden bg-[#202527] h-screen min-h-[720px] md:min-h-[760px]">
+    <!-- Background image -->
+    <img src="img/experience-bg.jpg" alt="" class="absolute inset-0 w-full h-full object-cover" style="object-position: center 15%;" />
+
+    <!-- Dark gradient overlay (left → transparent right) -->
+    <div class="absolute inset-0 bg-gradient-to-r from-black/50 via-black/20 to-transparent"></div>
+
+    <!-- ░░ CONTENT TOP — BDB Experience header ░░ -->
+    <div class="absolute top-0 left-0 right-0 z-10 p-8 md:p-14 lg:p-20">
+      <div class="grid md:grid-cols-2 gap-8 md:gap-20 items-start">
+        <!-- Headline -->
         <div class="reveal">
-          <h2 class="font-almarai font-extrabold text-white leading-[0.95]" style="font-size: clamp(4rem, 9vw, 8rem);">
+          <h2 class="font-almarai font-extrabold text-white leading-[0.92]" style="font-size: clamp(3.5rem, 8vw, 7.5rem);">
             BDB<br />
             <em class="font-serif italic font-normal block" style="font-family: 'Instrument Serif', Georgia, serif;">Experience</em>
           </h2>
         </div>
 
-        <!-- Copy -->
-        <div class="reveal">
-          <p class="text-white/80 text-lg md:text-xl font-figtree leading-relaxed mb-8">
+        <!-- Copy + CTA -->
+        <div class="reveal md:pt-10">
+          <p class="text-white/80 text-base md:text-lg font-figtree leading-relaxed mb-6 max-w-md">
             Creamos una conexi&oacute;n real entre marcas y personas a trav&eacute;s de experiencias digitales.
           </p>
           <a href="nosotros.html" class="btn-arrow btn-arrow-white">
@@ -823,125 +1078,120 @@
       </div>
     </div>
 
-    <!-- Background image -->
-    <img src="img/experience-bg.jpg" alt="" class="absolute inset-0 w-full h-full object-cover opacity-30 mix-blend-luminosity" />
-  </div>
-</section>
+    <!-- ░░ CONTENT BOTTOM — 3 Stat cards ░░ -->
+    <div class="absolute bottom-0 left-0 right-0 z-10 p-4 md:p-6 lg:p-8">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4">
 
-<!-- Stats Cards -->
-<section class="py-16 bg-white">
-  <div class="max-w-7xl mx-auto px-6">
-    <div class="grid md:grid-cols-3 gap-6">
-      <div class="stat-card reveal">
-        <div class="flex items-center gap-2 mb-4">
-          <span class="section-label">
-            <span class="arrow-icon">
-              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        <div class="stat-card reveal">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="section-label">
+              <span class="arrow-icon">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+              </span>
+              Clientes
             </span>
-            Clientes
-          </span>
+          </div>
+          <p class="font-serif italic text-4xl md:text-5xl text-dark mb-3" style="font-family: 'Instrument Serif', Georgia, serif;" data-target="500" data-suffix="+">500+</p>
+          <p class="text-dark/50 text-xs md:text-sm font-figtree leading-relaxed">Hemos colaborado con m&aacute;s de 500 clientes visionarios, creando experiencias digitales que impulsan el crecimiento y generan un impacto duradero.</p>
         </div>
-        <p class="font-serif italic text-5xl md:text-6xl text-dark mb-4" style="font-family: 'Instrument Serif', Georgia, serif;" data-target="500" data-suffix="+">0</p>
-        <p class="text-dark/50 text-sm font-figtree leading-relaxed">Hemos colaborado con m&aacute;s de 500 clientes visionarios, creando experiencias digitales que impulsan el crecimiento y generan un impacto duradero.</p>
-      </div>
 
-      <div class="stat-card reveal">
-        <div class="flex items-center gap-2 mb-4">
-          <span class="section-label">
-            <span class="arrow-icon">
-              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        <div class="stat-card reveal">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="section-label">
+              <span class="arrow-icon">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+              </span>
+              Pa&iacute;ses
             </span>
-            Pa&iacute;ses
-          </span>
+          </div>
+          <p class="font-serif italic text-4xl md:text-5xl text-dark mb-3" style="font-family: 'Instrument Serif', Georgia, serif;" data-target="6" data-suffix="+">6+</p>
+          <p class="text-dark/50 text-xs md:text-sm font-figtree leading-relaxed">Hemos colaborado para clientes en Estados Unidos, Dubai, Inglaterra, M&eacute;xico, Espa&ntilde;a, Francia, Canad&aacute;, fortaleciendo nuestro sistema de entrega y calidad.</p>
         </div>
-        <p class="font-serif italic text-5xl md:text-6xl text-dark mb-4" style="font-family: 'Instrument Serif', Georgia, serif;" data-target="6" data-suffix="+">0</p>
-        <p class="text-dark/50 text-sm font-figtree leading-relaxed">Hemos colaborado para clientes en Estados Unidos, Dubai, Inglaterra, M&eacute;xico, Espa&ntilde;a, Francia, Canad&aacute;, fortaleciendo nuestro sistema de entrega y calidad.</p>
-      </div>
 
-      <div class="stat-card reveal">
-        <div class="flex items-center gap-2 mb-4">
-          <span class="section-label">
-            <span class="arrow-icon">
-              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        <div class="stat-card reveal">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="section-label">
+              <span class="arrow-icon">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+              </span>
+              Creatividad
             </span>
-            Creatividad
-          </span>
+          </div>
+          <p class="font-serif italic text-4xl md:text-5xl text-dark mb-3" style="font-family: 'Instrument Serif', Georgia, serif;" data-target="110" data-suffix="%">110%</p>
+          <p class="text-dark/50 text-xs md:text-sm font-figtree leading-relaxed">Vamos m&aacute;s all&aacute; de las expectativas, aportando 110% de creatividad en cada proyecto, asegurando dise&ntilde;os audaces, innovadores y memorables para nuestros clientes.</p>
         </div>
-        <p class="font-serif italic text-5xl md:text-6xl text-dark mb-4" style="font-family: 'Instrument Serif', Georgia, serif;" data-target="110" data-suffix="%">0</p>
-        <p class="text-dark/50 text-sm font-figtree leading-relaxed">Vamos m&aacute;s all&aacute; de las expectativas, aportando 110% de creatividad en cada proyecto, asegurando dise&ntilde;os audaces, innovadores y memorables para nuestros clientes.</p>
+
       </div>
     </div>
+
   </div>
 </section>
 
 <!-- ══════════════════════════════════════════════
      BENEFICIOS — "Descubre el por qué?"
 ═══════════════════════════════════════════════ -->
-<section class="bg-white px-3 md:px-4">
-  <div class="max-w-7xl mx-auto py-24 md:py-32">
-    <div class="mb-10 px-3 reveal">
-      <span class="section-label">
-        <span class="arrow-icon">
-          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-        </span>
-        Beneficios
-      </span>
-    </div>
+<section class="bg-white px-3 md:px-4 py-3">
+  <div class="flex flex-col lg:flex-row gap-3 lg:gap-4 items-start">
 
-    <div class="grid lg:grid-cols-2 gap-0 rounded-3xl overflow-hidden">
-      <!-- Left: Dark image -->
-      <div class="relative bg-dark min-h-[500px] flex flex-col justify-end p-10 md:p-14">
+    <!-- ░░ LEFT — Sticky dark panel ░░ -->
+    <div class="w-full lg:w-2/3 lg:sticky lg:top-0 lg:h-screen lg:py-4 flex">
+      <div class="relative flex-1 rounded-3xl overflow-hidden bg-dark min-h-[480px] lg:min-h-0">
         <img src="img/beneficios-bg.jpg" alt="" class="absolute inset-0 w-full h-full object-cover opacity-40" />
-        <div class="relative z-10">
-          <h2 class="font-almarai font-bold text-white text-4xl md:text-5xl leading-[1.05] mb-2">Descubre el</h2>
-          <p class="font-serif italic text-white text-5xl md:text-7xl leading-[1.0]" style="font-family: 'Instrument Serif', Georgia, serif;">por qu&eacute;?</p>
-          <p class="text-white/60 text-base font-figtree mt-6 mb-8 max-w-sm">Descubre por qu&eacute; BDB Agency es el mejor lugar para crecer tu marca.</p>
-          <a href="contacto.html" class="btn-arrow btn-arrow-white">
-            Cotiza
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-          </a>
-        </div>
-      </div>
-
-      <!-- Right: Benefit cards -->
-      <div class="bg-light-g p-8 md:p-12 flex flex-col justify-center">
-        <div class="benefit-card reveal">
-          <div class="flex items-center gap-2 mb-3">
-            <span class="w-6 h-6 rounded-full bg-dark text-white text-[10px] flex items-center justify-center font-figtree font-semibold">01</span>
-            <span class="text-xs font-figtree font-medium text-dark/50 uppercase tracking-wider">Satisfacci&oacute;n</span>
+        <div class="absolute inset-0 flex flex-col justify-end p-10 md:p-16 lg:p-24">
+          <div class="reveal">
+            <h2 class="font-almarai font-bold text-white text-4xl md:text-5xl lg:text-6xl leading-[1.05] mb-2">Descubre el</h2>
+            <p class="font-serif italic text-white text-5xl md:text-7xl lg:text-8xl leading-[1.0]" style="font-family: 'Instrument Serif', Georgia, serif;">por qu&eacute;?</p>
+            <p class="text-white/60 text-base font-figtree mt-6 mb-8 max-w-sm">Descubre por qu&eacute; BDB Agency es el mejor lugar para crecer tu marca.</p>
+            <a href="contacto.html" class="btn-arrow btn-arrow-white">
+              Cotiza
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+            </a>
           </div>
-          <h4 class="font-almarai font-bold text-dark text-xl mb-2">Garant&iacute;a de Satisfacci&oacute;n.</h4>
-          <p class="text-dark/50 text-sm font-figtree leading-relaxed">No terminamos el proyecto si no es de tu agrado, cumpliendo con los requisitos garantizamos tu proyecto.</p>
-        </div>
-
-        <div class="benefit-card reveal">
-          <div class="flex items-center gap-2 mb-3">
-            <span class="w-6 h-6 rounded-full bg-dark text-white text-[10px] flex items-center justify-center font-figtree font-semibold">02</span>
-            <span class="text-xs font-figtree font-medium text-dark/50 uppercase tracking-wider">Trazabilidad</span>
-          </div>
-          <h4 class="font-almarai font-bold text-dark text-xl mb-2">Creamos con procesos</h4>
-          <p class="text-dark/50 text-sm font-figtree leading-relaxed">No improvisamos, todos nuestros servicios tienen un proceso establecido con tecnolog&iacute;a y conocimiento de nuestros 10 a&ntilde;os de experiencia.</p>
-        </div>
-
-        <div class="benefit-card reveal">
-          <div class="flex items-center gap-2 mb-3">
-            <span class="w-6 h-6 rounded-full bg-dark text-white text-[10px] flex items-center justify-center font-figtree font-semibold">03</span>
-            <span class="text-xs font-figtree font-medium text-dark/50 uppercase tracking-wider">Personalizaci&oacute;n</span>
-          </div>
-          <h4 class="font-almarai font-bold text-dark text-xl mb-2">Propuestas Personalizadas</h4>
-          <p class="text-dark/50 text-sm font-figtree leading-relaxed">Cada uno de nuestros servicios tiene su propio ADN, nuestras propuestas creativas son diferentes y adecuadas para cada marca.</p>
-        </div>
-
-        <div class="benefit-card reveal border-b-0">
-          <div class="flex items-center gap-2 mb-3">
-            <span class="w-6 h-6 rounded-full bg-dark text-white text-[10px] flex items-center justify-center font-figtree font-semibold">04</span>
-            <span class="text-xs font-figtree font-medium text-dark/50 uppercase tracking-wider">Objetivos</span>
-          </div>
-          <h4 class="font-almarai font-bold text-dark text-xl mb-2">Enfocados en Resultados</h4>
-          <p class="text-dark/50 text-sm font-figtree leading-relaxed">Cada proyecto tiene m&eacute;tricas claras y objetivos definidos. Medimos el impacto real de nuestro trabajo en tu negocio.</p>
         </div>
       </div>
     </div>
+
+    <!-- ░░ RIGHT — Stacked benefit cards ░░ -->
+    <div class="w-full lg:w-1/3 lg:max-w-[600px] flex flex-col gap-3 lg:gap-4 lg:py-4">
+
+      <div class="benefit-card reveal">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="w-6 h-6 rounded-full bg-dark text-white text-[10px] flex items-center justify-center font-figtree font-semibold">01</span>
+          <span class="text-xs font-figtree font-medium text-dark/50 uppercase tracking-wider">Satisfacci&oacute;n</span>
+        </div>
+        <h4 class="font-almarai font-bold text-dark text-xl mb-2">Garant&iacute;a de Satisfacci&oacute;n.</h4>
+        <p class="text-dark/50 text-sm font-figtree leading-relaxed">No terminamos el proyecto si no es de tu agrado, cumpliendo con los requisitos garantizamos tu proyecto.</p>
+      </div>
+
+      <div class="benefit-card reveal">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="w-6 h-6 rounded-full bg-dark text-white text-[10px] flex items-center justify-center font-figtree font-semibold">02</span>
+          <span class="text-xs font-figtree font-medium text-dark/50 uppercase tracking-wider">Trazabilidad</span>
+        </div>
+        <h4 class="font-almarai font-bold text-dark text-xl mb-2">Creamos con procesos</h4>
+        <p class="text-dark/50 text-sm font-figtree leading-relaxed">No improvisamos, todos nuestros servicios tienen un proceso establecido con tecnolog&iacute;a y conocimiento de nuestros 10 a&ntilde;os de experiencia.</p>
+      </div>
+
+      <div class="benefit-card reveal">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="w-6 h-6 rounded-full bg-dark text-white text-[10px] flex items-center justify-center font-figtree font-semibold">03</span>
+          <span class="text-xs font-figtree font-medium text-dark/50 uppercase tracking-wider">Personalizaci&oacute;n</span>
+        </div>
+        <h4 class="font-almarai font-bold text-dark text-xl mb-2">Propuestas Personalizadas</h4>
+        <p class="text-dark/50 text-sm font-figtree leading-relaxed">Cada uno de nuestros servicios tiene su propio ADN, nuestras propuestas creativas son diferentes y adecuadas para cada marca.</p>
+      </div>
+
+      <div class="benefit-card reveal">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="w-6 h-6 rounded-full bg-dark text-white text-[10px] flex items-center justify-center font-figtree font-semibold">04</span>
+          <span class="text-xs font-figtree font-medium text-dark/50 uppercase tracking-wider">Objetivos</span>
+        </div>
+        <h4 class="font-almarai font-bold text-dark text-xl mb-2">Enfocados en Resultados</h4>
+        <p class="text-dark/50 text-sm font-figtree leading-relaxed">Cada proyecto tiene m&eacute;tricas claras y objetivos definidos. Medimos el impacto real de nuestro trabajo en tu negocio.</p>
+      </div>
+
+    </div>
+
   </div>
 </section>
 
@@ -1014,8 +1264,8 @@
 <!-- ══════════════════════════════════════════════
      CTA FINAL
 ═══════════════════════════════════════════════ -->
-<section class="bg-white px-3 md:px-4 py-3">
-  <div class="bg-dark rounded-3xl py-24 md:py-32 overflow-hidden">
+<section class="bg-white px-3 md:px-4 pt-3">
+  <div class="bg-dark rounded-t-3xl py-24 md:py-32 overflow-hidden">
     <div class="max-w-4xl mx-auto px-6 text-center">
       <h2 class="font-almarai font-extrabold text-white leading-[1.0] mb-6 reveal" style="font-size: clamp(2.5rem, 6vw, 5rem); letter-spacing: -0.02em;">
         &iquest;Listo para transformar<br />
@@ -1041,7 +1291,7 @@
      FOOTER
 ═══════════════════════════════════════════════ -->
 <footer class="bg-white px-3 md:px-4 pb-3">
-  <div class="bg-dark rounded-3xl overflow-hidden">
+  <div class="bg-dark rounded-b-3xl overflow-hidden">
     <div class="max-w-7xl mx-auto px-6 py-16">
       <div class="grid md:grid-cols-4 gap-12">
         <!-- Brand -->

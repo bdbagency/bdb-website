@@ -1,0 +1,71 @@
+backend:
+  name: git-gateway
+  branch: main
+
+# Dónde se guardan las imágenes subidas desde el admin
+media_folder: "img/blog"
+public_folder: "/img/blog"
+
+# Idioma del panel
+locale: es
+
+collections:
+  - name: "blog"
+    label: "Blog"
+    label_singular: "Artículo"
+    folder: "posts"
+    create: true
+    delete: true
+    slug: "{{slug}}"
+    summary: "{{title}} — {{date}}"
+    fields:
+      - label: "Título"
+        name: "title"
+        widget: "string"
+        hint: "Título del artículo (también usado para SEO)"
+
+      - label: "Fecha de publicación"
+        name: "date"
+        widget: "datetime"
+        format: "YYYY-MM-DD"
+        default: ""
+        date_format: "DD/MM/YYYY"
+        time_format: false
+
+      - label: "Categoría"
+        name: "categoria"
+        widget: "select"
+        options:
+          - "Marketing Digital"
+          - "Branding"
+          - "Tecnología e IA"
+          - "Social Media"
+          - "Diseño Web"
+          - "Producción Audiovisual"
+
+      - label: "Descripción SEO"
+        name: "description"
+        widget: "text"
+        hint: "Aparece en Google y en la tarjeta del artículo. Máximo 160 caracteres."
+
+      - label: "Imagen de portada"
+        name: "imagen"
+        widget: "image"
+        required: false
+        hint: "Imagen principal del artículo (recomendado: 1200x630px)"
+
+      - label: "Contenido"
+        name: "body"
+        widget: "markdown"
+        hint: "Contenido completo del artículo"
+
+      # Campos ocultos — no modificar
+      - label: "Layout"
+        name: "layout"
+        widget: "hidden"
+        default: "post.njk"
+
+      - label: "Tags"
+        name: "tags"
+        widget: "hidden"
+        default: "post"
